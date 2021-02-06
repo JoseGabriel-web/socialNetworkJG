@@ -34,7 +34,7 @@ const Nav = () => {
   };
 
   useEffect(() => {
-      document.addEventListener('click', handleClickOutside)            
+      document.addEventListener('click', handleClickOutside, true)            
   });
 
   return (
@@ -67,14 +67,14 @@ const Nav = () => {
                     <h4>Notifications:</h4>
                   </div>
                   <div className={styles.userNotificationsContainer}>
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
-                    <Notification label='This is a Notification Component ' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' /> 
                   </div>
                 </>
               ) : (
