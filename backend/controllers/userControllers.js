@@ -1,5 +1,5 @@
 import { User } from '../models/User.js'
-import { generateToken } from '../utils/generateToken.js'
+import { generateAccessToken } from '../utils/generateAccessToken.js'
 import bcrypt from 'bcryptjs'
 
 export const register = async (req,res) => {
@@ -18,7 +18,7 @@ export const register = async (req,res) => {
   res.status(200).json({
     name: user.name,
     email: user.email,
-    token: generateToken(user._id)
+    token: generateAccessToken(user._id)
   })
 }
 
@@ -26,6 +26,9 @@ export const login = async (req,res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
+
+  if(!user) return res.status(400).json({message: 'No user with email'})
+
   const match = await bcrypt.compare(password, user.password)
 
   if(!match) return res.status(400).json({message: 'Incorrect password'})
@@ -33,7 +36,7 @@ export const login = async (req,res) => {
   res.status(200).json({
     name: user.name,
     email: user.email,
-    token: generateToken(user._id)
+    accessToken: generateAccessToken(user._id)
   })
 }
 

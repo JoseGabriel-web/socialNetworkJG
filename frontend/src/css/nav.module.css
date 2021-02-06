@@ -1,0 +1,135 @@
+:root {
+  --over: 10;
+}
+
+.navContianer {
+  height: 7vh;
+  width: 100%;
+  border-bottom: solid 1px;
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.logoContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+
+.userNav {
+  max-height: 100%;
+  display: flex;  
+}
+
+.menu {  
+  height: 100%;
+  display: flex;
+  align-items: center;  
+  justify-content: center;  
+}
+
+.userNavBtn {
+  height: 100%;
+  position: relative;  
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 1.25rem;
+}
+
+.userNavBtn i {
+  margin-left: 0.5rem;  
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.userNavOptions {
+  right: 0.5rem;  
+  top: calc(7vh + 0.5rem);
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  border: solid 1px;
+  z-index: var(--over);
+}
+
+.userNavOptions a {
+  background: white;
+  padding: 1rem;
+  width: 130px;
+  max-width: 98%;
+  display: flex;  
+  align-items: center;  
+  justify-content: space-around;  
+  padding: 0.5rem;    
+  border-bottom: solid 1px;
+  user-select: none;
+}
+.userNavOptions a:hover {
+  
+}
+.userNavOptions a:last-child {
+  border: none;
+}
+
+.userNavOptions a i {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.userNavOptions a h3 {
+ padding: 0 0.5rem;
+}
+
+.displayNone {
+  display: none;
+}
+
+.userNavNotificationContainer {
+  background: white;
+  width: 300px;
+  max-width: calc(98% - 0.5rem);
+  right: 0.5rem;  
+  top: calc(7vh + 0.5rem);
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  border: solid 1px;
+  z-index: var(--over);
+}
+
+
+.notificationHeader {
+  padding: 1rem;
+  border-bottom: solid 1px;
+}
+
+.userNotificationsContainer {
+  max-height: 200px;
+  height: 200px;
+  overflow-y: auto;  
+}
+
+.userNotificationsContainer::-webkit-scrollbar {
+  width: 7px;  
+}
+.userNotificationsContainer::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: black;
+  border-radius: 2rem;
+}
+
+.notification {
+
+}
