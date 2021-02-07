@@ -17,13 +17,13 @@ const LoginScreen = ({history}) => {
   }
 
   const handleAlreadyLogged = () => {
-    if(user) return history.push('/home')
+    if(user) return history.push('/')
     return
   }
 
   useEffect(
     handleAlreadyLogged
-  , [user])
+  , [user, history])
 
   return (
     <div className={styles.loginContainer}>

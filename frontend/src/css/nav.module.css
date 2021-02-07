@@ -1,11 +1,17 @@
 :root {
-  --over: 10;
+  --over: 10;  
+  --shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;
 }
 
 .navContianer {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 7vh;
   width: 100%;
-  border-bottom: solid 1px;
+  background: white;  
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;  
+  z-index: var(--over);  
 }
 
 .nav {
@@ -59,8 +65,7 @@
   top: calc(7vh + 0.5rem);
   display: flex;
   position: absolute;
-  flex-direction: column;
-  border: solid 1px;
+  flex-direction: column;    
   z-index: var(--over);
 }
 
@@ -72,8 +77,8 @@
   display: flex;  
   align-items: center;  
   justify-content: space-around;  
-  padding: 0.5rem;    
-  border-bottom: solid 1px;
+  padding: 0.5rem;      
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px; 
   user-select: none;
 }
 .userNavOptions a:hover {
@@ -104,15 +109,15 @@
   top: calc(7vh + 0.5rem);
   display: flex;
   position: absolute;
-  flex-direction: column;
-  border: solid 1px;
+  flex-direction: column;  
   z-index: var(--over);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
 }
 
 
 .notificationHeader {
-  padding: 1rem;
-  border-bottom: solid 1px;
+  padding: 1rem;    
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px -3px;
 }
 
 .userNotificationsContainer {
@@ -128,8 +133,4 @@
   width: 10px;
   background: black;
   border-radius: 2rem;
-}
-
-.notification {
-
 }

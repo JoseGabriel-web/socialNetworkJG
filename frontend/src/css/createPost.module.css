@@ -1,0 +1,45 @@
+.createPostContainer {
+  width: 100%;
+}
+
+.openFormIcon {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border: solid 1px;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: white;
+}
+
+.popUpContainer {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+}
+
+.formContainer {
+  height: 80%;
+  width: 600px;
+  max-width: 90%;
+  background: white;  
+}
+
+.closeFormIcon {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 2rem;  
+  border-bottom: solid 1px;
+}
+.closeFormIcon i {
+  cursor: pointer;
+}

@@ -1,13 +1,20 @@
 import React from 'react'
-import Nav from '../components/Nav'
+import styles from '../css/homeScreen.module.css'
+import HomeSidebar from '../components/HomeSidebar'
+import Feed from '../components/Feed'
 
 const HomeScreen = () => {
   return (
-    <div>
-      <Nav />
-      <h1>        
-        Home
-      </h1>
+    <div className={styles.homeContainer}>
+      
+      <div className={styles.homeSidebarContainer}>
+        <HomeSidebar />
+      </div>
+            
+      <div className={styles.homeFeedContainer}>
+        <Feed />
+      </div>
+      
     </div>
   )
 }

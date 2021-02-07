@@ -1,9 +1,8 @@
 .notificationContainer {
   width: 100%;
   padding: 0.5rem;
-  height: 80px;
-  border-bottom: solid 1px;
-
+  height: 80px;  
+  box-shadow: rgba(0,0,0,0.3) 1px 1px 1px;
   display: flex;
   justify-content: center;
   align-items: center;

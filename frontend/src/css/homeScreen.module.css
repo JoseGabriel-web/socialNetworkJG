@@ -1,0 +1,27 @@
+.homeContainer {
+  min-height: 93vh;
+  height: 93vh;
+  width: 100%;  
+
+  display: flex;
+  flex-direction: row;
+}
+
+.homeSidebarContainer {
+  height: 100%;    
+  width: 25%;
+  min-width: 300px;
+  position: relative;
+  float: left;  
+}
+
+.homeFeedContainer {
+  flex: 1;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .homeSidebarContainer {
+    display: none;
+  }
+}

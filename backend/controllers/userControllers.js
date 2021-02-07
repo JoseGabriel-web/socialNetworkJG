@@ -1,5 +1,6 @@
 import { User } from '../models/User.js'
 import { generateAccessToken } from '../utils/generateAccessToken.js'
+import { generateRefreshToken } from '../utils/generateRefreshToken.js'
 import bcrypt from 'bcryptjs'
 
 export const register = async (req,res) => {
@@ -18,7 +19,8 @@ export const register = async (req,res) => {
   res.status(200).json({
     name: user.name,
     email: user.email,
-    token: generateAccessToken(user._id)
+    accessToken: generateAccessToken(user._id),
+    refreshToken: generateRefreshToken(user._id)
   })
 }
 
@@ -36,7 +38,8 @@ export const login = async (req,res) => {
   res.status(200).json({
     name: user.name,
     email: user.email,
-    accessToken: generateAccessToken(user._id)
+    accessToken: generateAccessToken(user._id),
+    refreshToken: generateRefreshToken(user._id)
   })
 }
 

@@ -21,7 +21,7 @@ const RegisterScreen = ({history}) => {
   }
 
   const handleAlreadyLogged = () => {
-    if(user) return history.push('/home')
+    if(user) return history.push('/')
     return
   }
 
