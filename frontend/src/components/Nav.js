@@ -28,13 +28,24 @@ const Nav = () => {
 
   
   const handleClickOutside = (event) => {    
-    if (ref && !ref.current.contains(event.target)) {                
+    if (ref && !ref?.current?.contains(event.target)) {
         handleCloseAllMenu()        
     }
   };
 
   useEffect(() => {
-      document.addEventListener('click', handleClickOutside, true)            
+    const functions = {
+      startingFunction: () => {
+        if(ref === null) return
+        document.addEventListener('click', handleClickOutside, true)
+      },
+      cleanUp: () => {
+        document.removeEventListener('click', handleClickOutside)
+      }
+    }
+
+    functions.startingFunction()
+    return functions.cleanUp()  
   });
 
   return (
