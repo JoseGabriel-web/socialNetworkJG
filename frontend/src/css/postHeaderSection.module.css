@@ -1,0 +1,24 @@
+.postHeader {
+  height: 75px;
+  height: 15%;
+  width: 100%;
+  border-bottom: solid 1px;
+  display: flex;
+  padding: 1rem 0;
+}
+
+.postHeaderImg {
+  height: 100%;
+  width: 90px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.postHeaderUsername {
+  height: 100%;
+  flex: 1;  
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

@@ -1,0 +1,35 @@
+.postActionsSectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;  
+  padding: 0.5rem;
+  border-bottom: solid 1px;
+}
+
+.postInfoContainer {
+  display: flex;
+  align-items: center;
+}
+.openPostCommentsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: underline;
+  flex: 1;
+}
+.likePostContainer {
+display: flex;
+align-items: center;
+}
+.sharePostContainer {
+display: flex;
+align-items: center;
+}
+
+.postInfoContainer
+,.likePostContainer
+,.sharePostContainer i {
+  padding: 0 0.2rem;
+  font-size: 1.5rem;
+}

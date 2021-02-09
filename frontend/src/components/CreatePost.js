@@ -17,7 +17,6 @@ const CreatePost = () => {
   }
 
   useEffect(() => {
-
     const functions = {
       startingFunction: () => {
         if(!isOpened || !ref) return
@@ -26,33 +25,26 @@ const CreatePost = () => {
       cleanUp: () => {
         document.removeEventListener('click', handleClick)
       }
-    }
-        
+    }        
     functions.startingFunction()  
     return functions.cleanUp()
   })
 
   return (
-    <div className={styles.createPostContainer} >
-      
+    <div className={styles.createPostContainer} >      
       <div className={styles.openFormIcon} onClick={handleFormState}>
         <i className='fas fa-plus' />        
       </div>
-
       <div className={styles.popUpContainer} style={{display: isOpened? 'flex' : 'none'}}>
-        <div className={styles.formContainer} ref={ref}>
-          
+        <div className={styles.formContainer} ref={ref}>          
           <div className={styles.closeFormIcon} >
             <i className='fas fa-times-circle' onClick={handleFormState} />
           </div>
-
           <form>
 
           </form>
-
         </div>
       </div>
-
     </div>
   )
 }

@@ -1,31 +1,27 @@
 import React from 'react'
 import styles from '../css/post.module.css'
+import PostCommentSection from './PostCommentSection'
+import PostActionsSection from './PostActionsSection'
+import PostMediaSection from './PostMediaSection'
+import PostHeaderSection from './PostHeaderSection'
 
-const Post = ({image, isVideo, video}) => {
-
-
+const Post = ({userName, image, video, likes, id, comments}) => {
   return (
-    <div className={styles.postContainer}>
-      
-      <div className={styles.postHeader}>
-        <div className={styles.postHeaderImg}>
-          <i className='fas fa-user-circle' />
-        </div>        
-        <div className={styles.postHeaderUsername}>
-          <h3>User name Goes here</h3>
-        </div>        
+    <div className={styles.postContainer}>      
+      <div className={styles.postHeaderSectionContainer}>
+        <PostHeaderSection userName={userName} />      
       </div>
-
       <div className={styles.postBody}>
-        <div className={styles.postBodyImg} style={{background: `url(${image})`}}>
-          {isVideo? (
-            <video height='auto' width='100%' controls>
-              <source src={`${video}`} type="video/mp4" />  
-            </video>
-          ) : <img src={image} width='auto' height='auto' />}
+        <div className={styles.postMediaSectionContainer}>
+          <PostMediaSection video={video} image={image} />
+        </div>        
+        <div className={styles.postActionSectionContainer}>
+          <PostActionsSection id={id} likes={likes} />   
         </div>
-      </div>      
-
+        <div className={styles.postCommentSectionContainer}>
+          <PostCommentSection comments={comments} id={id} />   
+        </div>
+      </div>   
     </div>
   )
 }

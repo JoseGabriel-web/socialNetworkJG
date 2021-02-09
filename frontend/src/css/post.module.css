@@ -1,52 +1,22 @@
-.postContainer {
-  /* height: 500px; */
+.postContainer {  
   height: auto;  
   width: 100%;  
   margin-bottom: 2rem;
-  border: solid 1px;
-}
-
-.postHeader {
-  height: 75px;
-  height: 15%;
-  width: 100%;
-  border-bottom: solid 1px;
-  display: flex;
-  padding: 1rem 0;
-}
-
-.postHeaderImg {
-  height: 100%;
-  width: 90px;  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-}
-.postHeaderUsername {
-  height: 100%;
-  flex: 1;  
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  /* padding-left: 1rem; */
+  border: solid 1px;  
 }
 
 .postBody {
   height: auto;
 }
-
-.postBodyImg {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  background-size: 100% 100%;
-  background-position: center;
-  backdrop-filter: blur(100%);
-  background-color: rgba(0,0,0,0.6);
+.postHeaderSectionContainer {
+  width: 100%;
 }
-.postBodyImg img {
-  max-width: 100%;
-  /* max-height: 100%; */
+.postMediaSectionContainer {
+  width: 100%;
+}
+.postActionSectionContainer {
+  width: 100%;
+}
+.postCommentSectionContainer {
+  width: 100%;
 }

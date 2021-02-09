@@ -1,0 +1,22 @@
+.commentSectionContainer {
+  min-height: 50px;
+  height: auto;
+  width: 100%;  
+}
+
+.addCommentForm {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.addCommentInput {
+  flex: 1;
+  height: 100%;
+  padding: 1rem;
+}
+.addCommentBtn {
+  height: 100%;
+  padding: 1rem;
+}
