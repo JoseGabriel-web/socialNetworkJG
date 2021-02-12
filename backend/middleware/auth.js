@@ -6,11 +6,13 @@ export const auth = (req,res,next) => {
 
   try {
     const token = authorization.split(' ')[1]
-    const userDecoded = jwt.verify(token, process.env.JWT_SECRET)
+    const userDecoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     const { _id } = userDecoded
-    req.body.userId = _id
+    req.body._id = _id    
+    console.log(userDecoded)
     next()
   } catch (error) {
+    console.log("Token Expired")
     res.status(400).json({message: 'Token Expired'})    
   }
 }

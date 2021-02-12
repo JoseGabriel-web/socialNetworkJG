@@ -13,6 +13,10 @@
 }
 .postMediaSectionContainer {
   width: 100%;
+  height: auto;
+}
+.postDescriptionSectionContainer {
+  width: 100%;  
 }
 .postActionSectionContainer {
   width: 100%;

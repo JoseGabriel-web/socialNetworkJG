@@ -1,0 +1,58 @@
+.dragAndDropArea {    
+  height: 100%;
+  width: 100%;  
+  border: dashed 3px;  
+}
+
+.active {     
+  border: solid 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerHasFile {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;  
+}
+
+.hasFile {      
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dragAndDropBody {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  flex-direction: column;
+}
+
+.inputFile {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+.uploadFileLabelBtn {
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1rem;  
+  padding: 0 0.5rem;
+  background: #111;
+  color: white;
+  height: 50px;
+  width: 130px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react'  
 import styles from '../css/homeScreen.module.css'
 import HomeSidebar from '../components/HomeSidebar'
 import Feed from '../components/Feed'

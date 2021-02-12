@@ -1,5 +1,5 @@
 .createPostContainer {
-  width: 100%;
+  width: 100%;  
 }
 
 .openFormIcon {
@@ -18,29 +18,102 @@
 .popUpContainer {
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: fixed;  
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
   z-index: 10;
 }
 
 .formContainer {
-  height: 80%;
+  height: 90%;
   width: 600px;
   max-width: 90%;
   background: white;  
 }
 
-.closeFormIcon {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 2rem;  
-  border-bottom: solid 1px;
+.createPostHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  
+  height: 10%;  
+  padding: 0rem 1rem;
+  padding-right: 0;
+  border-bottom: solid 1px;  
 }
-.closeFormIcon i {
+.createPostHeader i {
+  font-size: 1.25rem;  
   cursor: pointer;
+}
+.spacer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.postBtnContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  border-left: solid 1px;
+}
+.postBtn {  
+  padding: 1rem;    
+  cursor: pointer;
+}
+
+/* Second part */
+.createPostForm {
+  height: 90%;    
+  padding: 1rem;
+}
+
+.firstPart {
+  height: 35%;  
+}
+
+.fieldGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;  
+}
+
+.fieldGroup input, textarea {  
+  padding: 0.5rem;
+}
+.fieldGroup textarea {
+  resize: none;
+}
+
+.secondPart {
+  height: 50%;  
+}
+
+.mediaGroup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;  
+  text-align: center;  
+}
+
+.secondPartlabel {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  height: 15%;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.media {  
+  height: 100%;
 }

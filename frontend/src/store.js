@@ -5,10 +5,14 @@ import {
   registerReducer,
   loginReducer
 } from './reducers/userReducers'
+import {
+  createPostReducer
+} from './reducers/postReducers'
 
 const reducers = combineReducers({
   registerReducer,
-  loginReducer
+  loginReducer,
+  createPostReducer,
 })
 
 const store = createStore(reducers, composeWithDevTools(

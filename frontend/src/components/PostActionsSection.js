@@ -8,7 +8,7 @@ const postActionsSection = ({ id, likes = 0}) => {
   return (
     <div className={styles.postActionsSectionContainer}>
       <div className={styles.postInfoContainer}>
-        <h3>{likes} Likes</h3>
+        <h3>{likes} <i className='far fa-thumbs-up' /></h3>
       </div>
       <div className={styles.openPostCommentsContainer} >
         <h4>Comments</h4>
