@@ -1,8 +1,10 @@
 import express from 'express'
-import { createPost } from '../controllers/postControllers.js'
+import { auth } from '../middleware/auth.js'
+import { createPost, getPosts } from '../controllers/postControllers.js'
 const postRoutes = express.Router()
 
 // Post Routes
-postRoutes.post('/createPost', createPost)
+postRoutes.post('/createPost', auth, createPost)
+postRoutes.get('/getPosts', getPosts)
 
 export { postRoutes }

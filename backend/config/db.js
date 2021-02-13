@@ -4,7 +4,8 @@ export const connectDB = async () => {
 
   const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,    
   }
 
   try {

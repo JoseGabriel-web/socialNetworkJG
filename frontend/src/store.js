@@ -6,13 +6,15 @@ import {
   loginReducer
 } from './reducers/userReducers'
 import {
-  createPostReducer
+  createPostReducer,
+  getPostsReducer
 } from './reducers/postReducers'
 
 const reducers = combineReducers({
   registerReducer,
   loginReducer,
   createPostReducer,
+  getPostsReducer
 })
 
 const store = createStore(reducers, composeWithDevTools(

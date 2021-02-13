@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from '../css/createPostDragOrDrop.module.css'
-import { uploadImg } from '../utils/uploadImg'
 
 const CreatePostDragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, setPostFile}) => {    
 
@@ -18,15 +17,16 @@ const CreatePostDragOrDrop = ({ setImage, preview, setPreview, isActive, setIsAc
     e.preventDefault()
     let file = e.dataTransfer.files[0]        
     setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))        
-    uploadImg(file, setImage)
+        
+    setImage(file)
   }
 
   const handleInput = (e) => {
     e.preventDefault()
     let file = e.target.files[0]
     setPostFile(file)        
-    setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))  
-    uploadImg(file, setImage)
+    setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))   
+    setImage(file) 
   }
 
   return (

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const uploadImg = async (image, setImage) => {
-  // Send file to server to get directory of image in backend to set the image variable.
+export const uploadPost = async (image) => {
+  // Post image in cloudlinary and get URL
 
   const body = new FormData()
   body.append('image', image)
@@ -13,8 +13,9 @@ export const uploadImg = async (image, setImage) => {
   }
 
   try {    
-    const { data } = await axios.post('/api/upload', body, config)
-    setImage(data)      
+    const { data } = await axios.post('/api/upload/post', body, config)        
+    const url = await data
+    return url
   } catch(error) {
     console.log(error)
   }

@@ -19,6 +19,7 @@ const CreatePost = () => {
     setTitle('')
     setDescription('')    
     setPreview(null)    
+    setImage(null)    
     setPostFile(null)
     setIsActive(false)
   }
@@ -37,11 +38,10 @@ const CreatePost = () => {
     }
   }
 
-  const handleSubmitPost = () => {
-    console.log(image)
-    dispatch(createPost(title, description, image))
-    // handleClearForm()
-    // handleCloseForm()
+  const handleSubmitPost = async () => {        
+    dispatch(createPost(title, description, image))    
+    handleClearForm()
+    handleCloseForm()
   }
 
   useEffect(() => {

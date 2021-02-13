@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/user', userRoutes)
-app.use('/api/post', auth, postRoutes)
+app.use('/api/post', postRoutes)
 app.use('/api/upload', uploadRoutes)
 
 const __dirname = path.resolve()

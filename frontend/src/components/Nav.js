@@ -11,6 +11,10 @@ const Nav = () => {
   const { user } = loginReducer  
   const ref = useRef(null)
 
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+  }
+
   const handleUserMenuOpen = () => {
     setUserNavNotState(false)
     setUserNavMenuState(!userNavMenuState)
@@ -120,7 +124,7 @@ const Nav = () => {
                     <i className='fas fa-user-cog' />
                     <h4>Settings</h4>
                   </Link>
-                  <Link to='/logout'>
+                  <Link to='/logout' onClick={handleLogout}>
                     <i className='fas fa-user-cog' />
                     <h4>Log out</h4>
                   </Link>
