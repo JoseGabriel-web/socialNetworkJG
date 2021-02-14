@@ -2,6 +2,9 @@ import {
   CREATE_POST_FAIL,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  DELETE_POST_FAIL,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   GET_POSTS_FAIL,
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS
@@ -39,10 +42,14 @@ export const updatePostReducer = (state = [], action) => {
       return state
   }
 }
-export const deletePostReducer = (state = [], action) => {
+export const deletePostReducer = (state = {}, action) => {
   switch (action.type) {
-    case '':
-      return {}
+    case DELETE_POST_FAIL:
+      return {loading: false, message: action.payload}
+    case DELETE_POST_REQUEST:
+      return {loading: true}
+    case DELETE_POST_SUCCESS:
+      return {loading: false, post: action.payload}
     default:
       return state
   }

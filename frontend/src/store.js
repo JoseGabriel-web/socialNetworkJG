@@ -7,14 +7,16 @@ import {
 } from './reducers/userReducers'
 import {
   createPostReducer,
-  getPostsReducer
+  getPostsReducer,
+  deletePostReducer  
 } from './reducers/postReducers'
 
 const reducers = combineReducers({
   registerReducer,
   loginReducer,
   createPostReducer,
-  getPostsReducer
+  getPostsReducer,
+  deletePostReducer
 })
 
 const store = createStore(reducers, composeWithDevTools(

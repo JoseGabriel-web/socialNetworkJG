@@ -27,13 +27,14 @@ const Feed = () => {
       <div className={styles.feedPostsContainer}>        
         {posts && posts.reverse().map((post) => (
           <Post
+            key={post._id}
             user={post.user}
             image={post.image}
             title={post.title}
             description={post.description}
             comments={post.comments}
-            id={post.id}
-            likes={post.likes}
+            id={post._id}
+            likes={post.likes}            
           />
         ))}
       </div>

@@ -16,7 +16,10 @@ const postSchema = mongoose.Schema({
   },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
+  image: {
+    url: { type: String, required: true },
+    public_id: { type: String, required: true },
+  },
   likes: { type: Number, default: 0 },
   comments: [commentSchema],
   createdAt: { type: Date, default: Date.now },

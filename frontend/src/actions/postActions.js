@@ -5,9 +5,12 @@ import {
   CREATE_POST_SUCCESS,
   GET_POSTS_FAIL,
   GET_POSTS_REQUEST,
-  GET_POSTS_SUCCESS
+  GET_POSTS_SUCCESS,
+  DELETE_POST_FAIL,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
 } from '../constants/postConstants'
-import { uploadPost } from '../utils/uploadPost'
+import { uploadPostImg } from '../utils/images/upload'
 
 export const createPost = (title, description, image) => async (dispatch, getState) => {
   dispatch({type: CREATE_POST_REQUEST})
@@ -15,12 +18,13 @@ export const createPost = (title, description, image) => async (dispatch, getSta
   const { user } = loginReducer
   const { accessToken } = user
 
-  const imgUrl = await uploadPost(image)
-  console.log('This is the image URL from /postActions uploadPost(image)', imgUrl)
+  const imgObj = await uploadPostImg(image, accessToken)
+  console.log('This is the image URL from /postActions uploadPost(image)', imgObj)
+
   const body = {
     title,
     description,
-    image: await imgUrl
+    image: await imgObj
   }
   
   const config = {
@@ -44,12 +48,6 @@ export const createPost = (title, description, image) => async (dispatch, getSta
 
 export const getPosts = () => async (dispatch, getState) => {
   dispatch({type: GET_POSTS_REQUEST})
-  
-  const config = {
-    headers: {
-      'Content-type': 'application/json',      
-    }
-  }
 
   try {
     const { data } = await axios.get('/api/post/getPosts') 
@@ -58,5 +56,33 @@ export const getPosts = () => async (dispatch, getState) => {
     dispatch({type: GET_POSTS_SUCCESS, payload: posts})
   } catch (error) {
     dispatch({type: GET_POSTS_FAIL, payload: error})
+  }
+}
+
+export const deletePost = (id, public_id) => async (dispatch, getState) => {
+  dispatch({type: DELETE_POST_REQUEST})
+  const { loginReducer } = getState()  
+  const { user } = loginReducer
+  const { accessToken } = user   
+
+  const config = {
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `Bearer ${accessToken}`
+    },
+    params: {
+      postId: id,
+      public_id
+    }
+  }
+
+  try {
+    const { data } = await axios.delete('/api/post/deletePost', config) 
+    console.log(data)    
+    dispatch({type: DELETE_POST_SUCCESS, payload: data.post})
+    dispatch(getPosts())
+  } catch (error) {
+    console.log('/frontend /postActions deletePost ->', error)
+    dispatch({type: DELETE_POST_FAIL, payload: error})
   }
 }

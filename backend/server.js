@@ -7,7 +7,7 @@ import { userRoutes } from './routes/userRoutes.js'
 // Remove this line below
 import { User } from './models/User.js'
 import { postRoutes } from './routes/postRoutes.js'
-import { uploadRoutes } from './routes/uploadRoutes.js'
+import { imagesRoutes } from './routes/imagesRoutes.js'
 import { auth } from './middleware/auth.js'
 dotenv.config()
 connectDB()
@@ -19,7 +19,7 @@ app.use(cors())
 
 app.use('/api/user', userRoutes)
 app.use('/api/post', postRoutes)
-app.use('/api/upload', uploadRoutes)
+app.use('/api/images', auth, imagesRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))

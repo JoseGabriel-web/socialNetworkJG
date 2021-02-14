@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const uploadPost = async (image) => {
+export const uploadPostImg = async (image, accessToken) => {
   // Post image in cloudlinary and get URL
 
   const body = new FormData()
@@ -8,12 +8,13 @@ export const uploadPost = async (image) => {
 
   const config = {
     headers: {
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      'authorization': `Bearer ${accessToken}`
     }
   }
 
   try {    
-    const { data } = await axios.post('/api/upload/post', body, config)        
+    const { data } = await axios.post('/api/images/upload/post', body, config)        
     const url = await data
     return url
   } catch(error) {
