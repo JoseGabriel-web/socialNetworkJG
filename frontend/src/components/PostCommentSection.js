@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../css/postCommentSection.module.css'
 
-const PostCommentSection = ({ comments, id }) => {
+const PostCommentSection = ({ comments, postId }) => {
   const [label, setLabel] = useState('')
   const handleAddComment = () => {
     setLabel('')

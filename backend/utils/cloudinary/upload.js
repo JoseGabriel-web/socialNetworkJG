@@ -12,7 +12,7 @@ const postStorage = new CloudinaryStorage({
     unique_filename: true
   }
 })
-const profilePicturesStorage = new CloudinaryStorage({
+const profileStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     allowed_formats: ['jpg', 'png', 'jpeg'],
@@ -20,5 +20,5 @@ const profilePicturesStorage = new CloudinaryStorage({
   }
 })
 
-export const uploadPost = multer({ storage: postStorage })
-export const uploadProfilePicture = multer({ storage: profilePicturesStorage })
+export const postImg = multer({ storage: postStorage }).single('image')
+export const profileImg = multer({ storage: profileStorage }).single('image')

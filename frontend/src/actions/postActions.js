@@ -10,25 +10,20 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
 } from '../constants/postConstants'
-import { uploadPostImg } from '../utils/images/upload'
 
 export const createPost = (title, description, image) => async (dispatch, getState) => {
   dispatch({type: CREATE_POST_REQUEST})
   const { loginReducer } = getState()  
   const { user } = loginReducer
-  const { accessToken } = user
+  const { accessToken } = user  
 
-  const imgObj = await uploadPostImg(image, accessToken)
-  console.log('This is the image URL from /postActions uploadPost(image)', imgObj)
-
-  const body = {
-    title,
-    description,
-    image: await imgObj
-  }
+  const body = new FormData()
+  body.append('title', title)
+  body.append('image', image)
+  body.append('description', description)
   
   const config = {
-    headers: {
+    headers: {      
       'Content-type': 'application/json',
       'authorization': `Bearer ${accessToken}`
     }

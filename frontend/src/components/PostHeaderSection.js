@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/postHeaderSection.module.css'
 import { deletePost } from '../actions/postActions'
 
-const PostHeaderSection = ({ userId, id, public_id, username }) => {
+const PostHeaderSection = ({ userId, postId, public_id, username }) => {
   const [confirmDeletePost, setConfirmDeletePost] = useState(false)
   const loginReducer = useSelector(state => state.loginReducer)
   const { user } = loginReducer  
@@ -13,7 +13,7 @@ const PostHeaderSection = ({ userId, id, public_id, username }) => {
   }
 
   const handleDeletePost = () => {
-    dispatch(deletePost(id, public_id))
+    dispatch(deletePost(postId, public_id))
     setConfirmDeletePost(!confirmDeletePost)
   }
 

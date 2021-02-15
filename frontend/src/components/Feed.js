@@ -33,7 +33,7 @@ const Feed = () => {
             title={post.title}
             description={post.description}
             comments={post.comments}
-            id={post._id}
+            postId={post._id}
             likes={post.likes}            
           />
         ))}

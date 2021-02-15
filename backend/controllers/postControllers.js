@@ -2,14 +2,17 @@ import { Post } from '../models/Post.js'
 import { User } from '../models/User.js'
 
 export const createPost = async (req, res) => {
-  const { _id, title, description, image } = req.body
-  console.log('This comes from /backend / postControllers', image)
+  const { _id, title, description } = req.body   
+  console.log('Controllers _id ->',_id) 
   const user = await User.findById({ _id: _id })
   const post = await Post.create({
     user: { _id: user._id, username: user.name },
     title,
     description,
-    image,
+    image: {
+      url: req.file.path,
+      public_id: req.file.filename
+    }
   })
 
   res.status(200).json({ post })
@@ -22,8 +25,7 @@ export const getPosts = async (req, res) => {
 }
 
 export const deletePost = async (req,res) => {
-  const { postId } = req.query
-  console.log(postId)
+  const { postId } = req.query  
   const isDeleted = await Post.deleteOne({ _id: postId })
 
   if(isDeleted) {
@@ -31,4 +33,17 @@ export const deletePost = async (req,res) => {
   } else {
     console.log('Post was not deleted')
   }
+}
+
+export const likePost = async (req,res) => {
+  const { action, postId, username } = req.body
+  const post = await Post.findById({_id: postId})
+  if(action === 'like') {
+    post.likes.push(username)
+    post.save()
+  } else if(action === 'unlike') {    
+    post.likes.pull(username)
+    post.save()
+  }
+  res.status(200).send({action})
 }
