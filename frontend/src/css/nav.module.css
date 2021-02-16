@@ -1,6 +1,8 @@
 :root {
   --over: 10;  
-  --shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;
+  --shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
+  --color: white;
+  --background: rgb(16, 15, 15);  
 }
 
 .navContianer {
@@ -8,9 +10,10 @@
   top: 0;
   left: 0;
   height: 7vh;
-  width: 100%;
-  background: white;  
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;  
+  width: 100%;    
+  color: var(--color);
+  background: var(--background);
+  box-shadow: rgba(9, 9, 9, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;  
   z-index: var(--over);  
 }
 
@@ -60,30 +63,30 @@
   cursor: pointer;
 }
 
-.userNavOptions {
+.userNavOptions {  
   right: 0.5rem;  
   top: calc(7vh + 0.5rem);
   display: flex;
   position: absolute;
   flex-direction: column;    
+  color: var(--color);
+  background: var(--background);
   z-index: var(--over);
+  border: solid 1px; 
 }
 
-.userNavOptions a {
-  background: white;
+.userNavOptions a {    
   padding: 1rem;
-  width: 130px;
+  width: 160px;
   max-width: 98%;
   display: flex;  
   align-items: center;  
   justify-content: space-around;  
-  padding: 0.5rem;      
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px; 
+  padding: 0.5rem 1rem;          
   user-select: none;
+  z-index: var(--over);
 }
-.userNavOptions a:hover {
-  
-}
+
 .userNavOptions a:last-child {
   border: none;
 }
@@ -91,7 +94,7 @@
 .userNavOptions a i {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;   
 }
 .userNavOptions a h3 {
  padding: 0 0.5rem;
@@ -101,8 +104,7 @@
   display: none;
 }
 
-.userNavNotificationContainer {
-  background: white;
+.userNavNotificationContainer {  
   width: 300px;
   max-width: calc(98% - 0.5rem);
   right: 0.5rem;  
@@ -110,6 +112,8 @@
   display: flex;
   position: absolute;
   flex-direction: column;  
+  color: var(--color);
+  background: var(--background);
   z-index: var(--over);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
 }
@@ -122,7 +126,7 @@
 
 .userNotificationsContainer {
   max-height: 200px;
-  height: 200px;
+  height: 200px;  
   overflow-y: auto;  
 }
 

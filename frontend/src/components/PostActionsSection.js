@@ -1,22 +1,50 @@
+import React, {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { likePost } from '../actions/postActions'
 import styles from '../css/postActionsSection.module.css'
-import React from 'react'
 
-const postActionsSection = ({ postId, likes, user}) => {
-  // [] Make an array of id of posts user has liked and check if it contains this post id.
-  // [] Than set the like field to true if it contains it.
+const PostActionsSection = ({ postId, likes }) => {  
+  const dispatch = useDispatch()
+  const loginReducer = useSelector(state => state.loginReducer)
+  const { user = {name: null} } = loginReducer
+  const { name } = user
+  const [liked, setLiked] = useState(false)
+  const [likesCount, setLikesCount] = useState(likes.length)  
 
-  // action, postId, username
-  let liked = likes.find(like => like === user.name)
+  const handleLike = async () => {   
+    if(name === null) {
+      return console.log('Please login')
+    } else if(liked) {            
+      const {isLiked, newLikesCount} = await dispatch(likePost('unlike', postId, name, likesCount))              
+      setLikesCount(await newLikesCount)  
+      setLiked(await isLiked)
+    } else {      
+      const {isLiked, newLikesCount} = await dispatch(likePost('like', postId, name, likesCount))              
+      setLikesCount(await newLikesCount)
+      setLiked(await isLiked)
+    }    
+  }
+
+
+  useEffect(() => {
+    if(likes.find(like => like === user.name)) {
+      setLiked(true)
+    } 
+    else {
+      setLiked(false)
+    }
+  },[])  
+
   return (
     <div className={styles.postActionsSectionContainer}>
       <div className={styles.postInfoContainer}>
-        <h3>{likes.length} <i className='far fa-thumbs-up' /></h3>
+        <h3>{likesCount} <i className='far fa-thumbs-up' /></h3>
       </div>
       <div className={styles.openPostCommentsContainer} >
         <h4>Comments</h4>
       </div>    
-      <div className={styles.likePostContainer}>
-        <i className={`${liked? 'fas' : 'far' } fa-heart`} />
+      <div className={styles.likePostContainer} onClick={handleLike}>
+        <i className={`${liked? 'fas' : 'far' } fa-heart`} style={{cursor: 'pointer'}} />
       </div>      
       <div className={styles.sharePostContainer}>
         <i className='fas fa-share-square' />
@@ -25,4 +53,4 @@ const postActionsSection = ({ postId, likes, user}) => {
   )
 }
 
-export default postActionsSection
+export default PostActionsSection

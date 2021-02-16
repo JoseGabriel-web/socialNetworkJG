@@ -7,7 +7,11 @@ import {
   DELETE_POST_SUCCESS,
   GET_POSTS_FAIL,
   GET_POSTS_REQUEST,
-  GET_POSTS_SUCCESS
+  GET_POSTS_SUCCESS,
+  LIKE_POST,
+  LIKE_POST_FAIL,
+  UNLIKE_POST,
+  UNLIKE_POST_FAIL
 } from '../constants/postConstants'
 
 export const getPostsReducer = (state = [], action) => {
@@ -42,6 +46,22 @@ export const updatePostReducer = (state = [], action) => {
       return state
   }
 }
+
+export const likePostReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LIKE_POST:
+      return {action: action.payload}
+    case LIKE_POST_FAIL:
+      return {error: action.payload}
+    case UNLIKE_POST:
+      return {action: action.payload}
+    case UNLIKE_POST_FAIL:
+      return {error: action.payload}
+    default:
+      return state
+  }
+}
+
 export const deletePostReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_POST_FAIL:

@@ -53,7 +53,7 @@ const Nav = () => {
   });
 
   return (
-    <div className={styles.navContianer} >
+    <div className={styles.navContianer}  >
       <div className={styles.nav}>
         <div className={styles.logoContainer}>
           <Link to='/'><h2>Logo</h2></Link>
@@ -69,12 +69,12 @@ const Nav = () => {
               onClick={handleNotMenuOpen}
               className={styles.userNavBtn}
             >              
-              <i className='far fa-bell' />              
+              <i className='fas fa-bell' />              
             </div>
             <div
               className={
                 userNavNotState ? styles.userNavNotificationContainer : styles.displayNone
-              }
+              }              
             >
               {user? (
                 <>
@@ -107,12 +107,12 @@ const Nav = () => {
               onClick={handleUserMenuOpen}
               className={styles.userNavBtn}
             >              
-              <i className='far fa-user-circle' />              
+              <i className='fas fa-user-circle' />              
             </div>
-            <ul
+            <ul              
               className={
                 userNavMenuState ? styles.userNavOptions : styles.displayNone
-              }
+              }              
             >
               {user ? (
                 <>

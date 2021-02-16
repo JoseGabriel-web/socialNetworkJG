@@ -10,6 +10,8 @@ const Feed = () => {
   const getPostsReducer = useSelector((state) => state.getPostsReducer)
   const { posts } = getPostsReducer
 
+  const followers = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
+
   const getFeedPosts = () => {
     dispatch(getPosts())
   }
@@ -18,7 +20,7 @@ const Feed = () => {
     getFeedPosts()
   }, [])
 
-  return (
+  return (    
     <div className={styles.feedContainer}>
       <div className={styles.feedCreatePostContainer}>
         <CreatePost />

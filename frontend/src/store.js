@@ -8,7 +8,8 @@ import {
 import {
   createPostReducer,
   getPostsReducer,
-  deletePostReducer  
+  likePostReducer,
+  deletePostReducer
 } from './reducers/postReducers'
 
 const reducers = combineReducers({
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   loginReducer,
   createPostReducer,
   getPostsReducer,
+  likePostReducer,
   deletePostReducer
 })
 

@@ -2,15 +2,15 @@
   height: auto;
   min-height: 100%;  
   width: 100%; 
-  padding: 5vh;
-  background: rgb(245, 249, 255);
+  padding: 5vh;  
   display: flex;  
   flex-direction: column;
-  align-items: center;
+  align-items: center; 
 }
 
 .feedCreatePostContainer {
-  width: 100%;
+  width: 500px;
+  max-width: 90%;
 }
 
 .feedPostsContainer { 
@@ -21,6 +21,6 @@
   align-items: center;  
   flex-direction: column; 
   justify-content: center;
-  margin-top: 2rem;    
-  /* border: solid 1px;   */
+  margin-top: 2rem;      
+  margin-bottom: 2rem;      
 }

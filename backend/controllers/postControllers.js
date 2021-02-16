@@ -37,12 +37,13 @@ export const deletePost = async (req,res) => {
 
 export const likePost = async (req,res) => {
   const { action, postId, username } = req.body
+  console.log(req.body)
   const post = await Post.findById({_id: postId})
   if(action === 'like') {
-    post.likes.push(username)
+    post.likes.push(username)    
     post.save()
   } else if(action === 'unlike') {    
-    post.likes.pull(username)
+    post.likes.pull(username)    
     post.save()
   }
   res.status(200).send({action})

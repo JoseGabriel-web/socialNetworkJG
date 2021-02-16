@@ -30,7 +30,7 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
         className={styles.deletePostBtn}
         onClick={handleDeletePostPopUpState}
       >
-        <i className='fas fa-trash' />
+        <i className='fas fa-trash-alt' />
       </div>) : ''
       }
 
