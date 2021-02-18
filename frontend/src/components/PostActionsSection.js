@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { likePost } from '../actions/postActions'
+import Popup from './Popup'
 import styles from '../css/postActionsSection.module.css'
 
 const PostActionsSection = ({ postId, likes }) => {  
@@ -10,10 +11,26 @@ const PostActionsSection = ({ postId, likes }) => {
   const { name } = user
   const [liked, setLiked] = useState(false)
   const [likesCount, setLikesCount] = useState(likes.length)  
+  const [isOpened, setIsOpened] = useState(false)
+  const [noUserAlert, setNoUserAlert] = useState('')
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
+
+  const handleNoUser = () => {
+    setIsOpened(false)
+  }
+
+  const handleSave = () => {
+    if(name === null) {
+      setNoUserAlert('save')
+      return setIsOpened(true)
+    }
+  }
 
   const handleLike = async () => {   
     if(name === null) {
-      return console.log('Please login')
+      setNoUserAlert('like')
+      return setIsOpened(true)
     } else if(liked) {            
       const {isLiked, newLikesCount} = await dispatch(likePost('unlike', postId, name, likesCount))              
       setLikesCount(await newLikesCount)  
@@ -46,9 +63,14 @@ const PostActionsSection = ({ postId, likes }) => {
       <div className={styles.likePostContainer} onClick={handleLike}>
         <i className={`${liked? 'fas' : 'far' } fa-heart`} style={{cursor: 'pointer'}} />
       </div>      
-      <div className={styles.sharePostContainer}>
-        <i className='fas fa-share-square' />
+      <div className={styles.sharePostContainer} onClick={handleSave}>
+        <i className={isBookmarked? 'fas fa-bookmark' : 'far fa-bookmark'} />
       </div>
+      <Popup isOpened={isOpened}>
+        <div onClick={handleNoUser}>
+          Please log in or sign up, to {noUserAlert} a post.
+        </div>
+      </Popup>
     </div>
   )
 }

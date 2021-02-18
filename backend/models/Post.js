@@ -19,7 +19,7 @@ const postSchema = mongoose.Schema({
   image: {
     url: { type: String, required: true },
     public_id: { type: String, required: true },
-  },
+  },  
   likes: [{type: String, required: true}],
   comments: [commentSchema],
   createdAt: { type: Date, default: Date.now },

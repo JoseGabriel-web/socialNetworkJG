@@ -1,5 +1,10 @@
 export const sidebarData = [
   {
+    icon: 'fas fa-home',
+    label: 'Home',
+    path: '/'
+  },
+  {
     icon: 'fas fa-user-alt',
     label: 'Profile',
     path: '/profile'

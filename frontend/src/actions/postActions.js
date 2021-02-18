@@ -27,11 +27,12 @@ export const createPost = (title, description, image) => async (
   const body = new FormData()
   body.append('title', title)
   body.append('image', image)
-  body.append('description', description)
+  body.append('description', description)  
 
   const config = {
     headers: {
-      'Content-type': 'application/json',
+      // 'Content-type': 'multipart/form-data',      
+      'Content-type': 'application/json',      
       authorization: `Bearer ${accessToken}`,
     },
   }

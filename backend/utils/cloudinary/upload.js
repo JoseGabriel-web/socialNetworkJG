@@ -2,8 +2,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import cloudinary from './cloudinary.js'
 import multer from 'multer'
 
-
-const postStorage = new CloudinaryStorage({
+const postImageStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     allowed_formats: ['jpg', 'png', 'jpeg'],
@@ -12,6 +11,7 @@ const postStorage = new CloudinaryStorage({
     unique_filename: true
   }
 })
+
 const profileStorage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -20,5 +20,5 @@ const profileStorage = new CloudinaryStorage({
   }
 })
 
-export const postImg = multer({ storage: postStorage }).single('image')
-export const profileImg = multer({ storage: profileStorage }).single('image')
+export const profileImg = multer({ storage: postImageStorage }).single('image')
+export const postImg = multer({ storage: postImageStorage }).single('image')

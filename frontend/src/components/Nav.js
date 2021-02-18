@@ -62,7 +62,10 @@ const Nav = () => {
         <div className={styles.spacer} />
 
         <div className={styles.menu} ref={ref}>
-          
+
+      <div className={styles.searchContainer}>
+        <input type='text' placeholder='Search...' />
+      </div>          
 
           <div className={styles.userNav}>
             <div

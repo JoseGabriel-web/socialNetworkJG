@@ -17,7 +17,7 @@ const Layout = () => {
         <Switch>
           <Route component={HomeScreen} path='/' exact />
         </Switch>        
-      </div>      
+      </div>                  
     </div>
   )
 }

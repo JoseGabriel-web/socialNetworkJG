@@ -6,9 +6,10 @@ import { deletePostImg } from '../utils/cloudinary/delete.js'
 const postRoutes = express.Router()
 
 // Post Routes
-postRoutes.post('/createPost', postImg, auth, createPost)
+postRoutes.post('/createPost', postImg,  auth, createPost)
 postRoutes.post('/likePost', auth, likePost)
 postRoutes.delete('/deletePost', auth, deletePostImg, deletePost)
 postRoutes.get('/getPosts', getPosts)
+
 
 export { postRoutes }

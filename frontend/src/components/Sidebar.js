@@ -14,16 +14,20 @@ const Sidebar = () => {
     setSidebarState(!sidebarState)
   }    
 
+  const isSelected = (path) => {
+    return window.location.pathname === path? true : false
+  }
+  
   return (
     <div className={styles.sidebarContianer}>
       <div>        
 
         <div className={styles.mobile} >
           {sidebarData.map((tab) => (
-            <Link
+            <Link                
               key={`${tab.path}`}
               to={`${tab.path}`}
-              className={styles.sidebarTab}
+              className={`${styles.sidebarTab} ${isSelected(tab.path)? styles.active : ''}`}
             >
               <div className={styles.tabIcon}>
                 <i className={`${tab.icon}`} />

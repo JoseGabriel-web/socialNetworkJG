@@ -3,24 +3,24 @@ import { useDispatch } from 'react-redux'
 import CreatePostDragOrDrop from './CreatePostDragOrDrop'
 import styles from '../css/createPost.module.css'
 import { createPost } from '../actions/postActions'
+import Popup from './Popup'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
-  const [isOpened, setIsOpened] = useState(false)  
+  const [isOpened, setIsOpened] = useState(false)    
   const [image, setImage] = useState(null)
+  const [isVideo, setIsVideo] = useState(false)  
   const [preview, setPreview] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [isActive, setIsActive] = useState(false)
-  const [postFile, setPostFile] = useState(null)  
+  const [isActive, setIsActive] = useState(false)  
   const ref = useRef(undefined)
 
   const handleClearForm = () => {
     setTitle('')
     setDescription('')    
     setPreview(null)    
-    setImage(null)    
-    setPostFile(null)
+    setImage(null)        
     setIsActive(false)
   }
 
@@ -38,8 +38,8 @@ const CreatePost = () => {
     }
   }
 
-  const handleSubmitPost = async () => {        
-    dispatch(createPost(title, description, image))    
+  const handleSubmitPost = async () => {
+    dispatch(createPost(title, description, image, isVideo))    
     handleClearForm()
     handleCloseForm()
   }
@@ -64,10 +64,7 @@ const CreatePost = () => {
         <i className='fas fa-plus' />
       </div>
 
-      <div
-        className={styles.popUpContainer}
-        style={{ display: isOpened ? 'flex' : 'none' }}
-      >
+      <Popup isOpened={isOpened}>
         <div className={styles.formContainer} ref={ref}>
           <div className={styles.createPostHeader}>
             <i className='far fa-times-circle' onClick={handleFormState} />
@@ -81,8 +78,26 @@ const CreatePost = () => {
             </div>
           </div>
 
-          <div className={styles.createPostForm}>
-            <div className={styles.firstPart}>
+          <div className={styles.createPostForm}>            
+            
+            <div className={styles.secondPart}>
+              <div className={styles.mediaGroup}>
+                <div className={styles.media}>
+                  <CreatePostDragOrDrop
+                    image={image}
+                    preview={preview}
+                    isVideo={isVideo}
+                    isActive={isActive}
+                    setImage={setImage}
+                    setPreview={setPreview}                                        
+                    setIsActive={setIsActive}
+                    setIsVideo={setIsVideo}
+                  />
+                </div>
+              </div>
+            
+            
+              <div className={styles.firstPart}>
               <div className={styles.fieldGroup}>
                 <label htmlFor='title'>Title:</label>
                 <input
@@ -104,27 +119,11 @@ const CreatePost = () => {
               </div>
             </div>
 
-            <div className={styles.secondPartlabel}>
-              <strong>Image:</strong>
+            
             </div>
-            <div className={styles.secondPart}>
-              <div className={styles.mediaGroup}>
-                <div className={styles.media}>
-                  <CreatePostDragOrDrop
-                    isActive={isActive}
-                    setIsActive={setIsActive}
-                    preview={preview}
-                    setPreview={setPreview}                    
-                    postFile={postFile}
-                    setPostFile={setPostFile}
-                    setImage={setImage}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+          </div>                     
+        </div>            
+      </Popup>
     </div>
   )
 }

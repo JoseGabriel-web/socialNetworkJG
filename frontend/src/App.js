@@ -11,8 +11,8 @@ const App = () => {
       <Switch>
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} />          
-        <Route exact path='/' component={Layout} />  
-        <Redirect to='/' />
+        <Route path='/' component={Layout} />  
+        {/* <Redirect to='/' /> */}
       </Switch>
     </Router>
   )

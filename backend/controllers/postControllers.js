@@ -1,14 +1,13 @@
 import { Post } from '../models/Post.js'
 import { User } from '../models/User.js'
 
-export const createPost = async (req, res) => {
-  const { _id, title, description } = req.body   
-  console.log('Controllers _id ->',_id) 
+export const createPost = async (req, res) => {  
+  const { _id, title, description } = req.body     
   const user = await User.findById({ _id: _id })
   const post = await Post.create({
     user: { _id: user._id, username: user.name },
     title,
-    description,
+    description,    
     image: {
       url: req.file.path,
       public_id: req.file.filename
@@ -25,7 +24,7 @@ export const getPosts = async (req, res) => {
 }
 
 export const deletePost = async (req,res) => {
-  const { postId } = req.query  
+  const { postId } = req.query    
   const isDeleted = await Post.deleteOne({ _id: postId })
 
   if(isDeleted) {

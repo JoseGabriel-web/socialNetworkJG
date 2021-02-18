@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/postHeaderSection.module.css'
 import { deletePost } from '../actions/postActions'
+import Popup from './Popup'
 
 const PostHeaderSection = ({ userId, postId, public_id, username }) => {
-  const [confirmDeletePost, setConfirmDeletePost] = useState(false)
+  const [isOpened, setIsOpened] = useState(false)
   const loginReducer = useSelector(state => state.loginReducer)
   const { user } = loginReducer  
   const dispatch = useDispatch()
   const handleDeletePostPopUpState = () => {
-    setConfirmDeletePost(!confirmDeletePost)
+    setIsOpened(!isOpened)
   }
 
   const handleDeletePost = () => {
     dispatch(deletePost(postId, public_id))
-    setConfirmDeletePost(!confirmDeletePost)
+    setIsOpened(!isOpened)
   }
 
   return (
@@ -35,10 +36,7 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
       }
 
 
-      <div
-        className={styles.deletePostPopUpContainer}
-        style={{ display: confirmDeletePost ? 'flex' : 'none' }}
-      >
+      <Popup isOpened={isOpened}>
         <div className={styles.deletePostPopUp}>
           <div className={styles.deletePostDisclaimer}>
             <strong>Are you sure?</strong>
@@ -55,7 +53,7 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
             </div>
           </div>
         </div>
-      </div>
+      </Popup>
     </div>
   )
 }

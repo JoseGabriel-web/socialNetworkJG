@@ -6,7 +6,7 @@ import PostMediaSection from './PostMediaSection'
 import PostHeaderSection from './PostHeaderSection'
 import PostDescriptionSection from './PostDescriptionSection'
 
-const Post = ({ user, title, description, image, video, likes, postId, comments }) => {  
+const Post = ({ user, title, description, image, likes, postId, comments, isVideo }) => {  
   return (
     <div className={styles.postContainer}>      
       <div className={styles.postHeaderSectionContainer}>
@@ -14,7 +14,7 @@ const Post = ({ user, title, description, image, video, likes, postId, comments 
       </div>
       <div className={styles.postBody}>
         <div className={styles.postMediaSectionContainer}>
-          <PostMediaSection video={video} image={image.url} />
+          <PostMediaSection isVideo={isVideo} image={image.url} />
         </div>        
         <div className={styles.postActionSectionContainer}>
       <div className={styles.postDescriptionSectionContainer}>

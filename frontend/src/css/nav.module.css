@@ -138,3 +138,21 @@
   background: black;
   border-radius: 2rem;
 }
+
+.searchContainer {
+  width: 70%;
+  margin: 0 1rem;  
+}
+.searchContainer input {
+  width: 100%;
+  outline: none;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+}
+
+@media (min-width: 762px) {
+  .searchContainer {
+    /* flex: 1; */
+    margin: auto;  
+  }
+}

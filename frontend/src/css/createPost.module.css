@@ -15,25 +15,14 @@
   background: white;
 }
 
-.popUpContainer {
-  height: 100%;
-  width: 100%;
-  position: fixed;  
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.2);
-  z-index: 10;
-}
-
 .formContainer {
   height: 90%;
   width: 600px;
   max-width: 90%;
   background: white;  
+  border-color: rgb(23, 22, 22);
+  border: solid 7px;
+  border-radius: 1rem;  
 }
 
 .createPostHeader {
@@ -76,20 +65,24 @@
 }
 
 .firstPart {
-  height: 35%;  
+  max-height: 50%; 
+  height: 100%; 
+  /* background: red;  */
 }
 
 .fieldGroup {
   width: 100%;
   display: flex;
   flex-direction: column;  
+  margin-top: 1rem;
 }
 
 .fieldGroup input, textarea {  
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;  
 }
 .fieldGroup textarea {
   resize: none;
+  height: 50%;
 }
 
 .secondPart {
@@ -116,4 +109,10 @@
 
 .media {  
   height: 100%;
+}
+
+@media (max-width: 762px) {
+  .createPostContainer {
+    height: 60%;
+  }
 }

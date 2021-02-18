@@ -1,32 +1,37 @@
 import React from 'react'
 import styles from '../css/createPostDragOrDrop.module.css'
 
-const CreatePostDragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, setPostFile}) => {    
+const CreatePostDragOrDrop = ({ isVideo, setIsVideo, setImage, preview, setPreview, isActive, setIsActive }) => {      
+
+  const handleIsVideo = () => {        
+    
+  }
+  
+  const handleIsImage = (file) => {        
+    setImage(file) 
+    setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))   
+  }
 
   const handleDragOver = (e) => {
-    e.preventDefault()
-    console.log('Drag over')
+    e.preventDefault()    
     setIsActive(true)
   }
   const handleDragLeave = (e) => {
-    e.preventDefault()
-    console.log('Drag leaving')
+    e.preventDefault()    
     setIsActive(false)
   }
   const handleDrop = async (e) => {
     e.preventDefault()
-    let file = e.dataTransfer.files[0]        
-    setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))        
-        
-    setImage(file)
+    let file = e.dataTransfer.files[0]   
+    if(file.type.match('video.*')) return handleIsVideo()      
+    handleIsImage(file)              
   }
 
   const handleInput = (e) => {
     e.preventDefault()
-    let file = e.target.files[0]
-    setPostFile(file)        
-    setPreview(window.URL.createObjectURL(new Blob([file], {type: 'application/zip'})))   
-    setImage(file) 
+    let file = e.target.files[0]          
+    if(file.type.match('video.*')) return handleIsVideo()      
+    handleIsImage(file)
   }
 
   return (
@@ -40,9 +45,7 @@ const CreatePostDragOrDrop = ({ setImage, preview, setPreview, isActive, setIsAc
       style={{background: preview? `url(${preview})` : ''}}      
     >
       {preview ? (
-        <>        
         <div className={preview? styles.hasFile : ''}  style={{backgroundImage: preview? `url(${preview})` : ''}} height='100%' width='100%' />
-        </>
       ) : (
         <div className={styles.dragAndDropBody}>
           {isActive ? (

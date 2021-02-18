@@ -30,8 +30,8 @@ const Feed = () => {
         {posts && posts.reverse().map((post) => (
           <Post
             key={post._id}
-            user={post.user}
-            image={post.image}
+            user={post.user}            
+            image={post.image}            
             title={post.title}
             description={post.description}
             comments={post.comments}
