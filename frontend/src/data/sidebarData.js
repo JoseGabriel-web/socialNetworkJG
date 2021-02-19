@@ -2,7 +2,7 @@ export const sidebarData = [
   {
     icon: 'fas fa-home',
     label: 'Home',
-    path: '/'
+    path: '/home'
   },
   {
     icon: 'fas fa-user-alt',

@@ -17,7 +17,7 @@ export const createPost = async (req, res) => {
   res.status(200).json({ post })
 }
 
-export const getPosts = async (req, res) => {
+export const getPosts = async (req, res) => {  
   const posts = await Post.find({})
   console.log(posts)  
   res.status(200).json({ posts })

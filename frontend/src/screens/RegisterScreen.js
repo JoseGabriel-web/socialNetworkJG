@@ -17,11 +17,11 @@ const RegisterScreen = ({history}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if(password !== confirmPassword) return
-    dispatch(registerAction(name, email, password))
+    dispatch(registerAction(name, email, password, history))
   }
 
   const handleAlreadyLogged = () => {
-    if(user) return history.push('/')
+    if(user) return history.push('/home')
     return
   }
 

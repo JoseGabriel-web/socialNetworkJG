@@ -11,6 +11,9 @@ import {
   likePostReducer,
   deletePostReducer
 } from './reducers/postReducers'
+import {
+  profileReducer
+} from './reducers/profileReducers'
 
 const reducers = combineReducers({
   registerReducer,
@@ -18,7 +21,8 @@ const reducers = combineReducers({
   createPostReducer,
   getPostsReducer,
   likePostReducer,
-  deletePostReducer
+  deletePostReducer,
+  profileReducer
 })
 
 const store = createStore(reducers, composeWithDevTools(

@@ -26,7 +26,7 @@ const Sidebar = () => {
           {sidebarData.map((tab) => (
             <Link                
               key={`${tab.path}`}
-              to={`${tab.path}`}
+              to={`${tab.path}${tab.path === '/profile' && user? '/' + user.name : ''}`}
               className={`${styles.sidebarTab} ${isSelected(tab.path)? styles.active : ''}`}
             >
               <div className={styles.tabIcon}>

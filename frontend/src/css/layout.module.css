@@ -9,7 +9,11 @@
 }
 
 .content {
-  display: flex;  
+  display: flex; 
+}
+
+.variableComponets {
+  flex: 1; 
 }
 
 @media (max-width: 762px) {  
@@ -18,5 +22,3 @@
     flex-direction: column-reverse;
   }
 }
-
-

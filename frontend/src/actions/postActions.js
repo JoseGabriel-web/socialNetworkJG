@@ -50,12 +50,11 @@ export const createPost = (title, description, image) => async (
 
 export const getPosts = () => async (dispatch, getState) => {
   dispatch({ type: GET_POSTS_REQUEST })
-
-  try {
+  console.log('Getting posts Action')
+  try {    
     const { data } = await axios.get('/api/post/getPosts')
-    console.log(data)
     const { posts } = await data
-    dispatch({ type: GET_POSTS_SUCCESS, payload: posts })
+    dispatch({ type: GET_POSTS_SUCCESS, payload: await posts })
   } catch (error) {
     dispatch({ type: GET_POSTS_FAIL, payload: error })
   }

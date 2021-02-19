@@ -5,20 +5,9 @@ import Post from './Post'
 import styles from '../css/feed.module.css'
 import { getPosts } from '../actions/postActions'
 
-const Feed = () => {
-  const dispatch = useDispatch()
-  const getPostsReducer = useSelector((state) => state.getPostsReducer)
-  const { posts } = getPostsReducer
 
-  const followers = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
-
-  const getFeedPosts = () => {
-    dispatch(getPosts())
-  }
-
-  useEffect(() => {
-    getFeedPosts()
-  }, [])
+const Feed = ({ posts }) => {  
+  const followers = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]  
 
   return (    
     <div className={styles.feedContainer}>
@@ -26,7 +15,7 @@ const Feed = () => {
         <CreatePost />
       </div>
 
-      <div className={styles.feedPostsContainer}>        
+      <div className={styles.feedPostsContainer}>       
         {posts && posts.reverse().map((post) => (
           <Post
             key={post._id}

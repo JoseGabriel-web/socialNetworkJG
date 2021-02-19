@@ -8,7 +8,7 @@ import {
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants'
 
-export const registerAction = (name, email, password) => async (dispatch, getState) => {
+export const registerAction = (name, email, password, history) => async (dispatch, getState) => {
   dispatch({type: USER_REGISTER_REQUEST})  
   
 
@@ -22,13 +22,14 @@ export const registerAction = (name, email, password) => async (dispatch, getSta
     const { data } = await axios.post('/api/user/register', body)    
     localStorage.setItem('user', JSON.stringify(data))
     dispatch({type: USER_REGISTER_SUCCESS, payload: data})    
-    dispatch({type: USER_LOGIN_SUCCESS, payload: data})    
+    dispatch({type: USER_LOGIN_SUCCESS, payload: data})   
+    return history.push('/home')
   } catch (error) {
     dispatch({type: USER_REGISTER_FAIL, payload: error.response.data.message})
   }
 }
 
-export const loginAction = (email, password) => async (dispatch, getState) => {
+export const loginAction = (email, password, history) => async (dispatch, getState) => {
   dispatch({type: USER_LOGIN_REQUEST})  
   
 
@@ -41,7 +42,7 @@ export const loginAction = (email, password) => async (dispatch, getState) => {
     const { data } = await axios.post('/api/user/login', body)    
     localStorage.setItem('user', JSON.stringify(data))
     dispatch({type: USER_LOGIN_SUCCESS, payload: data})
-    console.log(data)
+    return history.push('/home')    
   } catch (error) {
     dispatch({type: USER_LOGIN_FAIL, payload: error.response.data.message})
   }
