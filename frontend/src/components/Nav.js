@@ -56,7 +56,7 @@ const Nav = () => {
     <div className={styles.navContianer}  >
       <div className={styles.nav}>
         <div className={styles.logoContainer}>
-          <Link to='/'><h2>Logo</h2></Link>
+          <Link to='/home'><h2>Logo</h2></Link>
         </div>
 
         <div className={styles.spacer} />

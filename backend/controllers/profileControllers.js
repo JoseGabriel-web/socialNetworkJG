@@ -2,7 +2,8 @@ import { User } from '../models/User.js'
 import { Post } from '../models/Post.js'
 
 export const getProfile = async (req,res) => {
-  const name = req.params.username  
+  let name = req.params.username 
+  name = name.split('+').join(' ')
   const user = await User.findOne({ name })
   const posts = await Post.find({user: { _id: user._id, username: name}})    
   const profile = {
@@ -10,6 +11,7 @@ export const getProfile = async (req,res) => {
       name: user.name,
       email: user.email,
       savedPosts: user.savedPosts,
+      followers: user.followers,
       createdAt: user.createdAt,
     },
     posts,    

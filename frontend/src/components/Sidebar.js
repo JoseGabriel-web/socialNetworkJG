@@ -15,7 +15,11 @@ const Sidebar = () => {
   }    
 
   const isSelected = (path) => {
-    return window.location.pathname === path? true : false
+    return window.location.pathname.includes(path)? true : false
+  }
+
+  const replaceSpace = (string) => {
+    return string.split(' ').join('+')
   }
   
   return (
@@ -26,7 +30,7 @@ const Sidebar = () => {
           {sidebarData.map((tab) => (
             <Link                
               key={`${tab.path}`}
-              to={`${tab.path}${tab.path === '/profile' && user? '/' + user.name : ''}`}
+              to={`${tab.path}${tab.path === '/profile' && user? '/' + replaceSpace(user.name) + '/gallery' : ''}`}
               className={`${styles.sidebarTab} ${isSelected(tab.path)? styles.active : ''}`}
             >
               <div className={styles.tabIcon}>

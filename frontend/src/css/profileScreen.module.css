@@ -1,0 +1,111 @@
+.profileScreenContainer {
+  height: 93vh;
+  width: 100%;   
+  display: flex; 
+  flex-direction: column; 
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;    
+}
+
+.profileScreenContainer::-webkit-scrollbar {
+  width: 5px;
+  background: white;
+}
+.profileScreenContainer::-webkit-scrollbar-thumb {  
+  background: black;
+  border-radius: 1rem;
+}
+
+.profileHeader {
+  min-height: 200px;  
+  width: 100%;
+  border-bottom: solid 1px;  
+  display: flex;
+  flex-direction: column;
+  position: relative;  
+  padding: 0.5rem;
+}
+
+.flex {
+  flex: 1;
+}
+.profileHeaderContent {
+  height: 100%;
+  width: 100%;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;    
+}
+.profileHeaderContent h3 {
+  padding: 0.5rem 0;
+}
+.profileHeaderContent i {
+  height: 130px;
+  width: 130px;
+  border: solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 3rem;  
+}
+
+.profilePublicDetails {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  /* justify-content: center;   */
+}
+
+.profilePublicDetailsGroup {
+  display: flex;
+  align-items: center;
+}
+.profilePublicDetailsGroup div {
+  margin: 0 0.25rem;
+}
+
+/* Part two */
+.profileContent {  
+  width: 100%;   
+}
+
+.profileContentSelector {
+  width: 100%;
+  border-bottom: solid 1px;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.profileContentSelector .profileContentSelectorTab {
+  width: 33.33%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: solid 1px;
+}
+
+.profileContentSelector .profileContentSelectorTab:last-of-type {
+  border: none;
+} 
+
+.profileContentSelectorTab {
+
+}
+
+
+@media (max-width: 1000px) {
+  .profilePublicDetails {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+  }
+}
