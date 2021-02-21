@@ -15,8 +15,10 @@
   flex: 1;
   height: 100%;
   padding: 1rem;
+  border: none;
 }
 .addCommentBtn {
   height: 100%;
   padding: 1rem;
+  border-left: 1px solid;
 }

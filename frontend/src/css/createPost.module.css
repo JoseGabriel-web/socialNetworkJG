@@ -1,5 +1,5 @@
 .createPostContainer {
-  width: 100%;  
+  width: 100%;    
 }
 
 .openFormIcon {
@@ -8,8 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0.5rem;
-  border: solid 1px;
+  padding: 1rem 0.5rem;  
+  box-shadow: var(--darker-shadow);
   border-radius: 2rem;
   cursor: pointer;
   background: white;
@@ -21,7 +21,7 @@
   max-width: 90%;
   background: white;  
   border-color: rgb(23, 22, 22);
-  border: solid 7px;
+  box-shadow: var(--darker-shadow);
   border-radius: 1rem;  
 }
 

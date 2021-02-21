@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import defaultProfilePicture from '../images/user.png'
 import Notification from '../components/Notification'
 import styles from '../css/nav.module.css'
 
@@ -10,6 +11,10 @@ const Nav = () => {
   const loginReducer = useSelector((state) => state.loginReducer)
   const { user } = loginReducer  
   const ref = useRef(null)
+
+  const replaceSpace = (string) => {
+    return string.split(' ').join('+')
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -72,7 +77,7 @@ const Nav = () => {
               onClick={handleNotMenuOpen}
               className={styles.userNavBtn}
             >              
-              <i className='fas fa-bell' />              
+              <i className='far fa-bell' />              
             </div>
             <div
               className={
@@ -110,7 +115,8 @@ const Nav = () => {
               onClick={handleUserMenuOpen}
               className={styles.userNavBtn}
             >              
-              <i className='fas fa-user-circle' />              
+              {/* <i className='fas fa-user-circle' />     */}
+              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}} />          
             </div>
             <ul              
               className={
@@ -119,11 +125,11 @@ const Nav = () => {
             >
               {user ? (
                 <>
-                  <Link to='/profile'>
+                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`}>
                     <i className='fas fa-user' />
                     <h4>Profile</h4>
                   </Link>
-                  <Link to='/settings'>
+                  <Link to={`/profile/${replaceSpace(user.name)}/settings`}>
                     <i className='fas fa-user-cog' />
                     <h4>Settings</h4>
                   </Link>

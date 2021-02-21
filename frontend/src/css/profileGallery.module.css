@@ -1,0 +1,36 @@
+.profileGalleryContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  height: 100%;
+  width: 100%;  
+  padding: 1rem;
+  display: grid;    
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  
+  align-items: stretch;
+  grid-gap: 1rem;
+}
+
+.grid img {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  max-width: 100%;
+}
+
+/* .profilePost {
+  max-width: 100%;
+  background-position: center;
+  background-size: 100% 100%;
+  margin: 0.5rem;
+} */
+
+@media (max-width: 1100px) {
+  .grid {
+    margin-bottom: 100px;
+  }
+}

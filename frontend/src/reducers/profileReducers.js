@@ -7,7 +7,7 @@ import {
 export const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_PROFILE_FAIL:
-      return {loading: false}
+      return {loading: false, error: action.payload}
     case GET_PROFILE_REQUEST:
       return {loading: true}
     case GET_PROFILE_SUCCESS:

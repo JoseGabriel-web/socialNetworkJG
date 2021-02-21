@@ -8,10 +8,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;    
-  background: var(--background); 
-  color: var(--color);
-  /* border-right: var(--border); */
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.3) 0px 1px 3px 1px;
+  background: var(--background);
+  color: var(--color);    
+  border: none;
+  box-shadow: var(--shadow);
+  z-index: 9;
 }
 
 .sidebarTab {

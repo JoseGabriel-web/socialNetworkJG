@@ -2,52 +2,72 @@ import React, { useEffect } from 'react'
 import { Link, Route, Switch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/profileScreen.module.css'
+import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
+import ProfileGallery from '../components/ProfileGallery'
 import Loading from '../components/Loading'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const { profile = null, loading = true } = profileReducer
+  const loginReducer = useSelector((state) => state.loginReducer)
+  const { profile = null, loading = true, error } = profileReducer
+  const ownusername = loginReducer.user.name
   const params = useParams()
-
   const getUserProfile = () => {
     dispatch(getProfile(params.username))
   }
 
   useEffect(() => {
-    getUserProfile()    
+    getUserProfile()
   }, [params.username])
 
   const capitalizeString = (string) => {
-    let result = []
-    if (string.split(' ').length > 1) {
-      string.split(' ').map((word) => {
-        return result.push(capitalizeString(word))
-      })
-      return result.join(' ')
+    if (string?.split(' ').length > 1) {
+      return string
+        .split(' ')
+        .map((word) => capitalizeString(word))
+        .join(' ')
     }
     return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
   }
 
   const replaceSpace = (string) => {
-    return string.split(' ').join('+')
+    return string?.split(' ').join('+')
   }
+
+  const sections = [
+    {
+      endpoint: 'gallery',
+      label: 'Gallery',
+      component: ProfileGallery,
+    },
+    {
+      endpoint: 'followers',
+      label: 'Followers',
+      component: ProfileFollowers,
+    },
+    {
+      endpoint: 'postSaved',
+      label: 'Posts Saved',
+      component: ProfilePostsSaved,
+    },
+  ]
 
   return (
     <div className={styles.profileScreenContainer}>
       {loading ? (
         <Loading />
-      ) : (
+      ) : error? <h1>{error}</h1> : (
         <div>
           <div className={styles.profileHeader}>
             <div className={styles.profileHeaderContent}>
-              <i className='fas fa-user' />
+              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}} />
               <h3>{profile && capitalizeString(profile.user.name)}</h3>
             </div>
 
             <div className={styles.profilePublicDetails}>
-              <div className={styles.profilePublicDetailsGroup}>
+              <div className={styles.profilePublicDetailsGroup}>                
                 <div>
                   <i className='fas fa-users' />
                 </div>
@@ -70,59 +90,36 @@ const ProfileScreen = () => {
 
           <div className={styles.profileContent}>
             <div className={styles.profileContentSelector}>
-              <Link
-                to={`/profile/${
-                  profile ? replaceSpace(profile.user.name) : ''
-                }/gallery`}
-                className={styles.profileContentSelectorTab}
-              >
-                Gallery
-              </Link>
-              <Link
-                to={`/profile/${
-                  profile ? replaceSpace(profile.user.name) : ''
-                }/followers`}
-                className={styles.profileContentSelectorTab}
-              >
-                Followers
-              </Link>
-              <Link
-                to={`/profile/${
-                  profile ? replaceSpace(profile.user.name) : ''
-                }/postsSaved`}
-                className={styles.profileContentSelectorTab}
-              >
-                Posts Saved
-              </Link>
+              {sections.map(section => (
+                <Link
+                  to={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}
+                  className={styles.profileContentSelectorTab}>
+                  {section.label}
+                </Link>  
+              ))}              
+              {profile.user.name === ownusername ? (
+                <Link
+                  to={`/profile/${replaceSpace(profile?.user?.name)}/settings`}
+                  className={styles.profileContentSelectorTab}>
+                  Settings
+                </Link>
+              ) : null}
             </div>
 
-            <div height='100%'>
+            <div className={styles.profileContentComponent}>
               <Switch>
-                <Route
-                  path={`/profile/${
-                    profile ? replaceSpace(profile.user.name) : ''
-                  }/gallery`}
-                >                                     
-                    <ProfileGallery posts={profile ? profile.posts : []} />                  
-                </Route>
-                <Route
-                  path={`/profile/${
-                    profile ? replaceSpace(profile.user.name) : ''
-                  }/followers`}
-                >
-                  <ProfileFollowers
-                    followers={profile ? profile.user.followers : []}
-                  />
-                </Route>
-                <Route
-                  path={`/profile/${
-                    profile ? replaceSpace(profile.user.name) : ''
-                  }/postsSaved`}
-                >
-                  <ProfilePostsSaved
-                    postsSaved={profile ? profile.user.savedPosts : []}
-                  />
-                </Route>
+                {sections.map((section) => (
+                  <Route
+                    path={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}                    
+                    component={section.component}                    
+                  />                                      
+                ))}
+                {profile.user.name === ownusername ? (
+                  <Route
+                    path={`/profile/${replaceSpace(profile?.user?.name)}/settings`}                    
+                    component={ProfileSettings}                  
+                />
+                ) : null}
               </Switch>
             </div>
           </div>
@@ -134,23 +131,22 @@ const ProfileScreen = () => {
 
 export default ProfileScreen
 
-// MOVE TO OWN COMPONENT FILE
 
-const ProfileGallery = ({ posts }) => {
-  return (
-    <div height='100%'>
-      {/* { posts? JSON.stringify(posts) : '' } */}
-      {posts
-        ? posts.map((post) => (
-            <img height='300px' width='200px' src={post.image.url} />
-          ))
-        : ''}
-    </div>
-  )
+
+
+// MOVE TO OWN COMPONENT FILE
+const ProfilePostsSaved = () => {
+  const profileReducer = useSelector((state) => state.profileReducer)  
+  const { profile, loading = true } = profileReducer
+  return <div className={styles.responsive}>{JSON.stringify(profile)}</div>
 }
-const ProfilePostsSaved = ({ postsSaved }) => {
-  return <div>{JSON.stringify(postsSaved)}</div>
+const ProfileFollowers = () => {
+  const profileReducer = useSelector((state) => state.profileReducer)  
+  const { profile, loading = true } = profileReducer
+  return <div>{JSON.stringify(profile)}</div>
 }
-const ProfileFollowers = ({ followers }) => {
-  return <div>{JSON.stringify(followers)}</div>
+const ProfileSettings = () => {
+  const profileReducer = useSelector((state) => state.profileReducer)  
+  const { profile, loading = true } = profileReducer  
+  return <div>{JSON.stringify(profile)}</div>
 }

@@ -1,11 +1,12 @@
 .profileScreenContainer {
-  height: 93vh;
-  width: 100%;   
+  height: 93vh;  
+  flex: 1;
   display: flex; 
   flex-direction: column; 
   overflow-y: auto;
   overflow-x: hidden;
   max-width: 100%;    
+  background: rgb(245, 245, 255);  
 }
 
 .profileScreenContainer::-webkit-scrollbar {
@@ -42,15 +43,12 @@
 .profileHeaderContent h3 {
   padding: 0.5rem 0;
 }
-.profileHeaderContent i {
+
+.profilePicture {
   height: 130px;
-  width: 130px;
-  border: solid 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  font-size: 3rem;  
+  width: 130px;  
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .profilePublicDetails {
@@ -58,8 +56,7 @@
   right: 0;
   bottom: 0;
   display: flex;
-  align-items: center;
-  /* justify-content: center;   */
+  align-items: center;  
 }
 
 .profilePublicDetailsGroup {
@@ -72,6 +69,7 @@
 
 /* Part two */
 .profileContent {  
+  max-width: 100%;   
   width: 100%;   
 }
 
@@ -84,7 +82,7 @@
 }
 
 .profileContentSelector .profileContentSelectorTab {
-  width: 33.33%;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -96,10 +94,12 @@
   border: none;
 } 
 
-.profileContentSelectorTab {
-
+.profileContentComponent {
+  width: 100%;
 }
-
+.responsive {
+ flex: 1;
+}
 
 @media (max-width: 1000px) {
   .profilePublicDetails {

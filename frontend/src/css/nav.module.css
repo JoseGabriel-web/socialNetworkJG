@@ -1,8 +1,23 @@
 :root {
   --over: 10;  
   --shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
+  --darker-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px 0px, rgba(0, 0, 0, 0.2) 0px 1px 3px 1px;  
+  --inset-shadow: inset rgba(0, 0, 0, 0.3) 1px 1px 4px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;  
+  --color: black;
+  --background: white;
+  --background: rgb(28, 28, 28);
   --color: white;
-  --background: rgb(16, 15, 15);  
+}
+
+.profilePicture {
+  height: 30px;
+  width: 30px;
+  margin-left: 0.3rem;  
+  background-color: white;
+  border-radius: 50%;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 999;
 }
 
 .navContianer {
@@ -71,8 +86,8 @@
   flex-direction: column;    
   color: var(--color);
   background: var(--background);
-  z-index: var(--over);
-  border: solid 1px; 
+  z-index: var(--over);  
+  box-shadow: var(--darker-shadow);  
 }
 
 .userNavOptions a {    
@@ -82,7 +97,7 @@
   display: flex;  
   align-items: center;  
   justify-content: space-around;  
-  padding: 0.5rem 1rem;          
+  padding: 0.5rem 1rem;            
   user-select: none;
   z-index: var(--over);
 }
@@ -115,7 +130,7 @@
   color: var(--color);
   background: var(--background);
   z-index: var(--over);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
+  box-shadow: var(--darker-shadow);  
 }
 
 
@@ -148,6 +163,8 @@
   outline: none;
   padding: 0.2rem 1rem;
   border-radius: 1rem;
+  border: none;
+  box-shadow: var(--inset-shadow);
 }
 
 @media (min-width: 762px) {
