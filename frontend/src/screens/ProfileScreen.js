@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/profileScreen.module.css'
 import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
-import ProfileGallery from '../components/ProfileGallery'
+import { sections } from '../data/profileData'
 import Loading from '../components/Loading'
 
 const ProfileScreen = () => {
@@ -12,7 +12,7 @@ const ProfileScreen = () => {
   const profileReducer = useSelector((state) => state.profileReducer)
   const loginReducer = useSelector((state) => state.loginReducer)
   const { profile = null, loading = true, error } = profileReducer
-  const ownusername = loginReducer.user.name
+  const { user } = loginReducer
   const params = useParams()
   const getUserProfile = () => {
     dispatch(getProfile(params.username))
@@ -21,6 +21,18 @@ const ProfileScreen = () => {
   useEffect(() => {
     getUserProfile()
   }, [params.username])
+
+  const isCurrentUser = () => {
+    return profile.user.name === user.name
+  }
+
+  const handleProfilePictureUpdate = () => {
+    console.log('Profile picture updated')
+  }
+
+  const handleFollow = () => {
+    console.log(`${user.name} started following ${profile.user.name}`)
+  }
 
   const capitalizeString = (string) => {
     if (string?.split(' ').length > 1) {
@@ -35,24 +47,7 @@ const ProfileScreen = () => {
   const replaceSpace = (string) => {
     return string?.split(' ').join('+')
   }
-
-  const sections = [
-    {
-      endpoint: 'gallery',
-      label: 'Gallery',
-      component: ProfileGallery,
-    },
-    {
-      endpoint: 'followers',
-      label: 'Followers',
-      component: ProfileFollowers,
-    },
-    {
-      endpoint: 'postSaved',
-      label: 'Posts Saved',
-      component: ProfilePostsSaved,
-    },
-  ]
+  
 
   return (
     <div className={styles.profileScreenContainer}>
@@ -62,29 +57,16 @@ const ProfileScreen = () => {
         <div>
           <div className={styles.profileHeader}>
             <div className={styles.profileHeaderContent}>
-              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}} />
-              <h3>{profile && capitalizeString(profile.user.name)}</h3>
-            </div>
 
-            <div className={styles.profilePublicDetails}>
-              <div className={styles.profilePublicDetailsGroup}>                
-                <div>
-                  <i className='fas fa-users' />
-                </div>
-                <div>{profile && profile.user.followers.length}</div>
-                <div>
-                  <h3>Followers</h3>
+              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}}>
+                <div 
+                  className={styles.profileAction}
+                  onClick={isCurrentUser()? handleProfilePictureUpdate : handleFollow}
+                >
+                  <i className={isCurrentUser()? 'fas fa-image' : 'fas fa-plus'} />
                 </div>
               </div>
-              <div className={styles.profilePublicDetailsGroup}>
-                <div>
-                  <i className='fas fa-images' />
-                </div>
-                <div>{profile && profile.posts.length}</div>
-                <div>
-                  <h3>Posts</h3>
-                </div>
-              </div>
+              <h3>{profile && capitalizeString(profile.user.name)}</h3>
             </div>
           </div>
 
@@ -94,14 +76,18 @@ const ProfileScreen = () => {
                 <Link
                   to={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}
                   className={styles.profileContentSelectorTab}>
-                  {section.label}
+                  {section.label === 'Followers'? profile.user.followers.length : null}
+                  {section.label === 'Gallery'? profile.posts.length : null}
+                  <h4 style={{padding: '0 10px'}}>{section.label}</h4>
+                  <i className={section.icon} />
                 </Link>  
               ))}              
-              {profile.user.name === ownusername ? (
+              {isCurrentUser()? (
                 <Link
                   to={`/profile/${replaceSpace(profile?.user?.name)}/settings`}
                   className={styles.profileContentSelectorTab}>
-                  Settings
+                  <h4>Settings</h4>
+                  <i style={{paddingLeft: '10px'}} className='fas fa-cogs' />
                 </Link>
               ) : null}
             </div>
@@ -114,7 +100,7 @@ const ProfileScreen = () => {
                     component={section.component}                    
                   />                                      
                 ))}
-                {profile.user.name === ownusername ? (
+                {isCurrentUser()? (
                   <Route
                     path={`/profile/${replaceSpace(profile?.user?.name)}/settings`}                    
                     component={ProfileSettings}                  
@@ -135,16 +121,6 @@ export default ProfileScreen
 
 
 // MOVE TO OWN COMPONENT FILE
-const ProfilePostsSaved = () => {
-  const profileReducer = useSelector((state) => state.profileReducer)  
-  const { profile, loading = true } = profileReducer
-  return <div className={styles.responsive}>{JSON.stringify(profile)}</div>
-}
-const ProfileFollowers = () => {
-  const profileReducer = useSelector((state) => state.profileReducer)  
-  const { profile, loading = true } = profileReducer
-  return <div>{JSON.stringify(profile)}</div>
-}
 const ProfileSettings = () => {
   const profileReducer = useSelector((state) => state.profileReducer)  
   const { profile, loading = true } = profileReducer  

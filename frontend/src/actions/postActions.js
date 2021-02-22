@@ -14,6 +14,7 @@ import {
   LIKE_POST_FAIL,
   UNLIKE_POST_FAIL,
 } from '../constants/postConstants'
+import { getProfile } from './profileActions'
 
 export const createPost = (title, description, image) => async (
   dispatch,
@@ -81,7 +82,7 @@ export const deletePost = (id, public_id) => async (dispatch, getState) => {
     const { data } = await axios.delete('/api/post/deletePost', config)
     console.log(data)
     dispatch({ type: DELETE_POST_SUCCESS, payload: data.post })
-    dispatch(getPosts())
+    dispatch(getPosts())    
   } catch (error) {
     console.log('/frontend /postActions deletePost ->', error)
     dispatch({ type: DELETE_POST_FAIL, payload: error })

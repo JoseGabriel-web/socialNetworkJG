@@ -49,22 +49,22 @@
   width: 130px;  
   background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
 }
 
-.profilePublicDetails {
+.profilePicture .profileAction {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  top: -10px;
+  left: -35px;
+  height: 50px;
+  width: 50px;
   display: flex;
-  align-items: center;  
-}
-
-.profilePublicDetailsGroup {
-  display: flex;
+  justify-content: center;
   align-items: center;
-}
-.profilePublicDetailsGroup div {
-  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  border: solid 1px;
+  cursor: pointer;
 }
 
 /* Part two */
@@ -88,6 +88,8 @@
   justify-content: center;
   align-items: center;
   border-right: solid 1px;
+  background: var(--background);
+  color: var(--color);
 }
 
 .profileContentSelector .profileContentSelectorTab:last-of-type {
@@ -99,13 +101,4 @@
 }
 .responsive {
  flex: 1;
-}
-
-@media (max-width: 1000px) {
-  .profilePublicDetails {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-  }
 }

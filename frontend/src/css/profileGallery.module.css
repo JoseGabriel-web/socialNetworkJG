@@ -20,17 +20,35 @@
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
   max-width: 100%;
+  transition: 100ms;  
+}
+.grid img:hover {
+  filter: blur(3px);
 }
 
-/* .profilePost {
-  max-width: 100%;
-  background-position: center;
-  background-size: 100% 100%;
-  margin: 0.5rem;
-} */
+.galleryPost:hover i {
+  display: block;
+}
 
-@media (max-width: 1100px) {
+.galleryPost {
+  position: relative;
+}
+
+.galleryPost i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  padding: 0.5rem;
+  background: black;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;  
+  z-index: 9;
+}
+
+@media (max-width: 762px) {
   .grid {
-    margin-bottom: 100px;
+    margin-bottom: calc(70px + 1rem);
   }
 }

@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/postHeaderSection.module.css'
 import { deletePost } from '../actions/postActions'
 import Popup from './Popup'
+import DeletePost from './DeletePost'
 
 const PostHeaderSection = ({ userId, postId, public_id, username }) => {
   const [isOpened, setIsOpened] = useState(false)
   const loginReducer = useSelector(state => state.loginReducer)
   const { user } = loginReducer  
   const dispatch = useDispatch()
+  
   const handleDeletePostPopUpState = () => {
-    setIsOpened(!isOpened)
-  }
-
-  const handleDeletePost = () => {
-    dispatch(deletePost(postId, public_id))
     setIsOpened(!isOpened)
   }
 
@@ -36,24 +33,7 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
       }
 
 
-      <Popup isOpened={isOpened}>
-        <div className={styles.deletePostPopUp}>
-          <div className={styles.deletePostDisclaimer}>
-            <strong>Are you sure?</strong>
-          </div>
-          <div className={styles.deletePostActionBtnContainer}>
-            <div
-              onClick={handleDeletePostPopUpState}
-              className={styles.cancelDeleteBtn}
-            >
-              Cancel
-            </div>
-            <div onClick={handleDeletePost} className={styles.confirmDeleteBtn}>
-              Delete
-            </div>
-          </div>
-        </div>
-      </Popup>
+      <DeletePost isOpened={isOpened} setIsOpened={setIsOpened} postId={postId} handleDeletePostPopUpState={handleDeletePostPopUpState} public_id={public_id} />
     </div>
   )
 }
