@@ -44,12 +44,8 @@ const Sidebar = () => {
                 <i className={`${tab.icon}`} />
               </div>
 
-              <div
-                style={{
-                  display:
-                    sidebarState && window.innerWidth > 762 ? 'flex' : 'none',
-                }}
-                className={styles.tabLabel}
+              <div               
+                className={`${styles.tabLabel} ${sidebarState && styles.closeSidebarLabel}`}
               >
                 <h3>{tab.label}</h3>
               </div>

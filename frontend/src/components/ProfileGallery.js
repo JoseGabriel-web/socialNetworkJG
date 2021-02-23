@@ -21,6 +21,10 @@ const ProfileGallery = () => {
   const isCurrentUser = () => {
     return profile.user.name === user.name
   }
+
+  const handleOpenPost = (post) => {
+
+  }
   
   // ADD OPTIONS TO ( DELETE, already done ) POST FROM HERE GALLERY / MAYBE EDIT IT (MAYBE)
   return (
@@ -35,7 +39,8 @@ const ProfileGallery = () => {
           ) : (
             profile.posts.map((post) => (     
               <div className={styles.galleryPost}> 
-              {isCurrentUser()? <i className='fas fa-times' onClick={() => handleDeletePostPopUpState(post._id, post.image.public_id)} /> : null }      
+              {isCurrentUser()? <i className={`fas fa-times ${styles.deletePostIcon}`} onClick={() => handleDeletePostPopUpState(post._id, post.image.public_id)} /> : null }    
+              <i className={`fas fa-expand ${styles.openPostIcon}`} onClick={handleOpenPost(post)} />
               <img height='auto' width='100%' src={`${post.image.url}`} alt='' />
               </div>
             ))            

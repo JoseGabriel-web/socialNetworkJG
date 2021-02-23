@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import styles from '../css/postHeaderSection.module.css'
-import { deletePost } from '../actions/postActions'
-import Popup from './Popup'
 import DeletePost from './DeletePost'
 
 const PostHeaderSection = ({ userId, postId, public_id, username }) => {
   const [isOpened, setIsOpened] = useState(false)
   const loginReducer = useSelector(state => state.loginReducer)
   const { user } = loginReducer  
-  const dispatch = useDispatch()
   
   const handleDeletePostPopUpState = () => {
     setIsOpened(!isOpened)
+  }
+
+  const replaceSpace = (string) => {
+    return string.split(' ').join('+')
   }
 
   return (
@@ -21,7 +23,7 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
         <i className='fas fa-user-circle' />
       </div>
       <div className={styles.postHeaderUsername}>
-        <h3>{username}</h3>
+        <Link to={`/profile/${replaceSpace(username)}/gallery`}>{username}</Link>
       </div>
 
       { user && user.name === username?(<div

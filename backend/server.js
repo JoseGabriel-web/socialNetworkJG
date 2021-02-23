@@ -5,6 +5,7 @@ import { connectDB } from './config/db.js'
 import { userRoutes } from './routes/userRoutes.js'
 import { postRoutes } from './routes/postRoutes.js'
 import { profileRoutes } from './routes/profileRoutes.js'
+import { followerRoutes } from './routes/followerRoutes.js'
 const app = express()
 dotenv.config()
 connectDB()
@@ -16,6 +17,7 @@ app.use(cors())
 app.use('/api/user', userRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/profile', profileRoutes)
+app.use('/api/followers', followerRoutes)
 
 // Remove this line below
 import { User } from './models/User.js'

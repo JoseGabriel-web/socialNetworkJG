@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, Route, Switch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/profileScreen.module.css'
@@ -6,21 +6,23 @@ import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
 import { sections } from '../data/profileData'
 import Loading from '../components/Loading'
+import { follow, getProfileFollowersList, unFollow } from '../actions/followerAction'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
+  const [followersCount, setFollowersCount] = useState(0)
+  const [following, setFollowing] = useState()
   const profileReducer = useSelector((state) => state.profileReducer)
+  const { profile, loading = true, error } = profileReducer
   const loginReducer = useSelector((state) => state.loginReducer)
-  const { profile = null, loading = true, error } = profileReducer
   const { user } = loginReducer
   const params = useParams()
-  const getUserProfile = () => {
-    dispatch(getProfile(params.username))
-  }
 
-  useEffect(() => {
-    getUserProfile()
-  }, [params.username])
+  const getUserProfile = async () => {
+    const { followers } = await dispatch(getProfile(params.username))
+    setFollowersCount(followers.length)
+    if(followers.includes(user.name)) setFollowing(true)    
+  }  
 
   const isCurrentUser = () => {
     return profile.user.name === user.name
@@ -30,8 +32,15 @@ const ProfileScreen = () => {
     console.log('Profile picture updated')
   }
 
-  const handleFollow = () => {
-    console.log(`${user.name} started following ${profile.user.name}`)
+  const handleFollow = async () => {
+    const { newFollowersCount } = await dispatch(follow(user.name, profile.user.name, followersCount))    
+    setFollowersCount(await newFollowersCount)
+    setFollowing(true)
+  }
+  const handleUnfollow = async () => {
+    const { newFollowersCount } = await dispatch(unFollow(user.name, profile.user.name, followersCount))    
+    setFollowersCount(await newFollowersCount)
+    setFollowing(false)
   }
 
   const capitalizeString = (string) => {
@@ -47,6 +56,10 @@ const ProfileScreen = () => {
   const replaceSpace = (string) => {
     return string?.split(' ').join('+')
   }
+
+  useEffect(() => {
+    getUserProfile()    
+  }, [params.username])
   
 
   return (
@@ -61,9 +74,9 @@ const ProfileScreen = () => {
               <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}}>
                 <div 
                   className={styles.profileAction}
-                  onClick={isCurrentUser()? handleProfilePictureUpdate : handleFollow}
+                  onClick={isCurrentUser()? handleProfilePictureUpdate : following? handleUnfollow : handleFollow}
                 >
-                  <i className={isCurrentUser()? 'fas fa-image' : 'fas fa-plus'} />
+                  <i className={isCurrentUser()? 'fas fa-image' : following? 'fas fa-times' : 'fas fa-user-plus'} />
                 </div>
               </div>
               <h3>{profile && capitalizeString(profile.user.name)}</h3>
@@ -76,7 +89,7 @@ const ProfileScreen = () => {
                 <Link
                   to={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}
                   className={styles.profileContentSelectorTab}>
-                  {section.label === 'Followers'? profile.user.followers.length : null}
+                  {section.label === 'Followers'? followersCount : null}
                   {section.label === 'Gallery'? profile.posts.length : null}
                   <h4 style={{padding: '0 10px'}}>{section.label}</h4>
                   <i className={section.icon} />

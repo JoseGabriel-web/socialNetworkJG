@@ -43,6 +43,23 @@
   display: flex;
   align-items: center;  
   justify-content: start;  
+  transition: all 200ms ease;
+}
+
+.closeSidebarLabel {
+  animation-name: closeLabel linear 1s;
+  width: 0px;  
+  visibility: hidden;
+  overflow: hidden;
+}
+
+@keyframes closeLabel {
+  from {
+    display: flex;
+  }
+  to {  
+    display: none;
+  }
 }
 
 .handleSidebarIcon {

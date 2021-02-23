@@ -12,7 +12,8 @@
   box-shadow: var(--darker-shadow);
   border-radius: 2rem;
   cursor: pointer;
-  background: white;
+  color: white;
+  background: var(--background);
 }
 
 .formContainer {
@@ -52,6 +53,9 @@
   justify-content: center;
   align-items: center; 
   border-left: solid 1px;
+  color: var(--color);
+  background: var(--background);
+  border-top-right-radius: 1rem;
 }
 .postBtn {  
   padding: 1rem;    
