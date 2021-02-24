@@ -14,9 +14,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  text-decoration: underline;
+  cursor: pointer;  
   flex: 1;
+}
+.openPostCommentsContainer i {
+  margin-right: 10px;
 }
 .likePostContainer {
 display: flex;

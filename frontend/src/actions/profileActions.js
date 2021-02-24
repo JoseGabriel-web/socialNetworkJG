@@ -12,9 +12,10 @@ export const getProfile = (username) => async (dispatch, getState) => {
   try {    
     const { data } = await axios.get(`/api/profile/getProfile/${username}`)
     const { profile } = await data
-    dispatch({ type: GET_PROFILE_SUCCESS, payload: await profile })       
-    return { followers: profile.user.followers }
+    dispatch({ type: GET_PROFILE_SUCCESS, payload: await profile })   
+    if(profile) return { followers: profile.user.followers }
   } catch (error) {    
     dispatch({ type: GET_PROFILE_FAIL, payload: error.response.data.error })
+    return { followers: [] }
   }
 }

@@ -32,18 +32,15 @@ export const follow = (followerName, userToFollowName, followerCount) => async (
   dispatch({type: FOLLOW_USER_REQUEST})
 
   const config = {
-    'Content-type': 'application/json'
-  }
-
-  const body = {
     followerName, 
     userToFollowName
   }
 
   try {
-    const { data } = await axios.post('/api/followers/follow', body, config)
+    const { data } = await axios.put('/api/followers/follow', config)
     const { message } = await data    
     dispatch({type: FOLLOW_USER_SUCCESS, payload: await message})
+    dispatch(getProfileFollowersList(userToFollowName))
     return { newFollowersCount: followerCount + 1 }
   } catch (error) {
     dispatch({type: FOLLOW_USER_FAIL, payload: error.response.data})
@@ -67,6 +64,7 @@ export const unFollow = (followerName, userToUnFollowName, followerCount) => asy
     const { data } = await axios.delete('/api/followers/unfollow', config)
     const { message } = await data    
     dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})    
+    dispatch(getProfileFollowersList(userToUnFollowName))    
     return { newFollowersCount: followerCount - 1 }
   } catch (error) {
     dispatch({type: UNFOLLOW_USER_FAIL, payload: error.response.data})

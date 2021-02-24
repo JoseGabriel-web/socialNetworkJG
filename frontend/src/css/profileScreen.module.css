@@ -18,8 +18,8 @@
   border-radius: 1rem;
 }
 
-.profileHeader {
-  min-height: 200px;  
+.profileHeader {  
+  min-height: 30vh;  
   width: 100%;
   border-bottom: solid 1px;  
   display: flex;
@@ -45,8 +45,8 @@
 }
 
 .profilePicture {
-  height: 130px;
-  width: 130px;  
+  height: 120px;
+  width: 120px;  
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
@@ -77,8 +77,8 @@
   width: 100%;
   border-bottom: solid 1px;
   display: flex;
-  flex-direction: row;
-  height: 50px;
+  flex-direction: row;  
+  height: 7vh;
 }
 
 .profileContentSelector .profileContentSelectorTab {
@@ -89,7 +89,7 @@
   align-items: center;
   border-right: solid 1px;
   background: var(--background);
-  color: var(--color);
+  color: var(--color);  
 }
 
 .profileContentSelector .profileContentSelectorTab:last-of-type {
@@ -97,6 +97,8 @@
 } 
 
 .profileContentComponent {
+  /* height: 100%; */
+  min-height: calc(93vh - 37vh);
   width: 100%;
 }
 .responsive {

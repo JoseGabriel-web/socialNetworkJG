@@ -4,7 +4,7 @@ import { follow, unfollow, getFollowers } from '../controllers/followerControler
 const followerRoutes = express.Router()
 
 followerRoutes.get('/getFollowers/:username', getFollowers)
-followerRoutes.post('/follow', follow)
+followerRoutes.put('/follow', follow)
 followerRoutes.delete('/unfollow', unfollow)
 
 export { followerRoutes }

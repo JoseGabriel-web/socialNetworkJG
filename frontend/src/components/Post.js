@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from '../css/post.module.css'
 import PostCommentSection from './PostCommentSection'
 import PostActionsSection from './PostActionsSection'
@@ -6,7 +6,8 @@ import PostMediaSection from './PostMediaSection'
 import PostHeaderSection from './PostHeaderSection'
 import PostDescriptionSection from './PostDescriptionSection'
 
-const Post = ({ user, title, description, image, likes, postId, comments, isVideo }) => {  
+const Post = ({ user, title, description, image, likes, postId, comments, isVideo }) => { 
+  const [isCommentSectionOpened, setIsCommentSectionOpened] = useState(true) 
   return (
     <div className={styles.postContainer}>      
       <div className={styles.postHeaderSectionContainer}>
@@ -20,10 +21,10 @@ const Post = ({ user, title, description, image, likes, postId, comments, isVide
       <div className={styles.postDescriptionSectionContainer}>
         <PostDescriptionSection title={title} description={description} />   
       </div>
-          <PostActionsSection postId={postId} likes={likes} />   
+          <PostActionsSection postId={postId} likes={likes} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   
         </div>
         <div className={styles.postCommentSectionContainer}>
-          <PostCommentSection comments={comments} postId={postId} />   
+          <PostCommentSection comments={comments} postId={postId} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   
         </div>
       </div>   
     </div>

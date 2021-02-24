@@ -22,3 +22,31 @@
   padding: 1rem;
   border-left: 1px solid;
 }
+
+.commentContainer {
+  /* border-bottom: solid 1px; */
+  padding: 0 1rem;
+  background: var(--background);
+  padding-top: 1rem;
+}
+
+.commentContainer:last-child {
+  padding-bottom: 1rem;
+}
+
+.comment {
+  display: flex;
+  flex-direction: flex;
+  align-items: center;
+  background: white;
+  color: black;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.comment h5 {
+  margin-right: 10px;
+}
+.comment i {
+  margin-left: auto;
+}

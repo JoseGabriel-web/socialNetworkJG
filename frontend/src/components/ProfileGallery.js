@@ -8,7 +8,7 @@ const ProfileGallery = () => {
   const profileReducer = useSelector((state) => state.profileReducer)  
   const loginReducer = useSelector((state) => state.loginReducer)  
   const { user } = loginReducer
-  const { profile, loading = true } = profileReducer  
+  const { profile, loading = true, error } = profileReducer  
   const [isOpened, setIsOpened] = useState(false)
   const [postId, setPostId] = useState(null)
   const [public_id, setPublic_id] = useState(null)
@@ -31,7 +31,7 @@ const ProfileGallery = () => {
     <div className={styles.profileGalleryContainer}>
       {loading ? (
         <Loading />
-      ) : profile.posts.length > 0 ? (
+      ) : error? 'Please check connection or enter valid URL' : profile.posts.length > 0 ? (
         <div className={styles.grid}>
 
           {loading ? (

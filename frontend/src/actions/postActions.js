@@ -14,7 +14,6 @@ import {
   LIKE_POST_FAIL,
   UNLIKE_POST_FAIL,
 } from '../constants/postConstants'
-import { getProfile } from './profileActions'
 
 export const createPost = (title, description, image) => async (
   dispatch,
@@ -31,8 +30,7 @@ export const createPost = (title, description, image) => async (
   body.append('description', description)  
 
   const config = {
-    headers: {
-      // 'Content-type': 'multipart/form-data',      
+    headers: {           
       'Content-type': 'application/json',      
       authorization: `Bearer ${accessToken}`,
     },
@@ -40,8 +38,8 @@ export const createPost = (title, description, image) => async (
 
   try {
     const { data } = await axios.post('/api/post/createPost', body, config)
-    const { post } = await data
-    dispatch({ type: CREATE_POST_SUCCESS, payload: post })
+    const { message } = await data
+    dispatch({ type: CREATE_POST_SUCCESS, payload: message })
     dispatch(getPosts())
   } catch (error) {
     console.log('/frontend /postActions.js ->', error)
@@ -50,8 +48,7 @@ export const createPost = (title, description, image) => async (
 }
 
 export const getPosts = () => async (dispatch, getState) => {
-  dispatch({ type: GET_POSTS_REQUEST })
-  console.log('Getting posts Action')
+  dispatch({ type: GET_POSTS_REQUEST })  
   try {    
     const { data } = await axios.get('/api/post/getPosts')
     const { posts } = await data

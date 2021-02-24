@@ -16,16 +16,20 @@ const ProfileFollowers = () => {
   const { followersList, loading = true } = userFollowersListReducer
 
   useEffect(() => {
-    dispatch(getProfileFollowersList(profile.user.name))
-  }, [follow, unFollow])
+    dispatch(getProfileFollowersList(profile? profile.user.name : ''))
+  }, [])
 
   return (
     <div className={styles.profileFollowersContainer}>
-      {loading? <Loading /> : followersList.map(follower => (
+      {loading? (
+        <div className={styles.profileFollowersLoader}>
+          <Loading />
+        </div>
+      ) : followersList? followersList.map(follower => (
         <div className={styles.follower}>
           <h3>{follower}</h3>
         </div>
-      ))}
+      )) : 'Please check connection or enter valid URL'}
     </div>
   )
 }

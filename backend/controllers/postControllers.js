@@ -3,8 +3,8 @@ import { User } from '../models/User.js'
 
 export const createPost = async (req, res) => {  
   const { _id, title, description } = req.body     
-  const user = await User.findById({ _id: _id })
-  const post = await Post.create({
+  const user = await User.findById({ _id: _id }).select(['_id', 'name'])
+  await Post.create({
     user: { _id: user._id, username: user.name },
     title,
     description,    
@@ -14,12 +14,11 @@ export const createPost = async (req, res) => {
     }
   })
 
-  res.status(200).json({ post })
+  res.status(200).json({ message: 'Post Created' })
 }
 
 export const getPosts = async (req, res) => {  
-  const posts = await Post.find({})
-  console.log(posts)  
+  const posts = await Post.find({})   
   res.status(200).json({ posts })
 }
 
@@ -36,14 +35,19 @@ export const deletePost = async (req,res) => {
 
 export const likePost = async (req,res) => {
   const { action, postId, username } = req.body
-  console.log(req.body)
-  const post = await Post.findById({_id: postId})
   if(action === 'like') {
-    post.likes.push(username)    
-    post.save()
+    Post.updateOne({_id: postId}, {$push: {likes: [username]}}, (err, result) => {
+      if(err) res.status(500).json({err})
+      else {
+        res.status(200).json({action})
+      }
+    })
   } else if(action === 'unlike') {    
-    post.likes.pull(username)    
-    post.save()
+    Post.updateOne({_id: postId}, { $pull: { likes: { $in: [username] } } }, (err,result) => {
+      if(err) res.status(500).json({err})
+      else {
+        res.status(200).json({action})
+      }
+    })    
   }
-  res.status(200).send({action})
 }

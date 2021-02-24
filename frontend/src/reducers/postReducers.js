@@ -33,7 +33,7 @@ export const createPostReducer = (state = {}, action) => {
     case CREATE_POST_REQUEST:
       return {loading: true}
     case CREATE_POST_SUCCESS:
-      return {loading: false, post: action.payload}
+      return {loading: false, message: action.payload}
     default:
       return state
   }
@@ -69,7 +69,7 @@ export const deletePostReducer = (state = {}, action) => {
     case DELETE_POST_REQUEST:
       return {loading: true}
     case DELETE_POST_SUCCESS:
-      return {loading: false, post: action.payload}
+      return {loading: false, message: action.payload}
     default:
       return state
   }

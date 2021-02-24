@@ -20,12 +20,12 @@ const ProfileScreen = () => {
 
   const getUserProfile = async () => {
     const { followers } = await dispatch(getProfile(params.username))
-    setFollowersCount(followers.length)
-    if(followers.includes(user.name)) setFollowing(true)    
+    setFollowersCount(followers?.length)
+    if(followers && followers.includes(user.name)) setFollowing(true)    
   }  
 
   const isCurrentUser = () => {
-    return profile.user.name === user.name
+    return profile?.user?.name === user?.name
   }
 
   const handleProfilePictureUpdate = () => {
@@ -90,7 +90,7 @@ const ProfileScreen = () => {
                   to={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}
                   className={styles.profileContentSelectorTab}>
                   {section.label === 'Followers'? followersCount : null}
-                  {section.label === 'Gallery'? profile.posts.length : null}
+                  {section.label === 'Gallery'? profile?.posts?.length : null}
                   <h4 style={{padding: '0 10px'}}>{section.label}</h4>
                   <i className={section.icon} />
                 </Link>  

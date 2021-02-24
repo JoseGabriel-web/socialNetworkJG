@@ -4,7 +4,7 @@ import { likePost } from '../actions/postActions'
 import Popup from './Popup'
 import styles from '../css/postActionsSection.module.css'
 
-const PostActionsSection = ({ postId, likes }) => {  
+const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommentSectionOpened }) => {  
   const dispatch = useDispatch()
   const loginReducer = useSelector(state => state.loginReducer)
   const { user = {name: null} } = loginReducer
@@ -15,6 +15,10 @@ const PostActionsSection = ({ postId, likes }) => {
   const [noUserAlert, setNoUserAlert] = useState('')
   const [isBookmarked, setIsBookmarked] = useState(false)
 
+
+  const handleCommentSection = () => {
+    setIsCommentSectionOpened(!isCommentSectionOpened)
+  }
 
   const handleNoUser = () => {
     setIsOpened(false)
@@ -57,8 +61,11 @@ const PostActionsSection = ({ postId, likes }) => {
       <div className={styles.postInfoContainer}>
         <h3>{likesCount} <i className='far fa-thumbs-up' /></h3>
       </div>
-      <div className={styles.openPostCommentsContainer} >
-        <h4>Comments</h4>
+      <div className={styles.openPostCommentsContainer} onClick={handleCommentSection} >
+        <i className={isCommentSectionOpened? 'fas fa-sort-down' : 'fas fa-sort-up'} />
+        <h4>          
+          Comments
+        </h4>
       </div>    
       <div className={styles.likePostContainer} onClick={handleLike}>
         <i className={`${liked? 'fas' : 'far' } fa-heart`} style={{cursor: 'pointer'}} />

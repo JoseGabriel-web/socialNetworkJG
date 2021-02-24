@@ -4,6 +4,7 @@ import styles from '../css/homeScreen.module.css'
 import Feed from '../components/Feed'
 import Loading from '../components/Loading'
 import { getPosts } from '../actions/postActions'
+import { GET_POSTS_REQUEST } from '../constants/postConstants'
 
 
 
@@ -12,8 +13,9 @@ const HomeScreen = () => {
   const getPostsReducer = useSelector((state) => state.getPostsReducer)
   const { loading = true, posts } = getPostsReducer
 
-  const getFeedPosts = () => {
+  const getFeedPosts = () => {    
     dispatch(getPosts())    
+    return dispatch({ type: GET_POSTS_REQUEST })
   }
   
   useEffect(() => {    
@@ -23,8 +25,7 @@ const HomeScreen = () => {
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeFeedContainer}>
-        {loading? <Loading /> : <Feed posts={posts} />}
-        {/* <Loading /> */}
+        {loading? <Loading /> : <Feed posts={posts} />}        
       </div>     
   </div>  
   )
