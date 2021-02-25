@@ -1,5 +1,4 @@
-.commentSectionContainer {
-  min-height: 50px;
+.commentSectionContainer {  
   height: auto;
   width: 100%;  
 }
@@ -18,16 +17,51 @@
   border: none;
 }
 .addCommentBtn {
+  cursor: pointer;
   height: 100%;
   padding: 1rem;
   border-left: 1px solid;
 }
 
+/* Animation */
+.commentsContainer {  
+  opacity: 1;
+  visibility: 1;  
+  transition: all 200ms linear;
+  max-height: 500px;
+  overflow-y: auto;
+} 
+
+.commentsContainer::-webkit-scrollbar {
+  width: 5px;
+  background: rgb(255, 255, 255);
+}
+.commentsContainer::-webkit-scrollbar-thumb {  
+  background: black;
+  border-radius: 1rem;
+}
+
+.closedCommentSection { 
+  visibility: hidden; 
+  height: 0px; 
+  opacity: 0;  
+}
+
+.closedCommentSection .commentContainer {  
+  max-height: 0px;     
+  visibility: 0;  
+  opacity: 0; 
+}
+/* Animation end */
+
 .commentContainer {
-  /* border-bottom: solid 1px; */
+  display: block;
   padding: 0 1rem;
   background: var(--background);
-  padding-top: 1rem;
+  padding-top: 1rem;  
+  opacity: 1;
+  visibility: 1;
+  transition: opacity 200ms ease;
 }
 
 .commentContainer:last-child {
@@ -35,18 +69,54 @@
 }
 
 .comment {
-  display: flex;
-  flex-direction: flex;
-  align-items: center;
+  position: relative;
+  display: flex;  
+  flex-direction: column;  
   background: white;
   color: black;
   border-radius: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem; 
+  padding-top: 0; 
 }
 
-.comment h5 {
+.comment .commentHeader {
+  display: flex;  
+  flex-direction: row; 
+  align-items: center;   
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.comment .commentHeaderProfileImg {
+  height: 35px;  
+  width: 35px;  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border: solid 1px;
+}
+
+.comment .commentHeader h5 {
+  margin-left: 10px;
+}
+
+.comment p {
+  max-height: 200px;
+  max-width: 100%;
+  padding: 0 0.5rem;  
+  overflow-y: auto;  
+}
+.comment p::-webkit-scrollbar {
+  width: 5px;
+  background: white;
+}
+.comment p::-webkit-scrollbar-thumb {  
+  background: black;
+  border-radius: 1rem;
+}
+.comment i:first-of-type {
+  margin-left: auto;
   margin-right: 10px;
 }
-.comment i {
-  margin-left: auto;
-}
+

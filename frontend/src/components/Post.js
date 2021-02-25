@@ -9,9 +9,9 @@ import PostDescriptionSection from './PostDescriptionSection'
 const Post = ({ user, title, description, image, likes, postId, comments, isVideo }) => { 
   const [isCommentSectionOpened, setIsCommentSectionOpened] = useState(true) 
   return (
-    <div className={styles.postContainer}>      
+    <div className={styles.postContainer}>   
       <div className={styles.postHeaderSectionContainer}>
-        <PostHeaderSection userId={user._id} username={user.username} public_id={image.public_id} postId={postId} />
+        <PostHeaderSection profilePicture={user.profilePicture} userId={user._id} name={user.name} public_id={image.public_id} postId={postId} />
       </div>
       <div className={styles.postBody}>
         <div className={styles.postMediaSectionContainer}>

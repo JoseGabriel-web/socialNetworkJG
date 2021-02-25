@@ -5,7 +5,10 @@ export const createPost = async (req, res) => {
   const { _id, title, description } = req.body     
   const user = await User.findById({ _id: _id }).select(['_id', 'name'])
   await Post.create({
-    user: { _id: user._id, username: user.name },
+    user: {       
+      name: user.name,
+      profilePicture: user.profilePicture.url,
+    },
     title,
     description,    
     image: {

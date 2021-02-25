@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import CreatePost from './CreatePost'
 import Post from './Post'
 import styles from '../css/feed.module.css'
-import { getPosts } from '../actions/postActions'
 
 
-const Feed = ({ posts }) => {  
-  const followers = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]  
+const Feed = ({ posts }) => {    
 
   return (    
     <div className={styles.feedContainer}>

@@ -19,6 +19,10 @@ import {
   unFollowUserReducer,
   userFollowersListReducer
 } from './reducers/followerReducers'
+import {
+  createPostComment,
+  deletePostComment
+} from './reducers/postCommentReducers'
 
 const reducers = combineReducers({
   registerReducer,
@@ -30,7 +34,9 @@ const reducers = combineReducers({
   profileReducer,
   followUserReducer,
   unFollowUserReducer,
-  userFollowersListReducer
+  userFollowersListReducer,
+  createPostComment,
+  deletePostComment,
 })
 
 const store = createStore(reducers, composeWithDevTools(

@@ -1,18 +1,19 @@
 import mongoose from 'mongoose'
 
 const commentSchema = mongoose.Schema({
-  user: {
-    _id: { type: mongoose.SchemaTypes.ObjectId, required: true },
-    username: { type: String, required: true },
-  },
-  comment: { type: String, required: true },
+  label: { type: String, required: true },
+  user: {    
+    name: { type: String, required: true },
+    profilePicture: { type: String, default: null },    
+  },  
+  likes: [{type: String}],
   createdAt: { type: Date, default: Date.now },
 })
 
 const postSchema = mongoose.Schema({
-  user: {
-    _id: { type: mongoose.SchemaTypes.ObjectId, required: true },
-    username: { type: String, required: true },
+  user: {    
+    name: { type: String, required: true },
+    profilePicture: { type: String, default: null },
   },
   title: { type: String, required: true },
   description: { type: String, required: true },

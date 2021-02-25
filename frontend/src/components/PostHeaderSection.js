@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from '../css/postHeaderSection.module.css'
 import DeletePost from './DeletePost'
+import defaultProfilePicture from '../images/user.png'
 
-const PostHeaderSection = ({ userId, postId, public_id, username }) => {
+const PostHeaderSection = ({ postId, public_id, name, profilePicture }) => {
   const [isOpened, setIsOpened] = useState(false)
   const loginReducer = useSelector(state => state.loginReducer)
   const { user } = loginReducer  
@@ -17,16 +18,24 @@ const PostHeaderSection = ({ userId, postId, public_id, username }) => {
     return string.split(' ').join('+')
   }
 
+  const capitalizeString = (string) => {
+    if (string?.split(' ').length > 1) {
+      return string
+        .split(' ')
+        .map((word) => capitalizeString(word))
+        .join(' ')
+    }
+    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
+  }
+
   return (
     <div className={styles.postHeader}>
-      <div className={styles.postHeaderImg}>
-        <i className='fas fa-user-circle' />
-      </div>
+      <div className={styles.postHeaderImg} style={{backgroundImage: profilePicture? `url(${profilePicture})` : `url(${defaultProfilePicture})`}} />
       <div className={styles.postHeaderUsername}>
-        <Link to={`/profile/${replaceSpace(username)}/gallery`}>{username}</Link>
+        <Link to={`/profile/${replaceSpace(name)}/gallery`}>{capitalizeString(name)}</Link>
       </div>
 
-      { user && user.name === username?(<div
+      { user && user.name === name?(<div
         className={styles.deletePostBtn}
         onClick={handleDeletePostPopUpState}
       >
