@@ -6,17 +6,20 @@ import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
 import { sections } from '../data/profileData'
 import Loading from '../components/Loading'
+import Popup from '../components/Popup'
+import ChangeProfilePicture from '../components/ChangeProfilePicture'
 import { follow, getProfileFollowersList, unFollow } from '../actions/followerAction'
 
 const ProfileScreen = () => {
-  const dispatch = useDispatch()
   const [followersCount, setFollowersCount] = useState(0)
+  const [editProfilePicturePopUpState, setEditProfilePicturePopUpState] = useState(false)
   const [following, setFollowing] = useState()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const { profile, loading = true, error } = profileReducer
   const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer
+  const { profile, loading = true, error } = profileReducer
+  const dispatch = useDispatch()
   const params = useParams()
+  const { user } = loginReducer
 
   const getUserProfile = async () => {
     const { followers } = await dispatch(getProfile(params.username))
@@ -29,6 +32,7 @@ const ProfileScreen = () => {
   }
 
   const handleProfilePictureUpdate = () => {
+    setEditProfilePicturePopUpState(!editProfilePicturePopUpState)
     console.log('Profile picture updated')
   }
 
@@ -64,14 +68,12 @@ const ProfileScreen = () => {
 
   return (
     <div className={styles.profileScreenContainer}>
-      {loading ? (
-        <Loading />
-      ) : error? <h1>{error}</h1> : (
+      {error? <h1>{error}</h1> : (
         <div>
           <div className={styles.profileHeader}>
             <div className={styles.profileHeaderContent}>
 
-              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}}>
+              <div className={styles.profilePicture} style={{backgroundImage: `url(${profile?.user?.profilePicture?.url? profile.user.profilePicture.url : defaultProfilePicture})`}}>
                 <div 
                   className={styles.profileAction}
                   onClick={isCurrentUser()? handleProfilePictureUpdate : following? handleUnfollow : handleFollow}
@@ -124,6 +126,9 @@ const ProfileScreen = () => {
           </div>
         </div>
       )}
+      <Popup isOpened={editProfilePicturePopUpState}>
+        <ChangeProfilePicture user={profile && profile.user} setEditProfilePicturePopUpState={setEditProfilePicturePopUpState} />
+      </Popup>
     </div>
   )
 }

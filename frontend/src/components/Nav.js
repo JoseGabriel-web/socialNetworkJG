@@ -5,7 +5,7 @@ import defaultProfilePicture from '../images/user.png'
 import Notification from '../components/Notification'
 import styles from '../css/nav.module.css'
 // import logo from '../images/logo_transparent.png'
-import logo from '../images/logoCropped.png'
+// import logo from '../images/logoCropped.png'
 
 const Nav = () => {
   const [userNavMenuState, setUserNavMenuState] = useState(false)
@@ -63,7 +63,7 @@ const Nav = () => {
     <div className={styles.navContianer}  >
       <div className={styles.nav}>
         <Link to='/home' className={styles.logoContainer} >
-          <img height='auto' alt='logo' src={logo} />                    
+          {/* <img height='auto' alt='logo' src={logo} />                     */}
         </Link>
 
         <div className={styles.spacer} />

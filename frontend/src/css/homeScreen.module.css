@@ -1,8 +1,10 @@
 .homeContainer {
   min-height: 93vh;
   height: 93vh;
-  width: 100%;    
-  background: rgb(237, 234, 252);   
+  width: 100%;      
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;  
   display: flex;
   flex-direction: row;
   overflow-y: auto;

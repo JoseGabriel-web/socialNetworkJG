@@ -1,5 +1,5 @@
 .createPostContainer {
-  width: 100%;    
+  width: 100%;      
 }
 
 .openFormIcon {
@@ -70,8 +70,7 @@
 
 .firstPart {
   max-height: 50%; 
-  height: 100%; 
-  /* background: red;  */
+  height: 100%;  
 }
 
 .fieldGroup {

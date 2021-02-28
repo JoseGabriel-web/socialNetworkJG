@@ -17,17 +17,27 @@ export const follow = (req,res) => {
   User.updateOne({name: userToFollowName}, {$push: {followers: [followerName] }}, (err,result) => {
     if(err) res.status(500).json({error})
     else {
-      res.status(200).json({message: `${followerName} started following ${userToFollowName}`})  
+      User.updateOne({name: followerName}, {$push: {following: [userToFollowName] }}, (err,result) => {
+        if(err) res.status(500).json({error})
+        else {
+          res.status(200).json({message: `${followerName} started following ${userToFollowName}`})  
+        }
+      })
     }
   })
 }
 
 export const unfollow = (req,res) => {
-  const { followerName, userToUnFollowName } = req.query      
+  const { followerName, userToUnFollowName } = req.query        
   User.updateOne({name: userToUnFollowName}, {$pull: {followers: { $in: [followerName]}}}, (err,result) => {
     if(err) res.status(500).json({error})
     else {      
-      res.status(200).json({message: `${followerName} unfollowed ${userToUnFollowName}`})
+      User.updateOne({name: followerName}, {$pull: {following: { $in: [userToUnFollowName]}}}, (err,result) => {
+        if(err) res.status(500).json({error})
+        else {      
+          res.status(200).json({message: `${followerName} unfollowed ${userToUnFollowName}`})     
+        }
+      })
     }
-  })  
+  })
 }

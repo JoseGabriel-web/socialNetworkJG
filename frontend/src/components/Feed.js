@@ -2,18 +2,19 @@ import React from 'react'
 import CreatePost from './CreatePost'
 import Post from './Post'
 import styles from '../css/feed.module.css'
+import Loading from './Loading'
 
 
-const Feed = ({ posts }) => {    
+const Feed = ({ posts, loading }) => {    
 
   return (    
     <div className={styles.feedContainer}>
       <div className={styles.feedCreatePostContainer}>
         <CreatePost />
       </div>
-
+    {posts?
       <div className={styles.feedPostsContainer}>       
-        {posts && posts.reverse().map((post) => (
+        {posts && posts.map((post) => (
           <Post
             key={post._id}
             user={post.user}            
@@ -25,7 +26,11 @@ const Feed = ({ posts }) => {
             likes={post.likes}            
           />
         ))}
-      </div>
+      </div> : (
+        <div className={styles.loadingContianer}>
+          <Loading />
+        </div>
+      )}
     </div>
   )
 }

@@ -12,6 +12,8 @@ export const getProfile = async (req,res) => {
         name: user.name,
         email: user.email,        
         followers: user.followers,
+        following: user.following,
+        profilePicture: user.profilePicture,
         createdAt: user.createdAt,
       },
       posts

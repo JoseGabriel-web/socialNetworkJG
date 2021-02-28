@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { loginAction } from '../actions/userActions'
 import styles from '../css/login.module.css'
 import Loading from '../components/Loading'
+import backgroundImg from '../images/img.jpg'
 
 const LoginScreen = ({history}) => {
   const loginReducer = useSelector(state => state.loginReducer)
@@ -61,7 +62,7 @@ const LoginScreen = ({history}) => {
           </div>
         </div>
   
-        <div className={styles.sectionTwo}></div>
+        <div className={styles.sectionTwo} style={{backgroundImage: `url(${backgroundImg})`}} />
         </>
       )}
     </div>

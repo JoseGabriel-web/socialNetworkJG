@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
   },  
   notifications: [notificationSchema],  
   followers: [{ type: String, required: true }],
+  following: [{ type: String, required: true }],
   password: {type: String, required: true},    
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}
