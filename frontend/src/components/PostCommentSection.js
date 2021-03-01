@@ -44,7 +44,7 @@ const PostCommentSection = ({
             <div className={styles.commentContainer}>
               <div className={styles.comment}>
                 <div className={styles.commentHeader}>
-                  <div className={styles.commentHeaderProfileImg} style={{backgroundImage: comment.user.profilePicture? `url(${comment.user.profileImgUrl})` : `url(${defaultProfilePic})` }} />              
+                  <div className={styles.commentHeaderProfileImg} style={{backgroundImage: comment.user.profilePicture? `url(${comment.user.profilePicture})` : `url(${defaultProfilePic})` }} />              
                   <h5>
                     {comment.user.name}:
                   </h5>                  

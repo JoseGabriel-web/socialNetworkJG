@@ -4,7 +4,7 @@ import {
   GET_PROFILE_REQUEST,
   GET_PROFILE_SUCCESS
 } from '../constants/profileConstants'
-import { getProfileFollowersList } from './followerAction'
+import { getProfileFollowersList } from './followerActions'
 
 export const getProfile = (username) => async (dispatch, getState) => {
   dispatch({ type: GET_PROFILE_REQUEST })

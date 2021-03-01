@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import CreatePostDragOrDrop from './CreatePostDragOrDrop'
+import DragOrDrop from './DragOrDrop'
 import styles from '../css/createPost.module.css'
 import { createPost } from '../actions/postActions'
 import Popup from './Popup'
@@ -83,7 +83,7 @@ const CreatePost = () => {
             <div className={styles.secondPart}>
               <div className={styles.mediaGroup}>
                 <div className={styles.media}>
-                  <CreatePostDragOrDrop
+                  <DragOrDrop
                     image={image}
                     preview={preview}
                     isVideo={isVideo}
@@ -92,6 +92,8 @@ const CreatePost = () => {
                     setPreview={setPreview}                                        
                     setIsActive={setIsActive}
                     setIsVideo={setIsVideo}
+                    noBackground={false}
+                    backgroundSize={'auto 100%'}
                   />
                 </div>
               </div>

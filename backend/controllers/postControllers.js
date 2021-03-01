@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
       profilePicture: user.profilePicture.url,
     },
     title,
-    description,    
+    description,
     image: {
       url: req.file.path,
       public_id: req.file.filename

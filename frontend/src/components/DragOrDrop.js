@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from '../css/createPostDragOrDrop.module.css'
+import styles from '../css/dragOrDrop.module.css'
 
-const CreatePostDragOrDrop = ({ isVideo, setIsVideo, setImage, preview, setPreview, isActive, setIsActive }) => {      
+const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBackground, backgroundSize }) => {      
 
   const handleIsVideo = () => {        
     
@@ -42,10 +42,10 @@ const CreatePostDragOrDrop = ({ isVideo, setIsVideo, setImage, preview, setPrevi
       className={`${styles.dragAndDropArea} ${
         isActive || preview ? styles.active : ''
       } ${preview? styles.containerHasFile : ''}`}
-      style={{background: preview? `url(${preview})` : ''}}      
+      style={{background: preview && !noBackground? `url(${preview})` : ''}}      
     >
       {preview ? (
-        <div className={preview? styles.hasFile : ''}  style={{backgroundImage: preview? `url(${preview})` : ''}} height='100%' width='100%' />
+        <div className={preview? styles.hasFile : ''}  style={{backgroundImage: preview? `url(${preview})` : '', backgroundSize}} height='100%' width='100%' />
       ) : (
         <div className={styles.dragAndDropBody}>
           {isActive ? (
@@ -70,4 +70,4 @@ const CreatePostDragOrDrop = ({ isVideo, setIsVideo, setImage, preview, setPrevi
   )
 }
 
-export default CreatePostDragOrDrop
+export default DragOrDrop

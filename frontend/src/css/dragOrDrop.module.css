@@ -3,7 +3,7 @@
   width: 100%;  
   border: dashed 3px;  
   color: black;
-  background: white;
+  /* background: white; */
 }
 
 .active {     
@@ -15,7 +15,7 @@
 
 .containerHasFile {
   background-position: center;
-  background-size: cover;
+  background-size: cover;  
   background-repeat: no-repeat;  
 }
 
@@ -23,7 +23,7 @@
   height: 100%;
   width: 100%;
   background-position: center;
-  background-size: auto 100%;
+  /* background-size: auto 100%;   */
   background-repeat: no-repeat;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);

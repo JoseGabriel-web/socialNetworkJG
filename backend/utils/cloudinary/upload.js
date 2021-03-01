@@ -17,8 +17,10 @@ const profileStorage = new CloudinaryStorage({
   params: {
     allowed_formats: ['jpg', 'png', 'jpeg'],
     folder: 'socialnetworkjg/profile_pictures',
+    use_filename: true,
+    unique_filename: true
   }
 })
 
-export const profileImg = multer({ storage: postImageStorage }).single('image')
+export const profileImg = multer({ storage: profileStorage }).single('image')
 export const postImg = multer({ storage: postImageStorage }).single('image')

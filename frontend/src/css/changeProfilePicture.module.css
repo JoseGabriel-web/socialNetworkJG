@@ -1,0 +1,54 @@
+.changeProfilePictureContainer {
+  height: 40vh;
+  width: 40vh;
+  max-width: 95%;
+  border-radius: 50%;
+  background: white;  
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  position: relative;
+}
+.dragOrDropContainer {
+  height: 100%;
+  width: 100%;  
+  border-radius: 50%;
+  background: white;  
+  overflow: hidden;  
+}
+.changeProfilePictureContainer div {
+  border: none;
+}
+
+.uploadProfilePictureCheck {
+  height: 9vh;
+  width: 9vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -10px;
+  left: -35px;
+  font-size: 5vh;
+  border-radius: 50%;
+  background: white;
+  color: black;  
+  cursor: pointer;
+  z-index: 101;
+}
+.uploadProfilePictureClose {
+  height: 9vh;
+  width: 9vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -10px;
+  right: -35px;
+  font-size: 5vh;
+  border-radius: 50%;
+  background: white;
+  color: black;  
+  cursor: pointer;
+  z-index: 101;
+}

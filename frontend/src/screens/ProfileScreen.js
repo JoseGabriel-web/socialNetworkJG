@@ -5,16 +5,26 @@ import styles from '../css/profileScreen.module.css'
 import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
 import { sections } from '../data/profileData'
-import Loading from '../components/Loading'
+import {
+  follow,
+  getProfileFollowersList,
+  unFollow,
+} from '../actions/followerActions'
 import Popup from '../components/Popup'
 import ChangeProfilePicture from '../components/ChangeProfilePicture'
-import { follow, getProfileFollowersList, unFollow } from '../actions/followerAction'
 
 const ProfileScreen = () => {
   const [followersCount, setFollowersCount] = useState(0)
-  const [editProfilePicturePopUpState, setEditProfilePicturePopUpState] = useState(false)
+  const [
+    editProfilePicturePopUpState,
+    setEditProfilePicturePopUpState,
+  ] = useState(false)
   const [following, setFollowing] = useState()
   const profileReducer = useSelector((state) => state.profileReducer)
+  const changeProfilePictureReducer = useSelector(
+    (state) => state.changeProfilePictureReducer
+  )
+  const { profilePicture } = changeProfilePictureReducer
   const loginReducer = useSelector((state) => state.loginReducer)
   const { profile, loading = true, error } = profileReducer
   const dispatch = useDispatch()
@@ -24,8 +34,8 @@ const ProfileScreen = () => {
   const getUserProfile = async () => {
     const { followers } = await dispatch(getProfile(params.username))
     setFollowersCount(followers?.length)
-    if(followers && followers.includes(user.name)) setFollowing(true)    
-  }  
+    if (followers && followers.includes(user.name)) setFollowing(true)
+  }
 
   const isCurrentUser = () => {
     return profile?.user?.name === user?.name
@@ -37,12 +47,16 @@ const ProfileScreen = () => {
   }
 
   const handleFollow = async () => {
-    const { newFollowersCount } = await dispatch(follow(user.name, profile.user.name, followersCount))    
+    const { newFollowersCount } = await dispatch(
+      follow(user.name, profile.user.name, followersCount)
+    )
     setFollowersCount(await newFollowersCount)
     setFollowing(true)
   }
   const handleUnfollow = async () => {
-    const { newFollowersCount } = await dispatch(unFollow(user.name, profile.user.name, followersCount))    
+    const { newFollowersCount } = await dispatch(
+      unFollow(user.name, profile.user.name, followersCount)
+    )
     setFollowersCount(await newFollowersCount)
     setFollowing(false)
   }
@@ -62,23 +76,48 @@ const ProfileScreen = () => {
   }
 
   useEffect(() => {
-    getUserProfile()    
+    getUserProfile()
   }, [params.username])
-  
 
   return (
     <div className={styles.profileScreenContainer}>
-      {error? <h1>{error}</h1> : (
+      {error ? (
+        <h1>{error}</h1>
+      ) : (
         <div>
           <div className={styles.profileHeader}>
             <div className={styles.profileHeaderContent}>
-
-              <div className={styles.profilePicture} style={{backgroundImage: `url(${profile?.user?.profilePicture?.url? profile.user.profilePicture.url : defaultProfilePicture})`}}>
-                <div 
+              <div
+                className={styles.profilePicture}
+                style={{
+                  backgroundImage: `url(${
+                    profile && profile.user.profilePicture.url
+                      ? profile.user.profilePicture.url
+                      : profilePicture?.url && isCurrentUser()
+                      ? profilePicture.url
+                      : defaultProfilePicture
+                  })`,
+                }}
+              >
+                <div
                   className={styles.profileAction}
-                  onClick={isCurrentUser()? handleProfilePictureUpdate : following? handleUnfollow : handleFollow}
+                  onClick={
+                    isCurrentUser()
+                      ? handleProfilePictureUpdate
+                      : following
+                      ? handleUnfollow
+                      : handleFollow
+                  }
                 >
-                  <i className={isCurrentUser()? 'fas fa-image' : following? 'fas fa-times' : 'fas fa-user-plus'} />
+                  <i
+                    className={
+                      isCurrentUser()
+                        ? 'fas fa-image'
+                        : following
+                        ? 'fas fa-times'
+                        : 'fas fa-user-plus'
+                    }
+                  />
                 </div>
               </div>
               <h3>{profile && capitalizeString(profile.user.name)}</h3>
@@ -87,22 +126,26 @@ const ProfileScreen = () => {
 
           <div className={styles.profileContent}>
             <div className={styles.profileContentSelector}>
-              {sections.map(section => (
+              {sections.map((section) => (
                 <Link
-                  to={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}
-                  className={styles.profileContentSelectorTab}>
-                  {section.label === 'Followers'? followersCount : null}
-                  {section.label === 'Gallery'? profile?.posts?.length : null}
-                  <h4 style={{padding: '0 10px'}}>{section.label}</h4>
+                  to={`/profile/${replaceSpace(profile?.user?.name)}/${
+                    section.endpoint
+                  }`}
+                  className={styles.profileContentSelectorTab}
+                >
+                  {section.label === 'Followers' ? followersCount : null}
+                  {section.label === 'Gallery' ? profile?.posts?.length : null}
+                  <h4 style={{ padding: '0 10px' }}>{section.label}</h4>
                   <i className={section.icon} />
-                </Link>  
-              ))}              
-              {isCurrentUser()? (
+                </Link>
+              ))}
+              {isCurrentUser() ? (
                 <Link
                   to={`/profile/${replaceSpace(profile?.user?.name)}/settings`}
-                  className={styles.profileContentSelectorTab}>
+                  className={styles.profileContentSelectorTab}
+                >
                   <h4>Settings</h4>
-                  <i style={{paddingLeft: '10px'}} className='fas fa-cogs' />
+                  <i style={{ paddingLeft: '10px' }} className='fas fa-cogs' />
                 </Link>
               ) : null}
             </div>
@@ -111,36 +154,38 @@ const ProfileScreen = () => {
               <Switch>
                 {sections.map((section) => (
                   <Route
-                    path={`/profile/${replaceSpace(profile?.user?.name)}/${section.endpoint}`}                    
-                    component={section.component}                    
-                  />                                      
+                    path={`/profile/${replaceSpace(profile?.user?.name)}/${
+                      section.endpoint
+                    }`}
+                    component={section.component}
+                  />
                 ))}
-                {isCurrentUser()? (
+                {isCurrentUser() ? (
                   <Route
-                    path={`/profile/${replaceSpace(profile?.user?.name)}/settings`}                    
-                    component={ProfileSettings}                  
-                />
+                    path={`/profile/${replaceSpace(
+                      profile?.user?.name
+                    )}/settings`}
+                    component={ProfileSettings}
+                  />
                 ) : null}
               </Switch>
             </div>
           </div>
         </div>
       )}
-      <Popup isOpened={editProfilePicturePopUpState}>
-        <ChangeProfilePicture user={profile && profile.user} setEditProfilePicturePopUpState={setEditProfilePicturePopUpState} />
-      </Popup>
+      <ChangeProfilePicture
+        setEditProfilePicturePopUpState={setEditProfilePicturePopUpState}
+        editProfilePicturePopUpState={editProfilePicturePopUpState}
+      />
     </div>
   )
 }
 
 export default ProfileScreen
 
-
-
-
 // MOVE TO OWN COMPONENT FILE
 const ProfileSettings = () => {
-  const profileReducer = useSelector((state) => state.profileReducer)  
-  const { profile, loading = true } = profileReducer  
+  const profileReducer = useSelector((state) => state.profileReducer)
+  const { profile, loading = true } = profileReducer
   return <div>{JSON.stringify(profile)}</div>
 }

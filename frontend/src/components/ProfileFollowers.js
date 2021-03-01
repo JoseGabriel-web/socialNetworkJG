@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfileFollowersList } from '../actions/followerAction'
+import { getProfileFollowersList } from '../actions/followerActions'
 import styles from '../css/profileFollowers.module.css'
 import Loading from './Loading'
 

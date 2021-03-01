@@ -9,9 +9,14 @@ import styles from '../css/nav.module.css'
 
 const Nav = () => {
   const [userNavMenuState, setUserNavMenuState] = useState(false)
-  const [userNavNotState, setUserNavNotState] = useState(false)  
+  const [userNavNotState, setUserNavNotState] = useState(false)
   const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer  
+  const { user } = loginReducer
+  const loginProfilePicture = loginReducer.profilePicture
+  const changeProfilePictureReducer = useSelector(
+    (state) => state.changeProfilePictureReducer
+  )
+  const { profilePicture } = changeProfilePictureReducer
   const ref = useRef(null)
 
   const replaceSpace = (string) => {
@@ -26,7 +31,7 @@ const Nav = () => {
     setUserNavNotState(false)
     setUserNavMenuState(!userNavMenuState)
   }
-  
+
   const handleNotMenuOpen = () => {
     setUserNavMenuState(false)
     setUserNavNotState(!userNavNotState)
@@ -37,74 +42,74 @@ const Nav = () => {
     setUserNavNotState(false)
   }
 
-  
-  const handleClickOutside = (event) => {    
+  const handleClickOutside = (event) => {
     if (ref && !ref?.current?.contains(event.target)) {
-        handleCloseAllMenu()        
+      handleCloseAllMenu()
     }
-  };
+  }
 
   useEffect(() => {
     const functions = {
       startingFunction: () => {
-        if(ref === null) return
+        if (ref === null) return
         document.addEventListener('click', handleClickOutside, true)
       },
       cleanUp: () => {
         document.removeEventListener('click', handleClickOutside)
-      }
+      },
     }
 
     functions.startingFunction()
-    return functions.cleanUp()  
-  });
+    return functions.cleanUp()
+  })
 
   return (
-    <div className={styles.navContianer}  >
+    <div className={styles.navContianer}>
       <div className={styles.nav}>
-        <Link to='/home' className={styles.logoContainer} >
+        <Link to='/home' className={styles.logoContainer}>
           {/* <img height='auto' alt='logo' src={logo} />                     */}
         </Link>
 
         <div className={styles.spacer} />
 
         <div className={styles.menu} ref={ref}>
-
-      <div className={styles.searchContainer}>
-        <input type='text' placeholder='Search...' />
-      </div>          
+          <div className={styles.searchContainer}>
+            <input type='text' placeholder='Search...' />
+          </div>
 
           <div className={styles.userNav}>
-            <div
-              onClick={handleNotMenuOpen}
-              className={styles.userNavBtn}
-            >              
-              <i className='far fa-bell' />              
+            <div onClick={handleNotMenuOpen} className={styles.userNavBtn}>
+              <i className='far fa-bell' />
             </div>
             <div
               className={
-                userNavNotState ? styles.userNavNotificationContainer : styles.displayNone
-              }              
+                userNavNotState
+                  ? styles.userNavNotificationContainer
+                  : styles.displayNone
+              }
             >
-              {user? (
+              {user ? (
                 <>
                   <div className={styles.notificationHeader}>
                     <h4>Notifications:</h4>
                   </div>
                   <div className={styles.userNotificationsContainer}>
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
-                    <Notification label='This is a Notification Component' /> 
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
+                    <Notification label='This is a Notification Component' />
                   </div>
                 </>
               ) : (
                 <>
-                  <div className={styles.notificationHeader} style={{borderBottom: 'none'}}>
+                  <div
+                    className={styles.notificationHeader}
+                    style={{ borderBottom: 'none' }}
+                  >
                     <h4>Please log in, to view notifications.</h4>
                   </div>
                 </>
@@ -113,17 +118,25 @@ const Nav = () => {
           </div>
 
           <div className={styles.userNav}>
-            <div
-              onClick={handleUserMenuOpen}
-              className={styles.userNavBtn}
-            >              
+            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>
               {/* <i className='fas fa-user-circle' />     */}
-              <div className={styles.profilePicture} style={{backgroundImage: `url(${defaultProfilePicture})`}} />          
+              <div
+                className={styles.profilePicture}
+                style={{
+                  backgroundImage: `url(${
+                    profilePicture
+                      ? profilePicture.url
+                      : loginProfilePicture
+                      ? loginProfilePicture.url
+                      : defaultProfilePicture
+                  })`,
+                }}
+              />
             </div>
-            <ul              
+            <ul
               className={
                 userNavMenuState ? styles.userNavOptions : styles.displayNone
-              }              
+              }
             >
               {user ? (
                 <>
