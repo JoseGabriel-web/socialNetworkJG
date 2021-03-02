@@ -54,7 +54,7 @@ const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBa
               <i className='fas fa-fist-raised' />
             </>
           ) : (
-            <>
+            <div className={styles.dragUploadImgBanner}>
               <h5>Drag</h5>          
               <i className='fas fa-hand-holding' />
               <label className={styles.uploadFileLabelBtn} htmlFor='file'>
@@ -62,7 +62,7 @@ const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBa
                 <i className='fas fa-cloud-upload-alt' />
               </label>
               <input  onChange={e => handleInput(e)} type='file' id='file' className={styles.inputFile} />
-            </>
+            </div>
           )}               
         </div>
       )}           

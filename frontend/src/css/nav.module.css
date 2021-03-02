@@ -149,7 +149,7 @@
 
 .userNotificationsContainer {
   max-height: 200px;
-  height: 200px;  
+  height: 140px;  
   overflow-y: auto;  
 }
 

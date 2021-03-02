@@ -35,6 +35,7 @@ export const createPostComment = (postId, label) => async (dispatch, getState) =
     return { newComment }
   } catch(error) {
     dispatch({type: CREATE_POST_COMMENT_FAIL, payload: error.response.data})
+    return { newComment: null }
   }
 }
 
@@ -60,7 +61,9 @@ export const deletePostComment = (postId, label) => async (dispatch, getState) =
     const { message } = await data
     console.log(data)
     dispatch({type: DELETE_POST_COMMENT_SUCCESS, payload: message})
+    return { isDeleted: true }
   } catch (error) {    
     dispatch({ type: DELETE_POST_COMMENT_FAIL, payload: error.response.data })
+    return { isDeleted: false }
   }
 }

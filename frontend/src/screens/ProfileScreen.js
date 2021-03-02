@@ -10,8 +10,8 @@ import {
   getProfileFollowersList,
   unFollow,
 } from '../actions/followerActions'
-import Popup from '../components/Popup'
 import ChangeProfilePicture from '../components/ChangeProfilePicture'
+import ProfileSettings from '../components/ProfileSettings'
 
 const ProfileScreen = () => {
   const [followersCount, setFollowersCount] = useState(0)
@@ -21,10 +21,10 @@ const ProfileScreen = () => {
   ] = useState(false)
   const [following, setFollowing] = useState()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const changeProfilePictureReducer = useSelector(
-    (state) => state.changeProfilePictureReducer
+  const updateProfilePictureReducer = useSelector(
+    (state) => state.updateProfilePictureReducer
   )
-  const { profilePicture } = changeProfilePictureReducer
+  const { updatedProfilePicture } = updateProfilePictureReducer
   const loginReducer = useSelector((state) => state.loginReducer)
   const { profile, loading = true, error } = profileReducer
   const dispatch = useDispatch()
@@ -91,10 +91,12 @@ const ProfileScreen = () => {
                 className={styles.profilePicture}
                 style={{
                   backgroundImage: `url(${
-                    profile && profile.user.profilePicture.url
+                    updatedProfilePicture &&
+                    updatedProfilePicture.url &&
+                    isCurrentUser()
+                      ? updatedProfilePicture.url
+                      : profile && profile.user.profilePicture.url
                       ? profile.user.profilePicture.url
-                      : profilePicture?.url && isCurrentUser()
-                      ? profilePicture.url
                       : defaultProfilePicture
                   })`,
                 }}
@@ -182,10 +184,3 @@ const ProfileScreen = () => {
 }
 
 export default ProfileScreen
-
-// MOVE TO OWN COMPONENT FILE
-const ProfileSettings = () => {
-  const profileReducer = useSelector((state) => state.profileReducer)
-  const { profile, loading = true } = profileReducer
-  return <div>{JSON.stringify(profile)}</div>
-}

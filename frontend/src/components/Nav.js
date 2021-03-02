@@ -12,11 +12,11 @@ const Nav = () => {
   const [userNavNotState, setUserNavNotState] = useState(false)
   const loginReducer = useSelector((state) => state.loginReducer)
   const { user } = loginReducer
-  const loginProfilePicture = loginReducer.profilePicture
-  const changeProfilePictureReducer = useSelector(
-    (state) => state.changeProfilePictureReducer
+  const { user: { profilePicture } } = loginReducer  
+  const updateProfilePictureReducer = useSelector(
+    (state) => state.updateProfilePictureReducer
   )
-  const { profilePicture } = changeProfilePictureReducer
+  const { updatedProfilePicture } = updateProfilePictureReducer
   const ref = useRef(null)
 
   const replaceSpace = (string) => {
@@ -118,16 +118,15 @@ const Nav = () => {
           </div>
 
           <div className={styles.userNav}>
-            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>
-              {/* <i className='fas fa-user-circle' />     */}
+            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>              
               <div
                 className={styles.profilePicture}
                 style={{
                   backgroundImage: `url(${
-                    profilePicture
+                    updatedProfilePicture
+                      ? updatedProfilePicture.url
+                      : profilePicture && profilePicture.url
                       ? profilePicture.url
-                      : loginProfilePicture
-                      ? loginProfilePicture.url
                       : defaultProfilePicture
                   })`,
                 }}

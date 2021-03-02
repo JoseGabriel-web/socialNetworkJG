@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPostComment, deletePostComment } from '../actions/postCommentActions'
+import {
+  createPostComment,
+  deletePostComment,
+} from '../actions/postCommentActions'
 import styles from '../css/postCommentSection.module.css'
 import defaultProfilePic from '../images/user.png'
 
@@ -8,29 +11,51 @@ const PostCommentSection = ({
   postId,
   isCommentSectionOpened,
   setIsCommentSectionOpened,
-  comments
+  comments,
 }) => {
-  const dispatch = useDispatch()  
-  const loginReducer = useSelector(state => state.loginReducer)  
-  const { name } = loginReducer?.user || {name: ''}
-  const [label, setLabel] = useState('')  
+  const dispatch = useDispatch()
+  const loginReducer = useSelector((state) => state.loginReducer)
+  const { name } = loginReducer?.user || { name: '' }
+  const [label, setLabel] = useState('')
+  const [initialComments, setInitialComments] = useState([...comments])
   const [newComments, setNewComments] = useState([])
+  const [updatedComments, setUpdatedComments] = useState([
+    ...initialComments,
+    ...newComments,
+  ])
 
-  const handleAddComment = async (string) => {
-    if(label === '') return
+  const handleAddComment = async () => {
+    if (label === '') return
     const { newComment } = await dispatch(createPostComment(postId, label))
-    if(newComment) setNewComments([...newComments, newComment])
+    if (newComment) {
+      setUpdatedComments([...initialComments, ...newComments, newComment])
+      setNewComments([...newComments, newComment])
+    }
     setLabel('')
     setIsCommentSectionOpened(true)
   }
 
-  const handleLikeComment = () => {
+  const handleLikeComment =  () => {}
 
-  }  
-  const handleDeleteComment = (labelToDelete) => {
-    // postId, label, username
-    dispatch(deletePostComment(postId, labelToDelete))
-  }  
+  const handleDeleteComment = async (labelToDelete) => {
+    const { isDeleted } = await dispatch(deletePostComment(postId, labelToDelete))
+    if(isDeleted) {
+      setNewComments(
+        newComments.filter((comment) => comment.label !== labelToDelete)
+      )
+      setInitialComments(
+        initialComments.filter((comment) => comment.label !== labelToDelete)
+      )
+      setUpdatedComments([
+        ...initialComments.filter((comment) => comment.label !== labelToDelete),
+        ...newComments.filter((comment) => comment.label !== labelToDelete),
+      ])
+    }
+  }
+
+  useEffect(() => {
+    setUpdatedComments([...comments])
+  }, [])
 
   return (
     <div className={styles.commentSectionContainer}>
@@ -40,22 +65,29 @@ const PostCommentSection = ({
         }`}
       >
         {comments &&
-          [...comments, ...newComments].map((comment, index) => (
+          updatedComments.map((comment, index) => (
             <div className={styles.commentContainer}>
               <div className={styles.comment}>
                 <div className={styles.commentHeader}>
-                  <div className={styles.commentHeaderProfileImg} style={{backgroundImage: comment.user.profilePicture? `url(${comment.user.profilePicture})` : `url(${defaultProfilePic})` }} />              
-                  <h5>
-                    {comment.user.name}:
-                  </h5>                  
+                  <div
+                    className={styles.commentHeaderProfileImg}
+                    style={{
+                      backgroundImage: comment.user.profilePicture
+                        ? `url(${comment.user.profilePicture})`
+                        : `url(${defaultProfilePic})`,
+                    }}
+                  />
+                  <h5>{comment.user.name}:</h5>
                   <i
                     className='far fa-heart'
                     onClick={() => handleLikeComment(index)}
                   />
-                  {name && name === comment.user.name ? (<i
-                    className='fas fa-trash-alt'
-                    onClick={() => handleDeleteComment(comment.label)}
-                  /> ) : null}                                    
+                  {name && name === comment.user.name ? (
+                    <i
+                      className='fas fa-trash-alt'
+                      onClick={() => handleDeleteComment(comment.label)}
+                    />
+                  ) : null}
                 </div>
                 <p>{comment.label}</p>
               </div>

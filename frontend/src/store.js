@@ -24,7 +24,7 @@ import {
   deletePostComment
 } from './reducers/postCommentReducers'
 import {
-  changeProfilePictureReducer
+  updateProfilePictureReducer
 } from './reducers/profilePictureReducers'
 
 const reducers = combineReducers({
@@ -40,7 +40,7 @@ const reducers = combineReducers({
   userFollowersListReducer,
   createPostComment,
   deletePostComment,
-  changeProfilePictureReducer,
+  updateProfilePictureReducer,
 })
 
 const store = createStore(reducers, composeWithDevTools(

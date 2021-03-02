@@ -122,5 +122,6 @@ export const likePost = (action, postId, username, likesCount) => async (
     action === 'like'
       ? dispatch({ type: LIKE_POST_FAIL, payload: error })
       : dispatch({ type: UNLIKE_POST_FAIL, payload: error })
+      return { isLiked: null, newLikesCount: likesCount }  
   }
 }

@@ -3,8 +3,8 @@ import { User } from '../models/User.js'
 
 export const createPost = async (req, res) => {  
   const { _id, title, description } = req.body     
-  const user = await User.findById({ _id: _id }).select(['_id', 'name'])
-  await Post.create({
+  const user = await User.findById({ _id: _id }).select(['_id', 'name', 'profilePicture'])
+  const newPost = new Post({
     user: {       
       name: user.name,
       profilePicture: user.profilePicture.url,
@@ -16,8 +16,10 @@ export const createPost = async (req, res) => {
       public_id: req.file.filename
     }
   })
-
-  res.status(200).json({ message: 'Post Created' })
+  newPost.save((err,result) => {
+    if(err) throw err
+    res.status(200).json({ message: 'Post Created' })    
+  })
 }
 
 export const getPosts = async (req, res) => {  

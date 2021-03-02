@@ -3,12 +3,12 @@ import styles from '../css/chatsidebar.module.css'
 
 const ChatSidebar = () => {
 
-  const users = [{name: 'Jose Gabriel'}]
+  const users = []
 
   return (
     <div className={styles.chatSidebarContainer}>                    
       <div className={styles.chatSidebarUsers}>
-        {users.map((user, index) => (
+        {users && users.map((user, index) => (
           <div>
             <div className={styles.chatSidebarUser}>
               <div className={styles.chatSidebarUserImg}>

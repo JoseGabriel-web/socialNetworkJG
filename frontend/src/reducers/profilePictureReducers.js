@@ -4,14 +4,14 @@ import {
   UPDATE_PROFILE_PICTURE_SUCCESS  
 } from '../constants/profilePictureConstants'
 
-export const changeProfilePictureReducer = (state = {}, action) => {
+export const updateProfilePictureReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_PROFILE_PICTURE_FAIL:
-      return {loading: false, profilePictureURL: null}
+      return {loading: false, updatedProfilePicture: null}
     case UPDATE_PROFILE_PICTURE_REQUEST:
-      return {loading: true, profilePictureURL: null}
+      return {loading: true, updatedProfilePicture: null}
     case UPDATE_PROFILE_PICTURE_SUCCESS:
-      return {loading: false, profilePicture: action.payload }
+      return {loading: false, updatedProfilePicture: action.payload }
     default:
       return state
   }

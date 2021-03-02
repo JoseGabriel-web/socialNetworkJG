@@ -44,18 +44,17 @@ const CreatePost = () => {
     handleCloseForm()
   }
 
-  useEffect(() => {
-    const functions = {
-      startingFunction: () => {
-        if (!isOpened || !ref) return
-        document.addEventListener('click', handleClick, true)
-      },
-      cleanUp: () => {
-        document.removeEventListener('click', handleClick)
-      },
-    }
-    functions.startingFunction()
-    return functions.cleanUp()
+  const startingFunction = () => {
+    if (!isOpened || !ref) return
+    document.addEventListener('click', handleClick, true)
+  }
+  const cleanUp = () => {
+    document.removeEventListener('click', handleClick)
+  }  
+
+  useEffect(() => {    
+    startingFunction()
+    return cleanUp()
   })
 
   return (
@@ -83,7 +82,7 @@ const CreatePost = () => {
             <div className={styles.secondPart}>
               <div className={styles.mediaGroup}>
                 <div className={styles.media}>
-                  <DragOrDrop
+                  <DragOrDrop                    
                     image={image}
                     preview={preview}
                     isVideo={isVideo}
