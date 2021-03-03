@@ -39,26 +39,20 @@ export const login = async (req,res) => {
   })
 }
 
-export const updateProfilePicture = async (req,res) => {
-  const { _id } = req.body
-
+export const updateProfilePicture = (req,res) => {  
   const profilePicture = { 
     url: req.file.path,
     public_id: req.file.filename 
-  }
-  console.log(_id)
-  try {
-    const user = await User.findById({ _id: _id })
-    user.profilePicture = profilePicture
-    user.save()
-    res.status(200).json({ profilePicture })
-  } catch(error) {
-    throw new Error(error)
-  }
-  // User.updateOne({ _id }, { $set: { profilePicture: profilePicture }}, (err, result) => {
-  //   if(err) throw err
-  //   else {
-  //     res.status(200).json({ profilePicture })
-  //   }
-  // })
+  }  
+  User.updateOne({ _id: req.body._id }, { $set: {profilePicture: profilePicture} }, (err, result) => {
+    if(err) throw err
+    else {
+      res.status(200).json({ profilePicture })
+    }
+  })  
+}
+
+export const updateProfile = (req,res) => {
+  const { _id } = req.body
+  
 }

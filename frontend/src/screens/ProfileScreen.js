@@ -5,31 +5,26 @@ import styles from '../css/profileScreen.module.css'
 import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
 import { sections } from '../data/profileData'
-import {
-  follow,
-  getProfileFollowersList,
-  unFollow,
-} from '../actions/followerActions'
+import { follow, unFollow } from '../actions/followerActions'
 import ChangeProfilePicture from '../components/ChangeProfilePicture'
 import ProfileSettings from '../components/ProfileSettings'
 
 const ProfileScreen = () => {
   const [followersCount, setFollowersCount] = useState(0)
-  const [
-    editProfilePicturePopUpState,
-    setEditProfilePicturePopUpState,
-  ] = useState(false)
+  const [ editProfilePicturePopUpState, setEditProfilePicturePopUpState ] = useState(false)
   const [following, setFollowing] = useState()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const updateProfilePictureReducer = useSelector(
-    (state) => state.updateProfilePictureReducer
-  )
+  const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const { updatedProfilePicture } = updateProfilePictureReducer
   const loginReducer = useSelector((state) => state.loginReducer)
   const { profile, loading = true, error } = profileReducer
   const dispatch = useDispatch()
   const params = useParams()
   const { user } = loginReducer
+
+  const isSelected = (path) => {
+    return window.location.pathname.includes(path) ? true : false
+  }
 
   const getUserProfile = async () => {
     const { followers } = await dispatch(getProfile(params.username))
@@ -86,7 +81,6 @@ const ProfileScreen = () => {
       ) : (
         <div>
           <div className={styles.profileHeader}>
-            <div className={styles.profileHeaderContent}>
               <div
                 className={styles.profilePicture}
                 style={{
@@ -123,31 +117,36 @@ const ProfileScreen = () => {
                 </div>
               </div>
               <h3>{profile && capitalizeString(profile.user.name)}</h3>
-            </div>
           </div>
 
           <div className={styles.profileContent}>
             <div className={styles.profileContentSelector}>
               {sections.map((section) => (
                 <Link
+                  key={section.label}
                   to={`/profile/${replaceSpace(profile?.user?.name)}/${
                     section.endpoint
                   }`}
                   className={styles.profileContentSelectorTab}
                 >
-                  {section.label === 'Followers' ? followersCount : null}
-                  {section.label === 'Gallery' ? profile?.posts?.length : null}
-                  <h4 style={{ padding: '0 10px' }}>{section.label}</h4>
-                  <i className={section.icon} />
+                  <div className={ isSelected(section.endpoint) ? styles.active : null }>
+                    {section.label === 'Followers' ? followersCount : null}
+                    {section.label === 'Gallery' ? profile?.posts?.length : null}
+                    <h4 style={{ padding: '0 10px' }}>{section.label}</h4>
+                    <i className={section.icon} />
+                  </div>
                 </Link>
               ))}
               {isCurrentUser() ? (
                 <Link
+                  key={'settings'}
                   to={`/profile/${replaceSpace(profile?.user?.name)}/settings`}
                   className={styles.profileContentSelectorTab}
-                >
-                  <h4>Settings</h4>
-                  <i style={{ paddingLeft: '10px' }} className='fas fa-cogs' />
+                  >
+                  <div className={ isSelected('settings') ? styles.active : null }>
+                    <h4>Settings</h4>
+                    <i style={{ paddingLeft: '10px' }} className='fas fa-cogs' />
+                  </div>
                 </Link>
               ) : null}
             </div>
@@ -156,6 +155,7 @@ const ProfileScreen = () => {
               <Switch>
                 {sections.map((section) => (
                   <Route
+                    key={section.endpoint}
                     path={`/profile/${replaceSpace(profile?.user?.name)}/${
                       section.endpoint
                     }`}
@@ -164,6 +164,7 @@ const ProfileScreen = () => {
                 ))}
                 {isCurrentUser() ? (
                   <Route
+                    key={'settings'}
                     path={`/profile/${replaceSpace(
                       profile?.user?.name
                     )}/settings`}
