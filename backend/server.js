@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { errorMiddleware } from './middleware/errorMiddleware.js'
 import { connectDB } from './config/db.js'
 import { userRoutes } from './routes/userRoutes.js'
 import { postRoutes } from './routes/postRoutes.js'
@@ -20,6 +21,7 @@ app.use('/api/post', postRoutes)
 app.use('/api/post/comment', postCommentRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/followers', followerRoutes)
+app.use(errorMiddleware)
 
 // Remove this line below
 import { User } from './models/User.js'
@@ -31,7 +33,6 @@ app.use('/api/users', async (req,res) => {
 app.get('/', (req,res) => {
   res.send('Up an running')
 })
-
 
 const PORT = 4000
 app.listen(PORT, console.log(`Server running on port ${PORT}`))

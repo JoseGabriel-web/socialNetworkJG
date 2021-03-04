@@ -24,8 +24,9 @@ export const registerAction = (name, email, password, history) => async (dispatc
     dispatch({type: USER_REGISTER_SUCCESS, payload: data})    
     dispatch({type: USER_LOGIN_SUCCESS, payload: data})   
     return history.push('/home')
-  } catch (error) {
-    dispatch({type: USER_REGISTER_FAIL, payload: error.response.data.message})
+  } catch (error) {    
+    console.log(error.response.data.error)
+    dispatch({type: USER_REGISTER_FAIL, payload: error.response.data.error})
   }
 }
 
@@ -43,7 +44,7 @@ export const loginAction = (email, password, history) => async (dispatch, getSta
     localStorage.setItem('user', JSON.stringify(data))
     dispatch({type: USER_LOGIN_SUCCESS, payload: data})
     return history.push('/home')    
-  } catch (error) {
-    dispatch({type: USER_LOGIN_FAIL, payload: error.response.data.message})
+  } catch (error) {    
+    dispatch({type: USER_LOGIN_FAIL, payload: error.response.data.error})
   }
 }

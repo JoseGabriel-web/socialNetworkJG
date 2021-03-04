@@ -3,56 +3,65 @@ import { generateAccessToken } from '../utils/generateAccessToken.js'
 import { generateRefreshToken } from '../utils/generateRefreshToken.js'
 import bcrypt from 'bcryptjs'
 
-export const register = async (req,res) => {
+export const register = async (req, res, next) => {
   const { name, email, password } = req.body
-  const userNameExist = await User.findOne({ name })
-  const userEmailExist = await User.findOne({ email })
-  if(userNameExist) return res.status(400).json({message: 'User name already exists.'})
-  if(userEmailExist) return res.status(400).json({message: 'User email already exists.'})
-  const user = await User.create({
+  const user = new User({
     name: name.toLowerCase(),
     email: email.toLowerCase(),
-    password
-  })    
-
-  res.status(200).json({
-    name: user.name,
-    email: user.email,
-    accessToken: generateAccessToken(user._id),
-    refreshToken: generateRefreshToken(user._id)
+    password,
+  })
+  user.save((err, newUser) => {
+    if (err) return next(err)
+    res.status(200).json({
+      name: newUser.name,
+      email: newUser.email,
+      accessToken: generateAccessToken(newUser._id),
+      refreshToken: generateRefreshToken(newUser._id),
+    })
   })
 }
 
-export const login = async (req,res) => {
+export const login = (req, res, next) => {
   const { email, password } = req.body
-  const user = await User.findOne({ email })
-  if(!user) return res.status(400).json({message: 'No user with email'})
-  const match = await bcrypt.compare(password, user.password)
-  if(!match) return res.status(400).json({message: 'Incorrect password'})
-
-  res.status(200).json({
-    name: user.name,
-    email: user.email,
-    profilePicture: user.profilePicture,
-    accessToken: generateAccessToken(user._id),
-    refreshToken: generateRefreshToken(user._id)
+  User.findOne({ email }, (err, user) => {
+    if (user === null) return next(new Error('No user found'))
+    const passwordMatch = bcrypt.compareSync(password, user.password)
+    if (!passwordMatch) return next(new Error('Incorrect password'))
+    res.status(200).json({
+      name: user.name,
+      email: user.email,
+      profilePicture: user.profilePicture,
+      accessToken: generateAccessToken(user._id),
+      refreshToken: generateRefreshToken(user._id),
+    })
   })
 }
 
-export const updateProfilePicture = (req,res) => {  
-  const profilePicture = { 
+export const updateProfilePicture = (req, res, next) => {
+  const profilePicture = {
     url: req.file.path,
-    public_id: req.file.filename 
-  }  
-  User.updateOne({ _id: req.body._id }, { $set: {profilePicture: profilePicture} }, (err, result) => {
-    if(err) throw err
-    else {
-      res.status(200).json({ profilePicture })
+    public_id: req.file.filename,
+  }
+  User.updateOne(
+    { _id: req.body._id },
+    { $set: { profilePicture: profilePicture } },
+    (err, result) => {
+      if (err) return next(err)
+      else {
+        res.status(200).json({ profilePicture })
+      }
     }
-  })  
+  )
 }
 
-export const updateProfile = (req,res) => {
-  const { _id } = req.body
-  
+export const updateProfile = async (req, res, next) => {
+  const { _id, name, email, password } = req.body
+  const user = await User.findOne({ _id })
+  user.name = name || (await user.name)
+  user.email = email || (await user.email)
+  user.password = password || (await user.password)
+  user.save((err, savedUser) => {
+    if (err) return next(err)
+    res.status(200).json({ name: savedUser.name, email: savedUser.email })
+  })
 }

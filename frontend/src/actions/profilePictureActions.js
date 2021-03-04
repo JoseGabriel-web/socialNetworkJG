@@ -26,6 +26,7 @@ export const updateProfilePicture = (image) => async (dispatch, getState) => {
     const { profilePicture } = await data
     dispatch({type: UPDATE_PROFILE_PICTURE_SUCCESS, payload: profilePicture})
   } catch(error) {
+    console.log(error.response.data.error)    
     dispatch({type: UPDATE_PROFILE_PICTURE_FAIL})
   }
 }

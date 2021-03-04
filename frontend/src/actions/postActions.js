@@ -41,9 +41,8 @@ export const createPost = (title, description, image) => async (
     const { message } = await data
     dispatch({ type: CREATE_POST_SUCCESS, payload: message })
     dispatch(getPosts())
-  } catch (error) {
-    console.log('/frontend /postActions.js ->', error)
-    dispatch({ type: CREATE_POST_FAIL, payload: error })
+  } catch (error) {    
+    dispatch({ type: CREATE_POST_FAIL, payload: error.response.data.error })
   }
 }
 
@@ -54,7 +53,7 @@ export const getPosts = () => async (dispatch, getState) => {
     const { posts } = await data
     dispatch({ type: GET_POSTS_SUCCESS, payload: await posts })
   } catch (error) {
-    dispatch({ type: GET_POSTS_FAIL, payload: error })
+    dispatch({ type: GET_POSTS_FAIL, payload: error.response.data.error })
   }
 }
 
@@ -80,9 +79,8 @@ export const deletePost = (id, public_id) => async (dispatch, getState) => {
     console.log(data)
     dispatch({ type: DELETE_POST_SUCCESS, payload: data.post })
     dispatch(getPosts())    
-  } catch (error) {
-    console.log('/frontend /postActions deletePost ->', error)
-    dispatch({ type: DELETE_POST_FAIL, payload: error })
+  } catch (error) {    
+    dispatch({ type: DELETE_POST_FAIL, payload: error.response.data.error })
   }
 }
 
@@ -120,8 +118,8 @@ export const likePost = (action, postId, username, likesCount) => async (
     }
   } catch (error) {
     action === 'like'
-      ? dispatch({ type: LIKE_POST_FAIL, payload: error })
-      : dispatch({ type: UNLIKE_POST_FAIL, payload: error })
+      ? dispatch({ type: LIKE_POST_FAIL, payload: error.response.data.error })
+      : dispatch({ type: UNLIKE_POST_FAIL, payload: error.response.data.error })
       return { isLiked: null, newLikesCount: likesCount }  
   }
 }
