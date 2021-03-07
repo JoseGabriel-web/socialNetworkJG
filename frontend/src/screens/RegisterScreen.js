@@ -10,8 +10,6 @@ const RegisterScreen = ({history}) => {
   const dispatch = useDispatch()
   const loginReducer = useSelector(state => state.loginReducer)
   const { user, loading } = loginReducer
-  const registerReducer = useSelector(state => state.registerReducer)
-  const registerLoading = registerReducer.loading
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,7 +32,7 @@ const RegisterScreen = ({history}) => {
 
   return (
     <div className={styles.registerContainer}>
-      {loading || registerLoading? <Loading /> : (   
+      {loading? <Loading /> : (   
         <>         
           <div className={styles.sectionOne}>
             <div className={styles.formContainer}>

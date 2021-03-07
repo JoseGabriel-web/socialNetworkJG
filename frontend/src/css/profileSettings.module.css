@@ -43,6 +43,7 @@
 .fieldGroup input {
   padding: 0.3rem 1rem;
   border-radius: 0.4rem;
+  transition: 0.3s;
 }
 
 .preferencesSaveOrDeleteContainer {
@@ -98,6 +99,16 @@
 .saveChangesBtn i {
   margin-right: 0.625rem;  
 }
+
+
+.errorField:-webkit-autofill,
+.errorField:-webkit-autofill:hover, 
+.errorField:-webkit-autofill:focus, 
+.errorField:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px rgb(255, 140, 140) inset !important;
+}
+
 
 @media (max-width: 762px) {
   .informationPreferencesSaveOrDeleteContainer {

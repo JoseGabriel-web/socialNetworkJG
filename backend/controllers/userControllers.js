@@ -1,6 +1,7 @@
 import { User } from '../models/User.js'
 import { generateAccessToken } from '../utils/generateAccessToken.js'
 import { generateRefreshToken } from '../utils/generateRefreshToken.js'
+import { updatedAllPostUser } from '../controllers/postControllers.js'
 import bcrypt from 'bcryptjs'
 
 export const register = async (req, res, next) => {
@@ -37,31 +38,45 @@ export const login = (req, res, next) => {
   })
 }
 
-export const updateProfilePicture = (req, res, next) => {
+export const updateProfilePicture = async (req, res, next) => {
   const profilePicture = {
     url: req.file.path,
     public_id: req.file.filename,
   }
+  const user = await User.findOne({ _id: req.body._id })
   User.updateOne(
     { _id: req.body._id },
     { $set: { profilePicture: profilePicture } },
     (err, result) => {
       if (err) return next(err)
       else {
+        updatedAllPostUser(user.name, {name: user.name, profilePicture: profilePicture.url})
         res.status(200).json({ profilePicture })
       }
     }
   )
 }
 
-export const updateProfile = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   const { _id, name, email, password } = req.body
   const user = await User.findOne({ _id })
+  const postsUsername = await user.name
   user.name = name || (await user.name)
   user.email = email || (await user.email)
-  user.password = password || (await user.password)
+  if (password) {
+    user.password = password
+  }
   user.save((err, savedUser) => {
     if (err) return next(err)
-    res.status(200).json({ name: savedUser.name, email: savedUser.email })
+    let updatedUser = {
+      name: savedUser.name,
+      email: savedUser.email,
+    }
+    let postUpdatedUser = {
+      name: savedUser.name,
+      profilePicture: savedUser.profilePicture.url,
+    }
+    updatedAllPostUser(postsUsername, postUpdatedUser)
+    res.status(200).json({ updatedUser })
   })
 }

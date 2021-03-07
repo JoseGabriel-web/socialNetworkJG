@@ -56,3 +56,21 @@ export const likePost = async (req,res) => {
     })    
   }
 }
+
+export const updatedAllPostUser = (postsUsername, postUpdatedUser) => {
+  Post.updateMany(
+    { 'user.name': postsUsername },
+    {
+      $set: {
+        'user.name': postUpdatedUser.name,
+        'user.profilePicture': postUpdatedUser.profilePicture,
+      },
+    },
+    (err, result) => {
+      if (err) console.log(err)
+      else {
+        return
+      }
+    }
+  )
+}

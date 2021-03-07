@@ -10,7 +10,7 @@ import styles from '../css/nav.module.css'
 const Nav = () => {
   const [userNavMenuState, setUserNavMenuState] = useState(false)
   const [userNavNotState, setUserNavNotState] = useState(false)
-  const loginReducer = useSelector((state) => state.loginReducer)
+  const loginReducer = useSelector((state) => state.loginReducer) || { user: { profilePicture: null} }
   const { user } = loginReducer
   const { user: { profilePicture } } = loginReducer  
   const updateProfilePictureReducer = useSelector(

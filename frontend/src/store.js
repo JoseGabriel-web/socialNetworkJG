@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import {
   registerReducer,
-  loginReducer
+  loginReducer,
 } from './reducers/userReducers'
 import {
   createPostReducer,
@@ -40,7 +40,7 @@ const reducers = combineReducers({
   userFollowersListReducer,
   createPostComment,
   deletePostComment,
-  updateProfilePictureReducer,
+  updateProfilePictureReducer
 })
 
 const store = createStore(reducers, composeWithDevTools(
