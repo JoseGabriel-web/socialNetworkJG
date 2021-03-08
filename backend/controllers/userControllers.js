@@ -1,7 +1,7 @@
 import { User } from '../models/User.js'
 import { generateAccessToken } from '../utils/generateAccessToken.js'
 import { generateRefreshToken } from '../utils/generateRefreshToken.js'
-import { updatedAllPostUser } from '../controllers/postControllers.js'
+import { updatedAllUserPost } from '../controllers/postControllers.js'
 import bcrypt from 'bcryptjs'
 
 export const register = async (req, res, next) => {
@@ -50,7 +50,7 @@ export const updateProfilePicture = async (req, res, next) => {
     (err, result) => {
       if (err) return next(err)
       else {
-        updatedAllPostUser(user.name, {name: user.name, profilePicture: profilePicture.url})
+        updatedAllUserPost(user.name, {name: user.name, profilePicture: profilePicture.url})
         res.status(200).json({ profilePicture })
       }
     }
@@ -76,7 +76,7 @@ export const updateUser = async (req, res, next) => {
       name: savedUser.name,
       profilePicture: savedUser.profilePicture.url,
     }
-    updatedAllPostUser(postsUsername, postUpdatedUser)
+    updatedAllUserPost(postsUsername, postUpdatedUser)
     res.status(200).json({ updatedUser })
   })
 }

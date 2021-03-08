@@ -12,6 +12,7 @@ const ProfileSettings = ({ history }) => {
   const [newEmail, setNewEmail] = useState(null)
   const [newPassword, setNewPassword] = useState(null)
   const [errorField, setErrorField] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const handleUpdate = async () => {
     if (newName || newEmail || newPassword) {
@@ -20,8 +21,8 @@ const ProfileSettings = ({ history }) => {
       )
       if (error) {
         setErrorField(error.field)
-      }
-      else {
+        setErrorMessage(error.message)
+      } else {
         handleClearForm()
         history.push(updatedUserLink)
       }
@@ -52,40 +53,103 @@ const ProfileSettings = ({ history }) => {
             <label htmlFor='username'>
               <strong>Username:</strong>
             </label>
-            <input
-              className={`${errorField && errorField === 'name'? styles.errorField : ''}`}
-              onChange={(e) => setNewName(e.target.value)}
-              type='text'
-              name='username'
-              id='username'
-              placeholder={`${profile && profile.user.name}`}
-            />
+
+            <div className={styles.inputAndTooltipContainer}>
+              <input                
+                onChange={(e) => { setNewName(e.target.value); setErrorField(null); }}
+                value={newName}
+                type='text'
+                name='username'
+                id='username'
+                placeholder={`${profile && profile.user.name}`}
+              />
+
+              <div>                              
+                <div
+                  className={`${
+                    errorField && errorField === 'name'
+                      ? 'fas fa-times-circle'
+                      : 'fas fa-info-circle'
+                  } ${styles.tooltip}`}
+                >
+                </div>
+                <div className={styles.tooltipText}>
+                  {errorField && errorField === 'name'
+                        ? errorMessage
+                        : 'Here goes errors'
+                    }
+                </div>              
+              </div>
+
+            </div>
           </div>
           <div className={styles.fieldGroup}>
             <label htmlFor='email'>
               <strong>Email:</strong>
             </label>
-            <input
-              className={`${errorField && errorField === 'email'? styles.errorField : ''}`}
-              onChange={(e) => setNewEmail(e.target.value)}
-              type='email'
-              name='email'
-              id='email'
-              placeholder={`${profile && profile.user.email}`}
-            />
+
+            <div className={styles.inputAndTooltipContainer}>
+              <input
+                onChange={(e) => { setNewEmail(e.target.value); setErrorField(null); }}
+                value={newEmail}
+                type='email'
+                name='email'
+                id='email'
+                placeholder={`${profile && profile.user.email}`}
+              />
+
+              <div>                              
+                <div
+                  className={`${
+                    errorField && errorField === 'email'
+                      ? 'fas fa-times-circle'
+                      : 'fas fa-info-circle'
+                  } ${styles.tooltip}`}
+                >
+                </div>
+                <div className={styles.tooltipText}>
+                  {errorField && errorField === 'email'
+                        ? errorMessage
+                        : 'Here goes errors'
+                    }
+                </div>              
+              </div>
+
+            </div>
           </div>
           <div className={styles.fieldGroup}>
             <label htmlFor='password'>
-              <strong>New Password:</strong>
+              <strong>Password:</strong>
             </label>
-            <input              
-              onChange={(e) => setNewPassword(e.target.value)}
-              value={newPassword}
-              type='password'
-              name='password'
-              id='password'
-              placeholder='Enter new password'
-            />
+
+            <div className={styles.inputAndTooltipContainer}>
+              <input
+                onChange={(e) => { setNewPassword(e.target.value); setErrorField(null); }}
+                value={newPassword}
+                type='password'
+                name='password'
+                id='password'
+                placeholder='Enter new password'
+              />
+
+              <div>                              
+                <div
+                  className={`${
+                    errorField && errorField === 'password'
+                      ? 'fas fa-times-circle'
+                      : 'fas fa-info-circle'
+                  } ${styles.tooltip}`}
+                >
+                </div>
+                <div className={styles.tooltipText}>
+                  {errorField && errorField === 'password'
+                        ? errorMessage
+                        : 'Here goes errors'
+                    }
+                </div>              
+              </div>
+
+            </div>
           </div>
         </div>
         <div className={styles.preferencesSaveOrDeleteContainer}>

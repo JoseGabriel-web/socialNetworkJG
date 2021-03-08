@@ -35,3 +35,21 @@ align-items: center;
   padding: 0 0.2rem;
   font-size: 1.5rem;
 }
+.likesTooltipContiner {
+  position: relative;
+}
+.likesTooltipContiner:hover .likesTooltip {
+  visibility: visible;
+}
+.likesTooltip { 
+  position: absolute;
+  height: auto;
+  width: 300px;
+  overflow-y: auto;  
+  left: -11px;
+  transform: translateY(calc(-100% + -55px));
+  padding: 2rem 1rem;
+  background: var(--background);
+  color: var(--color);
+  visibility: hidden;
+}

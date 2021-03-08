@@ -9,6 +9,7 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
   const loginReducer = useSelector(state => state.loginReducer)
   const { user = {name: null} } = loginReducer
   const { name } = user
+  const [likesList, setLikesList] = useState(likes)
   const [liked, setLiked] = useState(false)
   const [likesCount, setLikesCount] = useState(likes.length)  
   const [isOpened, setIsOpened] = useState(false)
@@ -36,11 +37,13 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
       setNoUserAlert('like')
       return setIsOpened(true)
     } else if(liked) {            
-      const {isLiked, newLikesCount} = await dispatch(likePost('unlike', postId, name, likesCount))              
+      const {isLiked, newLikesCount} = await dispatch(likePost('unlike', postId, name, likesCount))     
+      setLikesList(likesList.filter(like => like !== user.name))
       setLikesCount(await newLikesCount)  
       setLiked(await isLiked)
     } else {      
       const {isLiked, newLikesCount} = await dispatch(likePost('like', postId, name, likesCount))              
+      setLikesList([...likesList, user.name])
       setLikesCount(await newLikesCount)
       setLiked(await isLiked)
     }    
@@ -58,8 +61,12 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
 
   return (
     <div className={styles.postActionsSectionContainer}>
-      <div className={styles.postInfoContainer}>
-        <h3>{likesCount} <i className='far fa-thumbs-up' /></h3>
+      <div className={styles.postInfoContainer}>        
+        <h3 className={styles.likesTooltipContiner}>{likesCount} <i className='far fa-thumbs-up' />
+          <div className={styles.likesTooltip}>{likes && likesList.map(like => (
+            <h6>{like}</h6>
+          ))}</div>
+        </h3>
       </div>
       <div className={styles.openPostCommentsContainer} onClick={handleCommentSection} >
         <i className={isCommentSectionOpened? 'fas fa-sort-down' : 'fas fa-sort-up'} />
