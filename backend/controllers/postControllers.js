@@ -79,22 +79,56 @@ export const updatedAllUserPost = (postsUsername, postUpdatedUser) => {
       },
     },
     (err, result) => {
-      if (err) console.log(err)
+      if (err) return err
       else {
-        return
+        try {
+          updatePostsLikes(postsUsername, postUpdatedUser)
+        } catch (error) {
+          return error
+        }
       }
     }
   )
+}
 
-  // Work in progress should update the Users comments on all post commented
-  // Post.updateMany(
-  //   { likes: { $in: [{ 'user.name': postsUsername }] } },
-  //   { $set: { likes: [{ 'user.name': postUpdatedUser.name }] } },
-  //   (err, result) => {
-  //     if (err) return next(err)
-  //     else {
-  //       return
-  //     }
-  //   }
-  // )
+
+const updatePostsLikes = (postsUsername, postUpdatedUser) => {
+  Post.updateMany(
+    { likes: [postsUsername] },
+    { $push: { likes: [postUpdatedUser.name] } },
+    (err, result) => {
+      if (err) return err
+      else {
+        Post.updateMany(
+          {  },
+          {$pull: {likes: { $in: [postsUsername]}}},
+          (err, result) => {
+            if (err) return err
+            else {           
+              console.log('Firing the updatePostsComments function now...')   
+              updatePostsComments(postsUsername, postUpdatedUser)
+            }
+          }
+        )
+      }
+    }
+  )
+}
+
+
+
+const updatePostsComments = async (postsUsername, postUpdatedUser) => {
+  const posts = await Post.find({ comments: { $elemMatch: { 'user.name': postsUsername } } })
+  if(posts) {
+    await posts.map(post => {      
+      for(let i = 0; i < post.comments.length; i++) {
+        if(post.comments[i].user.name === postsUsername) {
+          post.comments[i].user.name = postUpdatedUser.name
+          post.comments[i].user.profilePicture = postUpdatedUser.profilePicture
+        }
+      }      
+      post.save()
+    })
+    return
+  }
 }
