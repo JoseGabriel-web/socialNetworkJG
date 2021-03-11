@@ -26,9 +26,11 @@ export const createPost = async (req, res) => {
   })
 }
 
-export const getPosts = async (req, res) => {
-  const posts = await Post.find({})
-  res.status(200).json({ posts })
+export const getPosts = (req, res) => {  
+  Post.find({}, (err, posts) => {
+    if(err) return next(err)
+    res.status(200).json({ posts })    
+  })
 }
 
 export const deletePost = async (req, res) => {
@@ -104,8 +106,7 @@ const updatePostsLikes = (postsUsername, postUpdatedUser) => {
           {$pull: {likes: { $in: [postsUsername]}}},
           (err, result) => {
             if (err) return err
-            else {           
-              console.log('Firing the updatePostsComments function now...')   
+            else {             
               updatePostsComments(postsUsername, postUpdatedUser)
             }
           }

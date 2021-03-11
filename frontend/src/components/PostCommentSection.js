@@ -6,6 +6,7 @@ import {
 } from '../actions/postCommentActions'
 import styles from '../css/postCommentSection.module.css'
 import defaultProfilePic from '../images/user.png'
+import { Link } from 'react-router-dom'
 
 const PostCommentSection = ({
   postId,
@@ -35,11 +36,13 @@ const PostCommentSection = ({
     setIsCommentSectionOpened(true)
   }
 
-  const handleLikeComment =  () => {}
+  const handleLikeComment = () => {}
 
   const handleDeleteComment = async (labelToDelete) => {
-    const { isDeleted } = await dispatch(deletePostComment(postId, labelToDelete))
-    if(isDeleted) {
+    const { isDeleted } = await dispatch(
+      deletePostComment(postId, labelToDelete)
+    )
+    if (isDeleted) {
       setNewComments(
         newComments.filter((comment) => comment.label !== labelToDelete)
       )
@@ -51,6 +54,20 @@ const PostCommentSection = ({
         ...newComments.filter((comment) => comment.label !== labelToDelete),
       ])
     }
+  }
+
+  const capitalizeString = (string) => {
+    if (string?.split(' ').length > 1) {
+      return string
+        .split(' ')
+        .map((word) => capitalizeString(word))
+        .join(' ')
+    }
+    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
+  }
+
+  const replaceSpace = (string) => {
+    return string.split(' ').join('+')
   }
 
   useEffect(() => {
@@ -77,11 +94,15 @@ const PostCommentSection = ({
                         : `url(${defaultProfilePic})`,
                     }}
                   />
-                  <h5>{comment.user.name}:</h5>
-                  <i
+                  <Link
+                    to={`/profile/${replaceSpace(comment.user.name)}/gallery`}
+                  >
+                    <h5>{capitalizeString(comment.user.name)}:</h5>
+                  </Link>
+                  {/* <i
                     className='far fa-heart'
                     onClick={() => handleLikeComment(index)}
-                  />
+                  /> */}
                   {name && name === comment.user.name ? (
                     <i
                       className='fas fa-trash-alt'

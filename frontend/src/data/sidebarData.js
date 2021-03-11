@@ -12,7 +12,7 @@ export const sidebarData = [
   {
     icon: 'fas fa-comment-dots',
     label: 'Messages',
-    path: '/messages'
+    path: '/messaging'
   },
   {
     icon: 'fas fa-cog',

@@ -49,6 +49,16 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
     }    
   }
 
+  const capitalizeString = (string) => {
+    if (string?.split(' ').length > 1) {
+      return string
+        .split(' ')
+        .map((word) => capitalizeString(word))
+        .join(' ')
+    }
+    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
+  }
+
 
   useEffect(() => {
     if(likes.find(like => like === user.name)) {
@@ -64,7 +74,7 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
       <div className={styles.postInfoContainer}>        
         <h3 className={styles.likesTooltipContiner}>{likesCount} <i className='far fa-thumbs-up' />
           <div className={styles.likesTooltip}>{likes && likesList.map(like => (
-            <h6>{like}</h6>
+            <h6>{capitalizeString(like)}</h6>
           ))}</div>
         </h3>
       </div>
