@@ -5,7 +5,8 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 
 
-const App = () => {
+const App = () => {  
+
   return (
     <Router>
       <Switch>

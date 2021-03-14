@@ -1,5 +1,5 @@
 .messagingScreenConatiner {
-  height: 93vh;
+  height: 100%;
   width: 100%;
   position: relative;
   display: flex;
@@ -9,25 +9,28 @@
 .chatComponentContainer {
   flex: 1;
   height: 100%;
-  background: red;
+  position: relative;
 }
 
 .chatsidebarComponentContainer {
-  height: auto;
+  height: 100%;
   width: auto;
   max-width: 90%;
-  transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;  
 }
 
 .isOpened {
   background: white;
-  z-index: 999999999999999999999999999999999999;  
+  z-index: 9;  
 }
 .isClosed {
   position: absolute;
   top: 0;
-  right: -999999px;  
+  height: 100%;
+  right: -350px;  
 }
+
+
 
 @media (max-width: 1200px) {  
   .isOpened {
@@ -38,6 +41,6 @@
 }
 @media (max-width: 762px) {
   .messagingScreenConatiner {
-    height: var(93vh - 70px);
+    height: 100%; 
   }
 }

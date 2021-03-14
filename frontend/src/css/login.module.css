@@ -61,8 +61,7 @@
 
 .sectionTwo {
   height: 100%;  
-  width: 50%;
-  /* background: url('https://images.pexels.com/photos/5596899/pexels-photo-5596899.jpeg?cs=srgb&dl=pexels-pat-whelen-5596899.jpg&fm=jpg'); */
+  width: 50%;  
   background-repeat: no-repeat;
   background-size: cover;  
   background-position: center;
@@ -82,7 +81,7 @@
     display: none;
   }
   .loginContainer {
-    background: url('https://images.pexels.com/photos/5596899/pexels-photo-5596899.jpeg?cs=srgb&dl=pexels-pat-whelen-5596899.jpg&fm=jpg');
+    background: url('../images/img.jpg');
     background-repeat: no-repeat;
     background-size: cover;  
     background-position: center;

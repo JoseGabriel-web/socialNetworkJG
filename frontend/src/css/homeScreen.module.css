@@ -1,6 +1,5 @@
-.homeContainer {
-  min-height: 93vh;
-  height: 93vh;
+.homeContainer {  
+  height: 100%;
   width: 100%;      
   background-size: cover;
   background-position: center;

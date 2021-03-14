@@ -1,5 +1,6 @@
 .profileSettingsContainer {  
-  height: calc(93vh - 33vh);
+  /* height: calc(93vh - 33vh); */
+  height: 100%;
   width: 100%;            
 }
 
@@ -143,8 +144,7 @@
 
 @media (max-width: 762px) {
   .informationPreferencesSaveOrDeleteContainer {
-    flex-direction: column;
-    padding-bottom: 20%;
+    flex-direction: column;    
   }
   .informationContainer, .preferencesSaveOrDeleteContainer {
     width: 100%;

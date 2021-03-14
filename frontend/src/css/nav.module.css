@@ -21,10 +21,7 @@
 }
 
 .navContianer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 7vh;
+  height: 100%;
   width: 100%;    
   color: var(--color);
   background: var(--background);

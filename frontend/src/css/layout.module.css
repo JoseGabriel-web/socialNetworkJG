@@ -1,6 +1,7 @@
-.layout {
-  height: 93vh;
-  width: 100%;
+.layout {  
+  height: 100%;  
+  width: 100%;  
+  overflow-x: hidden;
 }
 
 .navContainer {
@@ -9,16 +10,29 @@
 }
 
 .content {
-  display: flex; 
+  height: 93vh;
+  display: flex;   
+  flex-direction: row-reverse;
 }
 
-.variableComponets {
-  flex: 1; 
+.sidebarContainer {  
+  height: 100%;  
+}
+.screensContainer {
+  height: auto;
+  width: 100%;
 }
 
-@media (max-width: 762px) {  
-  .content {
+@media (max-width: 762px) {
+  
+  .content {    
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+  }
+  .screensContainer {
+    height: 83vh;
+  }
+  .sidebarContainer {
+    height: 10vh;
   }
 }

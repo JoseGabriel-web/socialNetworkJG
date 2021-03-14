@@ -1,5 +1,5 @@
-.profileScreenContainer {
-  height: 93vh;  
+.profileScreenContainer {  
+  height: 100%;  
   flex: 1;
   display: flex; 
   flex-direction: column; 
@@ -19,8 +19,8 @@
 }
 
 .profileHeader {  
-  /* min-height: 30vh;*/
-  min-height: 25vh;     
+  /* min-height: 25vh;      */
+  min-height: 20%;     
   width: 100%;
   border-bottom: solid 1px;  
   display: flex;
@@ -28,15 +28,11 @@
   align-items: center;
   justify-content: center;
   position: relative;   
-  padding: 1rem;     
-  /* padding-bottom: 0;      */
+  padding: 1rem;       
 }
 
 .flex {
   flex: 1;
-}
-.profileHeader h3 {
-  
 }
 
 .profilePicture {
@@ -66,7 +62,7 @@
 /* Part two */
 .profileContent {  
   max-width: 100%;   
-  width: 100%;   
+  width: 100%;    
 }
 
 .profileContentSelector {
@@ -76,7 +72,6 @@
   flex-direction: row;  
   height: 7vh;
 }
-
 .profileContentSelector .profileContentSelectorTab {
   width: 100%;
   height: 100%;  
