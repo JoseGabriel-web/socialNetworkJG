@@ -1,16 +1,20 @@
 .layout {  
-  height: 100%;  
-  width: 100%;  
+  height: calc(var(--vh, 1%) * 100);
+  width: 100%;    
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.navContainer {
-  height: 7vh;
+.navContainer {  
+  /* height: calc(var(--vh, 1vh) * 7);   */
+  height: calc(var(--vh, 1%) * 7);  
+  height: 7%;
   width: 100%;
 }
 
-.content {
-  height: 93vh;
+.content {  
+  /* height: calc(var(--vh, 1vh) * 93); */  
+  height: calc(var(--vh, 1%) * 93);  
   display: flex;   
   flex-direction: row-reverse;
 }
@@ -24,15 +28,21 @@
 }
 
 @media (max-width: 762px) {
-  
   .content {    
     display: flex;
     flex-direction: column;
   }
+  .navContainer {
+    /* height: calc(var(--vh, 1vh) * 7); */
+    height: calc(var(--vh, 1%) * 7);
+  }
   .screensContainer {
     height: 83vh;
+    /* height: calc(var(--vh, 1vh) * 83); */
+    height: calc(var(--vh, 1%) * 83);
   }
   .sidebarContainer {
-    height: 10vh;
+    /* height: calc(var(--vh, 1vh) * 10); */
+    height: calc(var(--vh, 1%) * 10);
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import styles from '../css/layout.module.css'
 import Nav from '../components/Nav'
@@ -9,8 +9,18 @@ import MessagingScreen from '../screens/MessagingScreen'
 
 const Layout = () => {  
 
+  const updateHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
 
-  return (
+  window.addEventListener('resize', updateHeight())
+  
+  useEffect(() => {
+    updateHeight()      
+  }, [])  
+
+  return (    
     <div className={styles.layout}>
       <div className={styles.navContainer}>
         <Nav />
@@ -27,7 +37,7 @@ const Layout = () => {
           <Sidebar />        
         </div>
       </div>                  
-    </div>
+    </div>    
   )
 }
 

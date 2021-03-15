@@ -4,6 +4,16 @@
   background: rgb(235, 240, 255);
 }
 
+.chatContent {
+  height: 90%;
+  width: 100%;
+}
+.chatInputContainer {  
+  border-top: solid 1px;
+  height: 10%;
+  width: 100%;
+}
+
 .handleChatSidebarBtn {
   position: absolute;  
   top: 0;

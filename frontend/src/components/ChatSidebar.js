@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import styles from '../css/chatsidebar.module.css'
 import axios from 'axios'
 
 const ChatSidebar = () => {
 
   const [users, setUsers] = useState([])
+
+  const replaceSpace = (string) => {
+    return string.split(' ').join('+')
+  }
 
   useEffect(async () => {
     const { data } = await axios.get('/api/users')
@@ -22,9 +27,8 @@ const ChatSidebar = () => {
               <div className={styles.chatSidebarUserName}>
                   {user.name}
               </div>    
-              <div className={styles.chatSidebarUserBtns}>
-                  <i className='fas fa-location-arrow' />
-                  <i className='fas fa-id-card' />
+              <div className={styles.chatSidebarUserBtns}>                  
+                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`} className='fas fa-location-arrow' />
               </div>    
             </div>
           </div>

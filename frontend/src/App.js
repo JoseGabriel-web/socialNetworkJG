@@ -4,16 +4,15 @@ import Layout from './layouts/Layout'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 
-
 const App = () => {  
 
   return (
-    <Router>
+    <Router>      
       <Switch>
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} />          
         <Route path='/' component={Layout} />  
-        {/* <Redirect to='/' /> */}
+        <Redirect to='/login' />
       </Switch>
     </Router>
   )

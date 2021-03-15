@@ -63,7 +63,8 @@
 }
 
 .handleSidebarIcon {
-  height: 10vh;   
+  /* height: 10vh;    */
+  height: 10%;   
   width: 100%;
   display: flex;
   justify-content: center;
@@ -88,9 +89,7 @@
   .sidebarContianer {
     width: 100%;
     height: auto;
-    /* position: fixed; */
-    /* bottom: 0; */
-    /* left: 0; */
+    height: 100%;
   }
   .mobile {
     height: 100%;
