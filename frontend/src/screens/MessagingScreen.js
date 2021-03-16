@@ -9,7 +9,7 @@ const MessagingScreen = () => {
 
   return (
     <div className={styles.messagingScreenConatiner}>
-      <div className={styles.chatComponentContainer}>                  
+      <div className={styles.chatComponentContainer}>                        
         <Chat isOpened={isOpened} setIsOpened={setIsOpened} />         
       </div>      
       <div

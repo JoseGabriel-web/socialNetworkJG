@@ -28,7 +28,7 @@ const ChatSidebar = () => {
                   {user.name}
               </div>    
               <div className={styles.chatSidebarUserBtns}>                  
-                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`} className='fas fa-location-arrow' />
+                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`} className='fas fa-portrait' />
               </div>    
             </div>
           </div>

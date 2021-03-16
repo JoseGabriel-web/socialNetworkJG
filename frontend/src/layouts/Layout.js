@@ -12,13 +12,11 @@ const Layout = () => {
   const updateHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-
-  window.addEventListener('resize', updateHeight())
+  }  
   
   useEffect(() => {
     updateHeight()      
-  }, [])  
+  }, [window.innerHeight])  
 
   return (    
     <div className={styles.layout}>

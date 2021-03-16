@@ -1,22 +1,26 @@
 .messagingScreenConatiner {
   height: 100%;  
-  width: 100%;
+  width: inherit;
+  max-width: 100%;
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: row;
 }
 
-.chatComponentContainer {
-  flex: 1;
+.chatComponentContainer {  
+  width: 100%;
+  max-width: 100%;
   height: 100%;
   position: relative;
+  max-width: 100%;
 }
 
 .chatsidebarComponentContainer {
   height: 100%;
   width: auto;
   max-width: 90%;
-  transition: all .3s ease-in-out;  
+  transition: all .3s ease-in-out;
 }
 
 .isOpened {

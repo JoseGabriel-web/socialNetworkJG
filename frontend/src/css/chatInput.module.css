@@ -1,0 +1,27 @@
+.chatInputContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.chatInput {
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  outline: none;
+}
+
+.sendMessageBtn {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background);
+  color: var(--color);
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 1rem;
+  border: solid 1px;
+  cursor: pointer;
+}
