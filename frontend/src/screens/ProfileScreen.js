@@ -54,17 +54,7 @@ const ProfileScreen = () => {
     )
     setFollowersCount(await newFollowersCount)
     setFollowing(false)
-  }
-
-  const capitalizeString = (string) => {
-    if (string?.split(' ').length > 1) {
-      return string
-        .split(' ')
-        .map((word) => capitalizeString(word))
-        .join(' ')
-    }
-    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-  }
+  }  
 
   const replaceSpace = (string) => {
     return string?.split(' ').join('+')
@@ -116,7 +106,7 @@ const ProfileScreen = () => {
                   />
                 </div>
               </div>
-              <h3>{profile && capitalizeString(profile.user.name)}</h3>
+              <h3 style={{textTransform: 'capitalize'}}>{profile && profile.user.name}</h3>
           </div>
 
           <div className={styles.profileContent}>

@@ -18,7 +18,7 @@ const Chat = ({ isOpened, setIsOpened }) => {
     createdAt: '3/15/21',
   }
   const userMessage = {
-    username: 'admin',
+    username: 'jose',
     profilePicture: '',
     label: 'This is a message in the chat asda asd sad asdasasdasd adasd asdasd sadsaasd adasd sadas ThiThis is a message in the chat asda asd sad asdasasdasd  adasd asdasd sadsaasd adasd sadas ThiThis is is a message in the chat asda asd sad asdasasdasd  adasd asdasd sadsaasd adasd sadas ThiThis is is a message in the chat asda asd sad asdasasdasd  adasd asdasd sadsaasd adasd sadas ThiThis is',
     createdAt: '12/05/21',
@@ -51,7 +51,7 @@ const Chat = ({ isOpened, setIsOpened }) => {
               isCurrentUser(message) ? styles.userMessage : null
             }`}
           >
-            <div>{message.label}</div>
+            <div><strong className={styles.username}>{message.username}:</strong> {message.label}</div>
             <div>{message.createdAt}</div>
           </div>
         ))}

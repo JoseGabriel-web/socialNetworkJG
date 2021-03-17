@@ -54,17 +54,7 @@ const PostCommentSection = ({
         ...newComments.filter((comment) => comment.label !== labelToDelete),
       ])
     }
-  }
-
-  const capitalizeString = (string) => {
-    if (string?.split(' ').length > 1) {
-      return string
-        .split(' ')
-        .map((word) => capitalizeString(word))
-        .join(' ')
-    }
-    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-  }
+  }  
 
   const replaceSpace = (string) => {
     return string.split(' ').join('+')
@@ -97,12 +87,8 @@ const PostCommentSection = ({
                   <Link
                     to={`/profile/${replaceSpace(comment.user.name)}/gallery`}
                   >
-                    <h5>{capitalizeString(comment.user.name)}:</h5>
-                  </Link>
-                  {/* <i
-                    className='far fa-heart'
-                    onClick={() => handleLikeComment(index)}
-                  /> */}
+                    <h5 style={{textTransform: 'capitalize'}}>{comment.user.name}:</h5>
+                  </Link>                  
                   {name && name === comment.user.name ? (
                     <i
                       className='fas fa-trash-alt'

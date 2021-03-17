@@ -18,21 +18,11 @@ const PostHeaderSection = ({ postId, public_id, name, profilePicture }) => {
     return string.split(' ').join('+')
   }
 
-  const capitalizeString = (string) => {
-    if (string?.split(' ').length > 1) {
-      return string
-        .split(' ')
-        .map((word) => capitalizeString(word))
-        .join(' ')
-    }
-    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-  }
-
   return (
     <div className={styles.postHeader}>
       <div className={styles.postHeaderImg} style={{backgroundImage: profilePicture? `url(${profilePicture})` : `url(${defaultProfilePicture})`}} />
       <div className={styles.postHeaderUsername}>
-        <Link to={`/profile/${replaceSpace(name)}/gallery`}>{capitalizeString(name)}</Link>
+        <Link style={{textTransform: 'capitalize'}} to={`/profile/${replaceSpace(name)}/gallery`}>{name}</Link>
       </div>
 
       { user && user.name === name?(<div

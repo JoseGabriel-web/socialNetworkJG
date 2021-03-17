@@ -3,7 +3,9 @@
   width: 100%;     
   margin-bottom: 2rem;
   box-shadow: var(--darker-shadow);
-  background: white;
+  /* background: white; */
+  background: var(--background);
+  color: var(--color);
   border-color: black;
   border-radius: 1rem;
   overflow: hidden;
