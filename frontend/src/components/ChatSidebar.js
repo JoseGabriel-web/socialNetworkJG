@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../css/chatsidebar.module.css'
-import axios from 'axios'
 
 const ChatSidebar = () => {
 
@@ -11,10 +10,8 @@ const ChatSidebar = () => {
     return string.split(' ').join('+')
   }
 
-  useEffect(async () => {
-    const { data } = await axios.get('/api/users')
-    setUsers(data)
-    console.log(data)
+  useEffect(() => {
+    
   }, [])
 
   return (

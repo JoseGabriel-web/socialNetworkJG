@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import * as http from 'http'
+import { Server } from 'socket.io'
 import { errorMiddleware } from './middleware/errorMiddleware.js'
 import { connectDB } from './config/db.js'
 import { userRoutes } from './routes/userRoutes.js'
@@ -9,9 +11,16 @@ import { profileRoutes } from './routes/profileRoutes.js'
 import { followerRoutes } from './routes/followerRoutes.js'
 import { postCommentRoutes } from './routes/postCommentRoutes.js'
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server, {}) 
 dotenv.config()
 connectDB()
 
+io.on('connection', (socket) => {
+  console.log('User connected')  
+  
+  socket.on('disconnect', () => console.log('User disconnected'))
+})
 
 app.use(express.json())
 app.use(cors())
@@ -23,16 +32,7 @@ app.use('/api/profile', profileRoutes)
 app.use('/api/followers', followerRoutes)
 app.use(errorMiddleware)
 
-// Remove this line below
-import { User } from './models/User.js'
-app.use('/api/users', async (req,res) => {
-  const users = await User.find({})
-  res.json(users)
-})
+app.get('/', (req,res) => res.send('asdasd'))
 
-app.get('/', (req,res) => {
-  res.send('Up an running')
-})
-
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 app.listen(PORT, console.log(`Server running on port ${PORT}`))

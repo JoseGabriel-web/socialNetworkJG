@@ -1,0 +1,43 @@
+/* GOOD FROM UP */
+.chatMessage {
+  max-width: 100%;
+}
+
+.userMessage div {  
+  margin-left: auto;  
+}
+
+.chatMessage div:first-of-type {  
+  max-width: 100%;  
+  max-width: 70ch;
+  height: auto;  
+  width: max-content;
+  padding: 1rem;  
+  background: var(--color);
+  color: var(--background);
+  border-radius: 1rem;  
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  border: solid;  
+  border-color: var(--background);  
+}
+.chatMessage div:last-of-type {
+  margin-bottom: 0.5rem;
+  padding: 0 1rem;  
+  width: max-content;
+  max-width: 100%;  
+}
+
+.userMessage div:first-of-type {
+  width: max-content;
+  background: var(--background);
+  color: var(--color);
+  border: solid;  
+}
+
+.username {
+  text-transform: capitalize;
+}
+
+
+/* GOOD FROM DOWN */

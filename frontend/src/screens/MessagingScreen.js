@@ -5,7 +5,6 @@ import Chat from '../components/Chat'
 
 const MessagingScreen = () => {
   const [isOpened, setIsOpened] = useState(true)
-  
 
   return (
     <div className={styles.messagingScreenConatiner}>
