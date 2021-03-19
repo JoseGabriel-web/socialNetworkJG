@@ -16,7 +16,7 @@ const ProfileScreen = () => {
   const profileReducer = useSelector((state) => state.profileReducer)
   const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const { updatedProfilePicture } = updateProfilePictureReducer
-  const loginReducer = useSelector((state) => state.loginReducer)
+  const loginReducer = useSelector((state) => state.loginReducer)  
   const { profile, loading = true, error } = profileReducer
   const dispatch = useDispatch()
   const params = useParams()

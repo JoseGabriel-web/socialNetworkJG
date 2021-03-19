@@ -3,23 +3,22 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import * as http from 'http'
 import { Server } from 'socket.io'
-import { errorMiddleware } from './middleware/errorMiddleware.js'
 import { connectDB } from './config/db.js'
 import { userRoutes } from './routes/userRoutes.js'
 import { postRoutes } from './routes/postRoutes.js'
 import { profileRoutes } from './routes/profileRoutes.js'
 import { followerRoutes } from './routes/followerRoutes.js'
 import { postCommentRoutes } from './routes/postCommentRoutes.js'
+import { errorMiddleware } from './middleware/errorMiddleware.js'
+import { onlineUsersController, onlineUsers } from './socketControllers/onlineUsersController.js'
 const app = express()
 const server = http.createServer(app)
-const io = new Server(server, {}) 
+const io = new Server(server) 
 dotenv.config()
 connectDB()
 
-io.on('connection', (socket) => {
-  console.log('User connected')  
-  
-  socket.on('disconnect', () => console.log('User disconnected'))
+io.on('connection', (socket) => {  
+  onlineUsersController(io, socket)
 })
 
 app.use(express.json())
@@ -32,7 +31,5 @@ app.use('/api/profile', profileRoutes)
 app.use('/api/followers', followerRoutes)
 app.use(errorMiddleware)
 
-app.get('/', (req,res) => res.send('asdasd'))
-
 const PORT = process.env.PORT || 4000
-app.listen(PORT, console.log(`Server running on port ${PORT}`))
+server.listen(PORT)

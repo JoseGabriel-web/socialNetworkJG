@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import defaultProfilePicture from '../images/user.png'
 import Notification from '../components/Notification'
 import styles from '../css/nav.module.css'
+import { USER_LOGIN_FAIL } from '../constants/userConstants'
 // import logo from '../images/logo_transparent.png'
 // import logo from '../images/logoCropped.png'
 
@@ -15,16 +16,19 @@ const Nav = () => {
   const { user: { profilePicture } } = loginReducer  
   const updateProfilePictureReducer = useSelector(
     (state) => state.updateProfilePictureReducer
-  )
-  const { updatedProfilePicture } = updateProfilePictureReducer
-  const ref = useRef(null)
+    )
+    const { updatedProfilePicture } = updateProfilePictureReducer
+    const ref = useRef(null)  
+  const dispatch = useDispatch()  
 
   const replaceSpace = (string) => {
     return string.split(' ').join('+')
   }
 
-  const handleLogout = () => {
+  const handleLogout = () => {    
     localStorage.removeItem('user')
+    dispatch({ type: USER_LOGIN_FAIL })
+    window.location.href = '/login'
   }
 
   const handleUserMenuOpen = () => {
@@ -46,21 +50,15 @@ const Nav = () => {
     if (ref && !ref?.current?.contains(event.target)) {
       handleCloseAllMenu()
     }
-  }
+  }  
 
   useEffect(() => {
-    const functions = {
-      startingFunction: () => {
-        if (ref === null) return
-        document.addEventListener('click', handleClickOutside, true)
-      },
-      cleanUp: () => {
-        document.removeEventListener('click', handleClickOutside)
-      },
-    }
+    if (ref === null) return
+    document.addEventListener('click', handleClickOutside, true)
 
-    functions.startingFunction()
-    return functions.cleanUp()
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
   })
 
   return (
@@ -147,10 +145,10 @@ const Nav = () => {
                     <i className='fas fa-user-cog' />
                     <h4>Settings</h4>
                   </Link>
-                  <Link to='/logout' onClick={handleLogout}>
+                  <div className={styles.logoutBtn} onClick={handleLogout}>
                     <i className='fas fa-user-cog' />
                     <h4>Log out</h4>
-                  </Link>
+                  </div>
                 </>
               ) : (
                 <>
