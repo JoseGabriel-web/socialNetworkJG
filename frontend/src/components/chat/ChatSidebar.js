@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import styles from '../css/chatsidebar.module.css'
+import styles from '../../css/chat/chatsidebar.module.css'
 
 const ChatSidebar = () => {
 

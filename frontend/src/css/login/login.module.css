@@ -81,7 +81,7 @@
     display: none;
   }
   .loginContainer {
-    background: url('../images/img.jpg');
+    background: url('../../images/img.jpg');
     background-repeat: no-repeat;
     background-size: cover;  
     background-position: center;

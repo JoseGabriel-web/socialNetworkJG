@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import styles from '../css/postHeaderSection.module.css'
-import DeletePost from './DeletePost'
-import defaultProfilePicture from '../images/user.png'
+import styles from '../../css/post/postHeaderSection.module.css'
+import DeletePost from '../layout/DeletePost'
+import defaultProfilePicture from '../../images/user.png'
 
 const PostHeaderSection = ({ postId, public_id, name, profilePicture }) => {
   const [isOpened, setIsOpened] = useState(false)

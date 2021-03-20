@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import styles from '../css/changeProfilePicture.module.css'
-import { updateProfilePicture } from '../actions/profilePictureActions'
-import DragOrDrop from '../components/DragOrDrop'
-import Popup from '../components/Popup'
+import styles from '../../css/profile/changeProfilePicture.module.css'
+import { updateProfilePicture } from '../../actions/profilePictureActions'
+import DragOrDrop from '../layout/DragOrDrop'
+import Popup from '../layout/Popup'
 
 const ChangeProfilePicture = ({ setEditProfilePicturePopUpState, editProfilePicturePopUpState, }) => {
   const dispatch = useDispatch()

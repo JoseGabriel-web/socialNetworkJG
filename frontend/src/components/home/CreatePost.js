@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import DragOrDrop from './DragOrDrop'
-import styles from '../css/createPost.module.css'
-import { createPost } from '../actions/postActions'
-import Popup from './Popup'
+import DragOrDrop from '../layout/DragOrDrop'
+import styles from '../../css/home/createPost.module.css'
+import { createPost } from '../../actions/postActions'
+import Popup from '../layout/Popup'
 
 const CreatePost = () => {
   const dispatch = useDispatch()

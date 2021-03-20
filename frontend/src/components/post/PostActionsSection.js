@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { likePost } from '../actions/postActions'
-import Popup from './Popup'
-import styles from '../css/postActionsSection.module.css'
+import { likePost } from '../../actions/postActions'
+import Popup from '../layout/Popup'
+import styles from '../../css/post/postActionsSection.module.css'
 
 const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommentSectionOpened }) => {  
   const dispatch = useDispatch()

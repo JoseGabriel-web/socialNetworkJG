@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../css/dragOrDrop.module.css'
+import styles from '../../css/layout/dragOrDrop.module.css'
 
 const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBackground, backgroundSize }) => {      
 

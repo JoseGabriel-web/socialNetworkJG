@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styles from '../css/chat.module.css'
+import styles from '../../css/chat/chat.module.css'
 import ChatInput from './ChatInput'
 import Message from './Message'
 

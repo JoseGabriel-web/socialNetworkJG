@@ -1,8 +1,8 @@
 import React from 'react'
 import CreatePost from './CreatePost'
-import Post from './Post'
-import styles from '../css/feed.module.css'
-import Loading from './Loading'
+import Post from '../post/Post'
+import styles from '../../css/home/feed.module.css'
+import Loading from '../layout/Loading'
 
 
 const Feed = ({ posts, loading }) => {    

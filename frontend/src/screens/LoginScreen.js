@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { loginAction } from '../actions/userActions'
-import styles from '../css/login.module.css'
-import Loading from '../components/Loading'
+import styles from '../css/login/login.module.css'
+import Loading from '../components/layout/Loading'
 import backgroundImg from '../images/img.jpg'
 
 const LoginScreen = ({history}) => {

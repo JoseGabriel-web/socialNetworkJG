@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import styles from '../css/deletePost.module.css'
-import { deletePost } from '../actions/postActions'
+import styles from '../../css/layout/deletePost.module.css'
+import { deletePost } from '../../actions/postActions'
 import Popup from './Popup'
 
 const DeletePost = ({isOpened, setIsOpened, postId, public_id, handleDeletePostPopUpState}) => {

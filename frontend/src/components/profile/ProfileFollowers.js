@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfileFollowersList } from '../actions/followerActions'
-import styles from '../css/profileFollowers.module.css'
-import Loading from './Loading'
+import { getProfileFollowersList } from '../../actions/followerActions'
+import styles from '../../css/profile/profileFollowers.module.css'
+import Loading from '../layout/Loading'
 
 const ProfileFollowers = () => {  
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import styles from '../css/messagingScreen.module.css'
-import ChatSidebar from '../components/ChatSidebar'
-import Chat from '../components/Chat'
+import styles from '../css/chat/messagingScreen.module.css'
+import ChatSidebar from '../components/chat/ChatSidebar'
+import Chat from '../components/chat/Chat'
 
 const MessagingScreen = () => {
   const [isOpened, setIsOpened] = useState(true)

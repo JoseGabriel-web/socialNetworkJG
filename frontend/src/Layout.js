@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { io } from 'socket.io-client'
-import styles from '../css/layout.module.css'
-import Nav from '../components/Nav'
-import HomeScreen from '../screens/HomeScreen'
-import Sidebar from '../components/Sidebar'
-import ProfileScreen from '../screens/ProfileScreen'
-import MessagingScreen from '../screens/MessagingScreen'
+import styles from './css/layout/layout.module.css'
+import Nav from './components/nav/Nav'
+import HomeScreen from './screens/HomeScreen'
+import Sidebar from './components/layout/Sidebar'
+import ProfileScreen from './screens/ProfileScreen'
+import MessagingScreen from './screens/MessagingScreen'
 
 const Layout = ({ location, history }) => {    
 
@@ -22,7 +22,8 @@ const Layout = ({ location, history }) => {
   useEffect(() => {
 
     const socket = io({
-      serveClient: false
+      serveClient: false,
+      reconnection: true
     })  
 
     socket.emit('userConnected', { username: user.name })

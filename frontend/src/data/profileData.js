@@ -1,5 +1,5 @@
-import ProfileGallery from '../components/ProfileGallery'
-import ProfileFollowers from '../components/ProfileFollowers'
+import ProfileGallery from '../components/profile/ProfileGallery'
+import ProfileFollowers from '../components/profile/ProfileFollowers'
 
 
 export const sections = [

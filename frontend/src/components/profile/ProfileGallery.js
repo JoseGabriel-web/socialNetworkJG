@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import styles from '../css/profileGallery.module.css'
-import Loading from './Loading'
-import DeletePost from './DeletePost'
+import styles from '../../css/profile/profileGallery.module.css'
+import Loading from '../layout/Loading'
+import DeletePost from '../layout/DeletePost'
 
 const ProfileGallery = () => {
   const profileReducer = useSelector((state) => state.profileReducer)  

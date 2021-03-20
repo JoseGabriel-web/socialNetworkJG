@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Route, Switch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import styles from '../css/profileScreen.module.css'
+import styles from '../css/profile/profileScreen.module.css'
 import defaultProfilePicture from '../images/user.png'
 import { getProfile } from '../actions/profileActions'
 import { sections } from '../data/profileData'
 import { follow, unFollow } from '../actions/followerActions'
-import ChangeProfilePicture from '../components/ChangeProfilePicture'
-import ProfileSettings from '../components/ProfileSettings'
+import ChangeProfilePicture from '../components/profile/ChangeProfilePicture'
+import ProfileSettings from '../components/profile/ProfileSettings'
 
 const ProfileScreen = () => {
   const [followersCount, setFollowersCount] = useState(0)
@@ -106,7 +106,7 @@ const ProfileScreen = () => {
                   />
                 </div>
               </div>
-              <h3 style={{textTransform: 'capitalize'}}>{profile && profile.user.name}</h3>
+              <h3 style={{textTransform: 'capitalize'}}>{profile? profile.user.name : 'username'}</h3>
           </div>
 
           <div className={styles.profileContent}>

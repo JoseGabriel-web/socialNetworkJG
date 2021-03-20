@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styles from '../css/message.module.css'
+import styles from '../../css/chat/message.module.css'
 
 const Message = ({ message }) => {
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import styles from '../css/sidebar.module.css'
+import styles from '../../css/layout/sidebar.module.css'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { sidebarData } from '../data/sidebarData'
+import { sidebarData } from '../../data/sidebarData'
 
 const Sidebar = () => {
   const [sidebarState, setSidebarState] = useState(true)

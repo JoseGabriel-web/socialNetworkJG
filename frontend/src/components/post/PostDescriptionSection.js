@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from '../css/postDescriptionSection.module.css'
+import styles from '../../css/post/postDescriptionSection.module.css'
 
 const PostDescriptionSection = ({ title, description }) => {
   const [shortDescription, setShortDescription] = useState('')

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../css/notification.module.css'
+import styles from '../../css/nav/notification.module.css'
 
 const Notification = ({label}) => {
   return (

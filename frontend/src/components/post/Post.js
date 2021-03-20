@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import styles from '../css/post.module.css'
+import styles from '../../css/post/post.module.css'
 import PostCommentSection from './PostCommentSection'
 import PostActionsSection from './PostActionsSection'
 import PostMediaSection from './PostMediaSection'

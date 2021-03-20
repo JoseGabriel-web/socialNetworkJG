@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateUserAction } from '../actions/userActions'
-import styles from '../css/profileSettings.module.css'
-import Loading from './Loading'
+import { updateUserAction } from '../../actions/userActions'
+import styles from '../../css/profile/profileSettings.module.css'
+import Loading from '../layout/Loading'
 
 const ProfileSettings = ({ history }) => {
   const dispatch = useDispatch()

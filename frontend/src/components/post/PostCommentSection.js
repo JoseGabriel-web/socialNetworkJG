@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   createPostComment,
   deletePostComment,
-} from '../actions/postCommentActions'
-import styles from '../css/postCommentSection.module.css'
-import defaultProfilePic from '../images/user.png'
+} from '../../actions/postCommentActions'
+import styles from '../../css/post/postCommentSection.module.css'
+import defaultProfilePic from '../../images/user.png'
 import { Link } from 'react-router-dom'
 
 const PostCommentSection = ({
