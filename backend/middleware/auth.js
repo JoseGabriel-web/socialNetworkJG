@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+const { ACCESS_TOKEN_SECRET } = process.env
 
 export const auth = (req,res,next) => {
   const authorization = req.headers.authorization
@@ -6,7 +7,7 @@ export const auth = (req,res,next) => {
 
   try {
     const accessToken = authorization.split(' ')[1]
-    const userDecoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+    const userDecoded = jwt.verify(accessToken, ACCESS_TOKEN_SECRET)
     const { _id } = userDecoded
     console.log('Auth _id ->',_id)
     req.body._id = _id        
@@ -15,3 +16,4 @@ export const auth = (req,res,next) => {
     next(new Error("Token expired"))
   }
 }
+

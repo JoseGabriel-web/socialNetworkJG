@@ -5,6 +5,7 @@ import * as http from 'http'
 import { Server } from 'socket.io'
 import { connectDB } from './config/db.js'
 import { userRoutes } from './routes/userRoutes.js'
+import { authRoutes } from './routes/authRoutes.js'
 import { postRoutes } from './routes/postRoutes.js'
 import { profileRoutes } from './routes/profileRoutes.js'
 import { followerRoutes } from './routes/followerRoutes.js'
@@ -24,6 +25,7 @@ io.on('connection', (socket) => {
 app.use(express.json())
 app.use(cors())
 
+app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/post/comment', postCommentRoutes)
