@@ -26,7 +26,7 @@ userSchema.methods = {
     let { _id, name } = this
     try {
       const accessToken = jwt.sign({ user: { _id, name } }, ACCESS_TOKEN_SECRET, {
-        expiresIn: '10m'
+        expiresIn: '1m'
       })
       return accessToken
     } catch(error) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerAction } from '../actions/userActions'
+import { registerAction } from '../actions/authActions'
 import { Link } from 'react-router-dom'
 import styles from '../css/register/register.module.css'
 import Loading from '../components/layout/Loading'

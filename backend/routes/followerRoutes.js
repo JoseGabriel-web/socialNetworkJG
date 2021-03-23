@@ -1,10 +1,10 @@
 import { User } from '../models/User.js'
 import express from 'express'
-import { follow, unfollow, getFollowers } from '../controllers/followerControlers.js'
+import * as followerControlers from '../controllers/followerControlers.js'
 const followerRoutes = express.Router()
 
-followerRoutes.get('/getFollowers/:username', getFollowers)
-followerRoutes.put('/follow', follow)
-followerRoutes.delete('/unfollow', unfollow)
+followerRoutes.get('/getFollowers/:username', followerControlers.getFollowers)
+followerRoutes.put('/follow', followerControlers.follow)
+followerRoutes.delete('/unfollow', followerControlers.unfollow)
 
 export { followerRoutes }

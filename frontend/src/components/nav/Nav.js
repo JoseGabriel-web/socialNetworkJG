@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom'
 import defaultProfilePicture from '../../images/user.png'
 import Notification from './Notification'
 import styles from '../../css/nav/nav.module.css'
-import { USER_LOGIN_FAIL } from '../../constants/userConstants'
+import * as utils from '../../utils/index'
 // import logo from '../images/logo_transparent.png'
 // import logo from '../images/logoCropped.png'
 
 const Nav = () => {
   const [userNavMenuState, setUserNavMenuState] = useState(false)
   const [userNavNotState, setUserNavNotState] = useState(false)
-  const loginReducer = useSelector((state) => state.loginReducer) || { user: { profilePicture: null} }
-  const { user } = loginReducer
-  const { user: { profilePicture } } = loginReducer  
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { user } = userInfoReducer
+  const { profilePicture } = user || {}   
   const updateProfilePictureReducer = useSelector(
     (state) => state.updateProfilePictureReducer
     )
@@ -21,13 +21,9 @@ const Nav = () => {
     const ref = useRef(null)  
   const dispatch = useDispatch()  
 
-  const replaceSpace = (string) => {
-    return string.split(' ').join('+')
-  }
-
   const handleLogout = () => {    
-    localStorage.removeItem('user')
-    dispatch({ type: USER_LOGIN_FAIL })
+    localStorage.removeItem('accessToken')    
+    localStorage.removeItem('refreshToken')    
     window.location.href = '/login'
   }
 
@@ -137,11 +133,11 @@ const Nav = () => {
             >
               {user ? (
                 <>
-                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`}>
+                  <Link to={`/profile/${utils.string.replaceSpace(user.name)}/gallery`}>
                     <i className='fas fa-user' />
                     <h4>Profile</h4>
                   </Link>
-                  <Link to={`/profile/${replaceSpace(user.name)}/settings`}>
+                  <Link to={`/profile/${utils.string.replaceSpace(user.name)}/settings`}>
                     <i className='fas fa-user-cog' />
                     <h4>Settings</h4>
                   </Link>

@@ -10,14 +10,6 @@ const Message = ({ message }) => {
   const isCurrentUser = (message) => {    
     return message.sender === user?.name
   }
- 
-
-  // const messageSchema = mongoose.Schema({
-  //   chatRoomId: { type: mongoose.Types.ObjectId },
-  //   sender: { type: String },
-  //   body: { type: String },
-  //   createdDate: { type: Date, default: Date.now }  
-  // })
 
   return (
     <div

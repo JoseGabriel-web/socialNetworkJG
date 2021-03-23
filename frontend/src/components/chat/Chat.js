@@ -8,10 +8,6 @@ const Chat = ({ isOpened, setIsOpened }) => {
   const loginReducer = useSelector((state) => state.loginReducer)
   const { user } = loginReducer
 
-  const isCurrentUser = (message) => {    
-    return message.username === user?.name
-  }  
-
   const otherUserMessage = {
     sender: 'chillin',    
     body: 'This is a message in the chat asda asd sad asdasasdasd adasd asdasd sadsaasd adasd sadas This i',
@@ -37,7 +33,7 @@ const Chat = ({ isOpened, setIsOpened }) => {
           isOpened ? 'right' : 'left'
         }`}
       />
-      <div className={styles.chatContent}>
+      <div className={styles.chatContent} width='100%'>
         {messages.map((message) => (
           <Message message={message} />
         ))}

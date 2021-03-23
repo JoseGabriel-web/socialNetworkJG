@@ -10,16 +10,13 @@ import {
   GET_FOLLOWER_LIST_REQUEST,
   GET_FOLLOWER_LIST_SUCCESS
 } from '../constants/followerConstants'
+import * as utils from '.././utils/index'
 
 export const getProfileFollowersList = (username) => async (dispatch, getState) => {
   dispatch({type: GET_FOLLOWER_LIST_REQUEST})
 
-  const replaceSpace = (string) => {
-    return string.split(' ').join('+')
-  }
-
   try {
-    const { data } = await axios.get(`/api/followers/getFollowers/${replaceSpace(username)}`)
+    const { data } = await axios.get(`/api/followers/getFollowers/${utils.string.replaceSpace(username)}`)
     const { followersList } = await data
     console.log(data, ' This comes from followers actions')
     dispatch({type: GET_FOLLOWER_LIST_SUCCESS, payload: followersList})

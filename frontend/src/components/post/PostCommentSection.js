@@ -7,6 +7,7 @@ import {
 import styles from '../../css/post/postCommentSection.module.css'
 import defaultProfilePic from '../../images/user.png'
 import { Link } from 'react-router-dom'
+import * as utils from '../../utils/index'
 
 const PostCommentSection = ({
   postId,
@@ -56,10 +57,6 @@ const PostCommentSection = ({
     }
   }  
 
-  const replaceSpace = (string) => {
-    return string.split(' ').join('+')
-  }
-
   useEffect(() => {
     setUpdatedComments([...comments])
   }, [])
@@ -85,7 +82,7 @@ const PostCommentSection = ({
                     }}
                   />
                   <Link
-                    to={`/profile/${replaceSpace(comment.user.name)}/gallery`}
+                    to={`/profile/${utils.string.replaceSpace(comment.user.name)}/gallery`}
                   >
                     <h5 style={{textTransform: 'capitalize'}}>{comment.user.name}:</h5>
                   </Link>                  

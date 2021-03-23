@@ -1,56 +1,6 @@
 import axios from 'axios'
-import { GET_PROFILE_SUCCESS } from '../constants/profileConstants'
-import {
-  USER_LOGIN_FAIL,
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-} from '../constants/userConstants'
-
-const replaceSpace = (string) => {
-  return string?.split(' ').join('+')
-}
-
-export const registerAction = (name, email, password, history) => async (dispatch, getState) => {
-  dispatch({type: USER_REGISTER_REQUEST})  
-  
-
-  const body = {
-    name,
-    email,
-    password
-  }
-
-  try {
-    const { data } = await axios.post('/api/user/register', body)    
-    localStorage.setItem('user', JSON.stringify(data))      
-    dispatch({type: USER_LOGIN_SUCCESS, payload: data})   
-    return history.push('/home')
-  } catch (error) {        
-    dispatch({type: USER_LOGIN_FAIL, payload: error.response.data.error})
-  }
-}
-
-export const loginAction = (email, password, history) => async (dispatch, getState) => {
-  dispatch({type: USER_LOGIN_REQUEST})  
-  
-
-  const body = {    
-    email,
-    password
-  }
-
-  try {
-    const { data } = await axios.post('/api/user/login', body)    
-    localStorage.setItem('user', JSON.stringify(data))
-    dispatch({type: USER_LOGIN_SUCCESS, payload: data})
-    return history.push('/home')    
-  } catch (error) {    
-    dispatch({type: USER_LOGIN_FAIL, payload: error.response.data.error})
-  }
-}
+import * as userConstants from '../constants/userConstants'
+import * as utils from '.././utils/index'
 
 export const updateUserAction = (name, email, password) => async (dispatch, getState) => {  
   const { loginReducer } = getState()
@@ -79,9 +29,20 @@ export const updateUserAction = (name, email, password) => async (dispatch, getS
       accessToken: user.accessToken,
       refreshToken: user.refreshToken
     }    
-    dispatch({type: USER_LOGIN_SUCCESS, payload: await updatedLoginInfo })     
-    return { error: null, updatedUserLink: `/profile/${replaceSpace(updatedUser.name)}/settings` }
+    //  UPDATE USER INFO
+    return { error: null, updatedUserLink: `/profile/${utils.string.replaceSpace(updatedUser.name)}/settings` }
   } catch(error) {
     return { error: error.response.data.error }
+  }
+}
+
+
+export const getUserAction = () => async (dispatch) => {  
+  dispatch({ type: userConstants.GET_USER_INFO_REQUEST })
+  try {
+    const { data } = await axios.get('/api/user/getUserInfo')
+    dispatch({ type: userConstants.GET_USER_INFO_SUCCESS, payload: data })
+  }  catch(error) {
+    dispatch({type: userConstants.GET_USER_INFO_FAIL, payload: error.response.data.error})
   }
 }

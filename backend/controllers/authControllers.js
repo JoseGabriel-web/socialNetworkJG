@@ -3,6 +3,7 @@ import { RefreshToken } from '../models/RefreshToken.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 const { ACCESS_TOKEN_SECRET } = process.env
+const { REFRESH_TOKEN_SECRET } = process.env
 
 export const register = async (req, res, next) => {
   const { name, email, password } = req.body
@@ -47,10 +48,10 @@ export const generateAccessToken = async (req, res, next) => {
       const refreshTokenDoc = await RefreshToken.findOne({ refreshToken })
       if(!refreshTokenDoc) {
         return next(new Error('Token Expired!'))
-      } else {
-        const { user } = refreshTokenDoc
+      } else {               
+        const { user } = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET)        
         const accessToken = await jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
-          expiresIn: '10m'
+          expiresIn: '1m'
         })
         return res.status(201).json({ accessToken })
       }

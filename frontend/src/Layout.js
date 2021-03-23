@@ -1,52 +1,63 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { io } from 'socket.io-client'
+import confgAxios from './confgAxios'
+import * as userActions from './actions/userActions'
 import styles from './css/layout/layout.module.css'
 import Nav from './components/nav/Nav'
 import HomeScreen from './screens/HomeScreen'
 import Sidebar from './components/layout/Sidebar'
 import ProfileScreen from './screens/ProfileScreen'
 import MessagingScreen from './screens/MessagingScreen'
+import { token } from './utils'
 
 const Layout = ({ location, history }) => {    
 
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer
+  const dispatch = useDispatch()
+  // const loginReducer = useSelector((state) => state.loginReducer)
+  // const { user } = loginReducer
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { user } = userInfoReducer
 
   const updateHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }  
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const socket = io({
-      serveClient: false,
-      reconnection: true
-    })  
+  //   const socket = io({
+  //     serveClient: false,
+  //     reconnection: true
+  //   })  
 
-    socket.emit('userConnected', { username: user.name })
-    socket.on('onlineUsers', ({ onlineUsernames }) => {
-      console.log(onlineUsernames)
-    })
+  //   socket.emit('userConnected', { username: user.name })
+  //   socket.on('onlineUsers', ({ onlineUsernames }) => {
+  //     console.log(onlineUsernames)
+  //   })
 
-    return () => {      
-      socket.off()      
-    }
+  //   return () => {      
+  //     socket.off()      
+  //   }
 
-  },[location.search, user])
+  // },[location.search, user])
 
-  useEffect(() => {
-    if(!user) {
-      history.push('/login')
-    }
-  },[user, history])
+  // useEffect(() => {
+  //   if(!user) {
+  //     history.push('/login')
+  //   }
+  // },[user, history])
   
   useEffect(() => {
     updateHeight()         
   }, [window.innerHeight])  
-
+  
+  useEffect(() => {    
+    confgAxios()
+    dispatch(userActions.getUserAction())    
+  }, [])  
+  
   return (    
     <div className={styles.layout}>
       <div className={styles.navContainer}>

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { loginAction } from '../actions/userActions'
+// import { loginAction } from '../actions/userActions'
+import { loginAction } from '../actions/authActions'
 import styles from '../css/login/login.module.css'
 import Loading from '../components/layout/Loading'
 import backgroundImg from '../images/img.jpg'
 
 const LoginScreen = ({history}) => {
   const loginReducer = useSelector(state => state.loginReducer)
-  const { user, loading } = loginReducer
+  const { loading } = loginReducer
+  const userInfoReducer = useSelector(state => state.userInfoReducer)
+  const { user } = userInfoReducer
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

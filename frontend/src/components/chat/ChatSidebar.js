@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../../css/chat/chatsidebar.module.css'
+import * as utils from '../../utils/index'
 
 const ChatSidebar = () => {
 
   const [users, setUsers] = useState([])
-
-  const replaceSpace = (string) => {
-    return string.split(' ').join('+')
-  }
 
   useEffect(() => {
     
@@ -25,7 +22,7 @@ const ChatSidebar = () => {
                   {user.name}
               </div>    
               <div className={styles.chatSidebarUserBtns}>                  
-                  <Link to={`/profile/${replaceSpace(user.name)}/gallery`} className='fas fa-portrait' />
+                  <Link to={`/profile/${utils.string.replaceSpace(user.name)}/gallery`} className='fas fa-portrait' />
               </div>    
             </div>
           </div>

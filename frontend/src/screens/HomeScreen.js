@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../css/home/homeScreen.module.css'
 import Feed from '../components/home/Feed'
-import Loading from '../components/layout/Loading'
 import { getPosts } from '../actions/postActions'
 import { GET_POSTS_FAIL } from '../constants/postConstants'
 import backgroundImg from '../images/img1.jpg'
@@ -24,8 +23,7 @@ const HomeScreen = () => {
   
   return (
     <div className={styles.homeContainer} style={{backgroundImage: `url(${backgroundImg})`}}>
-      <div className={styles.homeFeedContainer}>
-        {/* {loading? <Loading /> : <Feed posts={posts} />}         */}
+      <div className={styles.homeFeedContainer}>        
         <Feed posts={posts? posts.reverse() : null} loading={loading} />    
       </div>     
   </div>  

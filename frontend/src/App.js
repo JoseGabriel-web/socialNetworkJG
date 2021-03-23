@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import Layout from './Layout'
-import LoginScreen from './screens/LoginScreen'
-import RegisterScreen from './screens/RegisterScreen'
+import appComponents from './data/appData'
+import confgAxios from './confgAxios'
 
 const App = () => {  
+
+  useEffect(() => {
+    confgAxios()
+  },[])
 
   return (
     <Router>      
       <Switch>
-        <Route path='/login' component={LoginScreen} />
-        <Route path='/register' component={RegisterScreen} />          
-        <Route path='/' component={Layout} />  
+        {appComponents.map(component => (
+          <Route path={component.path} component={component.component} />        
+        ))}
         <Redirect to='/login' />
       </Switch>
     </Router>

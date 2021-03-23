@@ -1,46 +1,29 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import {
-  registerReducer,
-  loginReducer,
-} from './reducers/userReducers'
-import {
-  createPostReducer,
-  getPostsReducer,
-  likePostReducer,
-  deletePostReducer
-} from './reducers/postReducers'
-import {
-  profileReducer
-} from './reducers/profileReducers'
-import {
-  followUserReducer,
-  unFollowUserReducer,
-  userFollowersListReducer
-} from './reducers/followerReducers'
-import {
-  createPostComment,
-  deletePostComment
-} from './reducers/postCommentReducers'
-import {
-  updateProfilePictureReducer
-} from './reducers/profilePictureReducers'
+import * as userReducers from './reducers/userReducers'
+import * as authReducers from './reducers/authReducers'
+import * as postReducers from './reducers/postReducers'
+import * as profileReducers from './reducers/profileReducers'
+import * as followerReducers from './reducers/followerReducers'
+import * as postCommentReducers from './reducers/postCommentReducers'
+import * as profilePictureReducers from './reducers/profilePictureReducers'
 
 const reducers = combineReducers({
-  registerReducer,
-  loginReducer,
-  createPostReducer,
-  getPostsReducer,
-  likePostReducer,
-  deletePostReducer,
-  profileReducer,
-  followUserReducer,
-  unFollowUserReducer,
-  userFollowersListReducer,
-  createPostComment,
-  deletePostComment,
-  updateProfilePictureReducer
+  createPostReducer: postReducers.createPostReducer,
+  getPostsReducer: postReducers.getPostsReducer,
+  likePostReducer: postReducers.likePostReducer,
+  deletePostReducer: postReducers.deletePostReducer,
+  profileReducer: profileReducers.profileReducer,
+  followUserReducer: followerReducers.followUserReducer,
+  unFollowUserReducer: followerReducers.unFollowUserReducer,
+  userFollowersListReducer: followerReducers.userFollowersListReducer,
+  updateProfilePictureReducer: profilePictureReducers.updateProfilePictureReducer,
+  createPostComment: postCommentReducers.createPostComment,
+  deletePostComment: postCommentReducers.deletePostComment,  
+  registerReducer: authReducers.registerReducer,
+  loginReducer: authReducers.loginReducer,
+  userInfoReducer: userReducers.userInfoReducer,
 })
 
 const store = createStore(reducers, composeWithDevTools(

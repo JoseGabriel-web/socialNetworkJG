@@ -26,7 +26,7 @@ export const createPost = async (req, res) => {
   })
 }
 
-export const getPosts = (req, res) => {  
+export const getPosts = (req, res, next) => {  
   Post.find({}, (err, posts) => {
     if(err) return next(err)
     res.status(200).json({ posts })    
