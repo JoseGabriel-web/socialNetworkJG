@@ -16,8 +16,8 @@ const PostCommentSection = ({
   comments,
 }) => {
   const dispatch = useDispatch()
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { name } = loginReducer?.user || { name: '' }
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { name } = userInfoReducer?.user || { name: '' }
   const [label, setLabel] = useState('')
   const [initialComments, setInitialComments] = useState([...comments])
   const [newComments, setNewComments] = useState([])

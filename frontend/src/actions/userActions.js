@@ -1,36 +1,18 @@
 import axios from 'axios'
 import * as userConstants from '../constants/userConstants'
 import * as utils from '.././utils/index'
+import { socket } from '../Layout'
 
 export const updateUserAction = (name, email, password) => async (dispatch, getState) => {  
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user   
-
-  const config = {
-    headers: {           
-      'Content-type': 'application/json',       
-      authorization: `Bearer ${accessToken}`,
-    },
-  }
-
-  const body = {
-    name,
-    email,
-    password
-  }
+  const userInfoReducer = getState().userInfoReducer
+  const { user } = userInfoReducer
+  const disconnectName = user.name
+  socket.emit('disconectUser', { name: disconnectName })
 
   try {
-    const { data } = await axios.post('/api/user/updateUser', body, config)
-    const { updatedUser } = await data      
-    const updatedLoginInfo = {
-      name: await updatedUser.name,
-      email: await updatedUser.email,
-      accessToken: user.accessToken,
-      refreshToken: user.refreshToken
-    }    
-    //  UPDATE USER INFO
-    return { error: null, updatedUserLink: `/profile/${utils.string.replaceSpace(updatedUser.name)}/settings` }
+    const { data } = await axios.post('/api/user/updateUser', { name, email, password })     
+    dispatch({ type: userConstants.GET_USER_INFO_SUCCESS, payload: data })
+    return { error: null, updatedUserLink: `/profile/${utils.string.replaceSpace(data.name)}/settings` }
   } catch(error) {
     return { error: error.response.data.error }
   }

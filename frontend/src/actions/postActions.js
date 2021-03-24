@@ -20,24 +20,14 @@ export const createPost = (title, description, image) => async (
   getState
 ) => {
   dispatch({ type: CREATE_POST_REQUEST })
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user
 
   const body = new FormData()
   body.append('title', title)
   body.append('image', image)
   body.append('description', description)  
 
-  const config = {
-    headers: {           
-      'Content-type': 'application/json',      
-      authorization: `Bearer ${accessToken}`,
-    },
-  }
-
   try {
-    const { data } = await axios.post('/api/post/createPost', body, config)
+    const { data } = await axios.post('/api/post/createPost', body)
     const { message } = await data
     dispatch({ type: CREATE_POST_SUCCESS, payload: message })
     dispatch(getPosts())
@@ -57,23 +47,15 @@ export const getPosts = () => async (dispatch, getState) => {
   }
 }
 
-export const deletePost = (id, public_id) => async (dispatch, getState) => {
+export const deletePost = (id, public_id) => async (dispatch) => {
   dispatch({ type: DELETE_POST_REQUEST })
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user
-
   const config = {
-    headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${accessToken}`,
-    },
     params: {
       postId: id,
       public_id,
     },
   }
-
+  
   try {
     const { data } = await axios.delete('/api/post/deletePost', config)
     console.log(data)
@@ -88,16 +70,6 @@ export const likePost = (action, postId, username, likesCount) => async (
   dispatch,
   getState
 ) => {
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user
-
-  const config = {
-    headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${accessToken}`,
-    },
-  }
 
   const body = {
     action,
@@ -106,7 +78,7 @@ export const likePost = (action, postId, username, likesCount) => async (
   }
 
   try {
-    await axios.post('/api/post/likePost', body, config)
+    await axios.post('/api/post/likePost', body)
     if(action === 'like') {
       dispatch({ type: LIKE_POST, payload: action })          
       const newLikesCount = likesCount + 1  

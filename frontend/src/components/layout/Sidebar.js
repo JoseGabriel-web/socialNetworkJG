@@ -3,23 +3,24 @@ import styles from '../../css/layout/sidebar.module.css'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { sidebarData } from '../../data/sidebarData'
+import * as utils from '../../utils/index'
 
 const Sidebar = () => {
   const [sidebarState, setSidebarState] = useState(true)
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { user } = userInfoReducer
 
   const handleSidebarState = () => {
     setSidebarState(!sidebarState)
   }
 
+  const profileUrlFormatter = (user, section) => {
+    return `/profile/${utils.string.replaceSpace(user.name)}/` + section
+  }
+
   const isSelected = (path) => {
     if(path === '/profile' && window.location.pathname.includes('/settings')) return false
     return window.location.pathname.includes(path) ? true : false
-  }
-
-  const replaceSpace = (string) => {
-    return string.split(' ').join('+')
   }
 
   return (
@@ -29,13 +30,13 @@ const Sidebar = () => {
           {sidebarData.map((tab) => (
             <Link
               key={`${tab.path}`}
-              to={`${tab.path === '/settings' ? '' : tab.path}${
+              to={
                 tab.path === '/profile' && user
-                  ? '/' + replaceSpace(user.name) + '/gallery'
+                  ? profileUrlFormatter(user, 'gallery')
                   : tab.path === '/settings' && user
-                  ? `/profile/${replaceSpace(user.name)}/settings`
-                  : ''
-              }`}
+                  ? profileUrlFormatter(user, 'settings')
+                  : tab.path
+                }
               className={`${styles.sidebarTab} ${
                 isSelected(tab.path) ? styles.active : ''
               }`}

@@ -4,8 +4,8 @@ import styles from '../../css/chat/message.module.css'
 
 const Message = ({ message }) => {
 
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { user } = userInfoReducer
 
   const isCurrentUser = (message) => {    
     return message.sender === user?.name

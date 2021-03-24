@@ -34,8 +34,7 @@ const confgAxios = () => {
             refreshToken: token.getRefreshToken(),
           })
           .then(res => {
-            if(res.status === 201) {
-              console.log(res.data)
+            if(res.status === 201) {              
               token.setAccessToken(res.data.accessToken)
               const accessToken = token.getAccessToken()
               console.log('Refreshing AccessToken automated')

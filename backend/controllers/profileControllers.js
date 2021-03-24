@@ -1,7 +1,7 @@
 import { User } from '../models/User.js'
 import { Post } from '../models/Post.js'
 
-export const getProfile = async (req,res) => {
+export const getProfile = async ( req, res, next) => {
   let name = req.params.username   
   name = name.split('+').join(' ')
   try {
@@ -20,6 +20,6 @@ export const getProfile = async (req,res) => {
     }    
     res.status(200).json({profile})  
   } catch(error) {
-    res.status(404).json({error: 'User Not Found'})
+    next(error)
   }
 }

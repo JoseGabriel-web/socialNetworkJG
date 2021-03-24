@@ -15,16 +15,16 @@ const ProfileScreen = () => {
   const params = useParams()
   const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const profileReducer = useSelector((state) => state.profileReducer)
-  const loginReducer = useSelector((state) => state.loginReducer)
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { updatedProfilePicture } = updateProfilePictureReducer
   const { profile, error } = profileReducer
-  const { user } = loginReducer
+  const { user } = userInfoReducer
   const [followersCount, setFollowersCount] = useState(0)
-  const [following, setFollowing] = useState()
+  const [following, setFollowing] = useState(false)
   const [editProfilePicturePopUpState,setEditProfilePicturePopUpState] = useState(false)
 
   const isFollowing = (followersList) => {
-    return followersList && followersList.includes(user.name)
+    return followersList && followersList.includes(user?.name)
   }
 
   const isSelected = (path) => {
@@ -32,7 +32,7 @@ const ProfileScreen = () => {
   }
 
   const isCurrentUser = () => {
-    return profile?.user?.name === user?.name
+    return profile?.user?.name === user?.name    
   }
 
   const handleProfilePictureUpdate = () => {
@@ -56,10 +56,10 @@ const ProfileScreen = () => {
   }
 
   useEffect(() => {
-    (async () => {
+    (async () => {      
       const { followers } = await dispatch(getProfile(params.username))
-      setFollowersCount(followers?.length)
-      setFollowing(isFollowing(followers))
+      setFollowersCount(await followers?.length)      
+      setFollowing(isFollowing(await followers))
     })()
   }, [params.username])
 
@@ -169,7 +169,7 @@ const ProfileScreen = () => {
                 {isCurrentUser() ? (
                   <Route
                     key={'settings'}
-                    path={`/profile/${utils.string.replaceSpace(
+                    path={`/profile/${profile && utils.string.replaceSpace(
                       profile?.user?.name
                     )}/settings`}
                     component={ProfileSettings}

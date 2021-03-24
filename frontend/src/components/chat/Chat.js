@@ -1,12 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styles from '../../css/chat/chat.module.css'
 import ChatInput from './ChatInput'
 import Message from './Message'
 
 const Chat = ({ isOpened, setIsOpened }) => {
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { user } = loginReducer
 
   const otherUserMessage = {
     sender: 'chillin',    

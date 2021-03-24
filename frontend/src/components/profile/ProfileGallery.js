@@ -6,8 +6,8 @@ import DeletePost from '../layout/DeletePost'
 
 const ProfileGallery = () => {
   const profileReducer = useSelector((state) => state.profileReducer)  
-  const loginReducer = useSelector((state) => state.loginReducer)  
-  const { user } = loginReducer
+  const userInfoReducer = useSelector((state) => state.userInfoReducer) 
+  const { user } = userInfoReducer
   const { profile, loading = true, error } = profileReducer  
   const [isOpened, setIsOpened] = useState(false)
   const [postId, setPostId] = useState(null)
@@ -40,7 +40,7 @@ const ProfileGallery = () => {
             profile.posts.map((post) => (     
               <div className={styles.galleryPost}> 
               {isCurrentUser()? <i className={`fas fa-times ${styles.deletePostIcon}`} onClick={() => handleDeletePostPopUpState(post._id, post.image.public_id)} /> : null }    
-              <i className={`fas fa-expand ${styles.openPostIcon}`} onClick={handleOpenPost(post)} />
+              <i className={`fas fa-external-link-square-alt ${styles.openPostIcon}`} onClick={handleOpenPost(post)} />
               <img height='auto' width='100%' src={`${post.image.url}`} alt='' />
               </div>
             ))            

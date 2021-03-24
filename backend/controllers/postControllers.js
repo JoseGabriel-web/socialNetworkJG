@@ -1,8 +1,10 @@
 import { Post } from '../models/Post.js'
 import { User } from '../models/User.js'
+import { updateAllUserFollowers } from './followerControlers.js'
 
 export const createPost = async (req, res) => {
-  const { _id, title, description } = req.body
+  const { _id } = req.user
+  const { title, description } = req.body
   const user = await User.findById({ _id: _id }).select([
     '_id',
     'name',
@@ -33,14 +35,15 @@ export const getPosts = (req, res, next) => {
   })
 }
 
-export const deletePost = async (req, res) => {
-  const { postId } = req.query
-  const isDeleted = await Post.deleteOne({ _id: postId })
-
-  if (isDeleted) {
+export const deletePost = async ( req, res, next ) => {
+  try {
+    const { postId } = req.query
+    console.log(postId)
+    await Post.deleteOne({ _id: postId })  
     return res.status(200).json({ post: 'Post was deleted' })
-  } else {
-    console.log('Post was not deleted')
+  } catch (error) {
+    console.log(error)  
+    next(error)
   }
 }
 
@@ -71,7 +74,7 @@ export const likePost = async (req, res) => {
   }
 }
 
-export const updatedAllUserPost = (postsUsername, postUpdatedUser) => {
+export const updatedAllUserPost = (postsUsername, postUpdatedUser, next) => {
   Post.updateMany(
     { 'user.name': postsUsername },
     {
@@ -81,12 +84,12 @@ export const updatedAllUserPost = (postsUsername, postUpdatedUser) => {
       },
     },
     (err, result) => {
-      if (err) return err
+      if (err) return next(err)
       else {
         try {
-          updatePostsLikes(postsUsername, postUpdatedUser)
+          updatePostsLikes(postsUsername, postUpdatedUser, next)
         } catch (error) {
-          return error
+          next(error)
         }
       }
     }
@@ -94,20 +97,20 @@ export const updatedAllUserPost = (postsUsername, postUpdatedUser) => {
 }
 
 
-const updatePostsLikes = (postsUsername, postUpdatedUser) => {
+const updatePostsLikes = (postsUsername, postUpdatedUser, next) => {
   Post.updateMany(
     { likes: [postsUsername] },
     { $push: { likes: [postUpdatedUser.name] } },
     (err, result) => {
-      if (err) return err
+      if (err) return next(err)
       else {
         Post.updateMany(
           {  },
           {$pull: {likes: { $in: [postsUsername]}}},
           (err, result) => {
-            if (err) return err
+            if (err) return next(err)
             else {             
-              updatePostsComments(postsUsername, postUpdatedUser)
+              updatePostsComments(postsUsername, postUpdatedUser, next)
             }
           }
         )
@@ -118,7 +121,7 @@ const updatePostsLikes = (postsUsername, postUpdatedUser) => {
 
 
 
-const updatePostsComments = async (postsUsername, postUpdatedUser) => {
+const updatePostsComments = async (postsUsername, postUpdatedUser, next) => {
   const posts = await Post.find({ comments: { $elemMatch: { 'user.name': postsUsername } } })
   if(posts) {
     await posts.map(post => {      
@@ -129,7 +132,8 @@ const updatePostsComments = async (postsUsername, postUpdatedUser) => {
         }
       }      
       post.save()
+      updateAllUserFollowers(postsUsername, postUpdatedUser.name, next)    
     })
-    return
+    // return
   }
 }

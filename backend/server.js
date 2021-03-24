@@ -11,7 +11,7 @@ import { profileRoutes } from './routes/profileRoutes.js'
 import { followerRoutes } from './routes/followerRoutes.js'
 import { postCommentRoutes } from './routes/postCommentRoutes.js'
 import { errorMiddleware } from './middleware/errorMiddleware.js'
-import { onlineUsersController, onlineUsers } from './socketControllers/onlineUsersController.js'
+import { onlineUsersController, onlineUsers, removeFromOnlineUsers } from './socketControllers/onlineUsersController.js'
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server) 
@@ -19,7 +19,7 @@ dotenv.config()
 connectDB()
 
 io.on('connection', (socket) => {  
-  onlineUsersController(io, socket)
+  onlineUsersController(io, socket)  
 })
 
 app.use(express.json())

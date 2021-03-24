@@ -41,15 +41,9 @@ export const createPostComment = (postId, label) => async (dispatch, getState) =
 
 export const deletePostComment = (postId, label) => async (dispatch, getState) => {
   dispatch({ type: DELETE_POST_COMMENT_REQUEST })
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user
+
 
   const config = {
-    headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${accessToken}`,
-    },
     params: {
       postId, 
       label, 

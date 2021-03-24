@@ -10,48 +10,38 @@ import HomeScreen from './screens/HomeScreen'
 import Sidebar from './components/layout/Sidebar'
 import ProfileScreen from './screens/ProfileScreen'
 import MessagingScreen from './screens/MessagingScreen'
-import { token } from './utils'
+export const socket = io({
+  serveClient: false,
+  reconnection: true
+})  
 
 const Layout = ({ location, history }) => {    
 
   const dispatch = useDispatch()
-  // const loginReducer = useSelector((state) => state.loginReducer)
-  // const { user } = loginReducer
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { user } = userInfoReducer
+  const { user } = userInfoReducer  
 
   const updateHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }  
 
-  // useEffect(() => {
-
-  //   const socket = io({
-  //     serveClient: false,
-  //     reconnection: true
-  //   })  
-
-  //   socket.emit('userConnected', { username: user.name })
-  //   socket.on('onlineUsers', ({ onlineUsernames }) => {
-  //     console.log(onlineUsernames)
-  //   })
-
-  //   return () => {      
-  //     socket.off()      
-  //   }
-
-  // },[location.search, user])
-
-  // useEffect(() => {
-  //   if(!user) {
-  //     history.push('/login')
-  //   }
-  // },[user, history])
-  
   useEffect(() => {
-    updateHeight()         
-  }, [window.innerHeight])  
+    if(user) {        
+      socket.emit('userConnected', { username: user.name })
+      socket.on('onlineUsers', ({ onlineUsernames }) => {
+        console.log(onlineUsernames)
+      })  
+      return () => {      
+        socket.off()      
+      }
+    }
+  },[location.search, user])  
+
+  useEffect(() => {
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight) 
+  }, [])  
   
   useEffect(() => {    
     confgAxios()

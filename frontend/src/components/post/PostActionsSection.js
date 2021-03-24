@@ -6,8 +6,8 @@ import styles from '../../css/post/postActionsSection.module.css'
 
 const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommentSectionOpened }) => {  
   const dispatch = useDispatch()
-  const loginReducer = useSelector(state => state.loginReducer)
-  const { user = {name: null} } = loginReducer
+  const userInfoReducer = useSelector(state => state.userInfoReducer)
+  const { user = {name: null} } = userInfoReducer
   const { name } = user
   const [likesList, setLikesList] = useState(likes)
   const [liked, setLiked] = useState(false)

@@ -9,13 +9,14 @@
 
 .chatMessage div:first-of-type {  
   max-width: 100%;  
-  max-width: 70ch;
+  max-width: 70ch;  
   height: auto;  
   width: max-content;
   padding: 1rem;  
   background: var(--color);
   color: var(--background);
   border-radius: 1rem;  
+  border-top-left-radius: 0rem;  
   overflow-wrap: break-word;
   white-space: pre-wrap;
   border: solid;  
@@ -28,8 +29,9 @@
   max-width: 100%;  
 }
 
-.userMessage div:first-of-type {
-  width: max-content;
+.userMessage div:first-of-type {  
+  border-radius: 1rem;  
+  border-top-right-radius: 0rem;  
   background: var(--background);
   color: var(--color);
   border: solid;  
@@ -40,4 +42,32 @@
 }
 
 
-/* GOOD FROM DOWN */
+@media (max-width: 1200px) {  
+  .chatMessage div:first-of-type {  
+  max-width: 100%; 
+  max-width: 50ch;
+}
+}
+@media (max-width: 762px) {
+  .chatMessage div:first-of-type {  
+  max-width: 100%;  
+  max-width: 40ch;
+}
+}
+
+
+/* TOOLTIP LIKE ICON TO A CORNER OF THE MSG NOT APPROVED YET */
+/* .chatMessage div:first-of-type::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  border-bottom-left-radius: 70%;
+  border-bottom-right-radius: 70%;
+  border-top-left-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background-color: white;  
+  border: solid 3px black;
+  border-color: black black transparent transparent;
+} */

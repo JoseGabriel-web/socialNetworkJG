@@ -27,7 +27,11 @@ export const onlineUsersController = (io, socket) => {
     console.log(`Users ${JSON.stringify(onlineUsers)} connected`)    
   })
 
+
   
+  socket.on('disconectUser', ({ name }) => {
+    removeFromOnlineUsers(name, socket.id)    
+  })
   
   socket.on('disconnect', () => {
     removeFromOnlineUsers(socket.username, socket.id)

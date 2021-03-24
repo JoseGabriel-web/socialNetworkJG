@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken'
 const { ACCESS_TOKEN_SECRET } = process.env
 
-export const checkAuth = (req,res,next) => {
-  console.log(req.headers)
+export const checkAuth = (req,res,next) => {  
   const token = req.headers.authorization.split(' ')[1]
   if(!token) {
     next(new Error('Token Missing'))

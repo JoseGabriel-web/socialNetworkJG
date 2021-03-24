@@ -1,5 +1,6 @@
 import { User } from '../models/User.js'
 import { updatedAllUserPost } from '../controllers/postControllers.js'
+import { updateAllUserFollowers } from './followerControlers.js'
 
 export const getUserInfo = (req, res, next) => {
   console.log('GOING THROUGH USER INFO')
@@ -20,9 +21,9 @@ export const updateProfilePicture = async (req, res, next) => {
     url: req.file.path,
     public_id: req.file.filename,
   }
-  const user = await User.findOne({ _id: req.body._id })
+  const user = await User.findOne({ _id: req.user._id })
   User.updateOne(
-    { _id: req.body._id },
+    { _id: req.user._id },
     { $set: { profilePicture: profilePicture } },
     (err, result) => {
       if (err) return next(err)
@@ -38,9 +39,10 @@ export const updateProfilePicture = async (req, res, next) => {
 }
 
 export const updateUser = async (req, res, next) => {
-  const { _id, name, email, password } = req.body
+  const { _id } = req.user
+  const { name, email, password } = req.body
   const user = await User.findOne({ _id })
-  const postsUsername = await user.name
+  const postsUsername = await user.name  
   user.name = name || (await user.name)
   user.email = email || (await user.email)
   if (password) {
@@ -48,15 +50,17 @@ export const updateUser = async (req, res, next) => {
   }
   user.save((err, savedUser) => {
     if (err) return next(err)
-    let updatedUser = {
-      name: savedUser.name,
-      email: savedUser.email,
-    }
     let postUpdatedUser = {
       name: savedUser.name,
       profilePicture: savedUser.profilePicture.url,
     }
-    updatedAllUserPost(postsUsername, postUpdatedUser)
-    res.status(200).json({ updatedUser })
+    updatedAllUserPost(postsUsername, postUpdatedUser, next)        
+    return res
+      .status(201)
+      .json({
+        name: savedUser.name,
+        email: savedUser.email,
+        profilePicture: savedUser.profilePicture,
+      })
   })
 }

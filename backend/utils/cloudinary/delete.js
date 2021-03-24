@@ -8,7 +8,7 @@ export const deletePostImg = (req, res, next) => {
     resource_type: 'image',
     invalidate: true
   }, (error, result) => {
-    if(error) throw new Error(error)
+    if(error) return next(error)
     console.log(result)
     next()
   })
@@ -22,7 +22,7 @@ export const deleteUserProfilePic = async (req, res, next) => {
     resource_type: 'image',
     invalidate: true
   }, (error, result) => {
-    if(error) throw new Error(error)
+    if(error) return next(error)
     console.log(result)
     next()
   })
