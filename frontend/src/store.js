@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import * as userReducers from './reducers/userReducers'
 import * as authReducers from './reducers/authReducers'
 import * as postReducers from './reducers/postReducers'
+import * as chatRoomReducers from './reducers/chatRoomReducers'
 import * as profileReducers from './reducers/profileReducers'
 import * as followerReducers from './reducers/followerReducers'
 import * as postCommentReducers from './reducers/postCommentReducers'
@@ -24,6 +25,8 @@ const reducers = combineReducers({
   registerReducer: authReducers.registerReducer,
   loginReducer: authReducers.loginReducer,
   userInfoReducer: userReducers.userInfoReducer,
+  chatRoomInfoReducer: chatRoomReducers.chatRoomInfoReducer,
+  getAllUsersReducer: userReducers.getAllUsersReducer,
 })
 
 const store = createStore(reducers, composeWithDevTools(

@@ -1,26 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import styles from '../../css/chat/chat.module.css'
 import ChatInput from './ChatInput'
 import Message from './Message'
+import Loading from '../layout/Loading'
+import { socket } from '../../Layout'
 
 const Chat = ({ isOpened, setIsOpened }) => {
 
-  const otherUserMessage = {
-    sender: 'chillin',    
-    body: 'This is a message in the chat asda asd sad asdasasdasd adasd asdasd sadsaasd adasd sadas This i',
-    createdDate: '3/15/21',
-  }
-  const userMessage = {
-    sender: 'jose',    
-    body: 'This is a message in the chat asda asd sad asdasasdasd adasd asdasd sadsaasd adasd sadas ThiThis is a message in the chat asda asd sad asdasasdasd  adasd asdasd sadsaasd adasd sadas ThiThis is is a message in the chat asda asd sad asdasasdasd  adasd asdasd sadsaasd adasd sadas.',
-    createdDate: '12/05/21',
-  }
-  const messages = [
-    userMessage,
-    otherUserMessage,
-    userMessage,
-    otherUserMessage,    
-  ]
+  const chatRoomInfoReducer = useSelector(state => state.chatRoomInfoReducer)
+  const { messages = [], loading } = chatRoomInfoReducer
+  const [newMessages, setNewMessages] = useState([])
+
+  socket.on('receiveMessage', ({ newMessage }) => {
+    setNewMessages([...newMessages, newMessage])
+  })
+
 
   return (
     <div className={styles.chatContainer}>
@@ -29,12 +24,15 @@ const Chat = ({ isOpened, setIsOpened }) => {
         className={`${styles.handleChatSidebarBtn} fas fa-angle-double-${
           isOpened ? 'right' : 'left'
         }`}
-      />
-      <div className={styles.chatContent} width='100%'>
-        {messages.map((message) => (
-          <Message message={message} />
-        ))}
-      </div>
+      />  
+        
+          <div className={styles.chatContent} width='100%'>        
+            {loading? <Loading /> : [...messages, ...newMessages].map((message) => (
+              <Message message={message} />
+            ))}
+          </div>        
+
+
       <div className={styles.chatInputComponentContainer}>
         <ChatInput />
       </div>

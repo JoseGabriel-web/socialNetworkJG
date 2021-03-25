@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styles from '../css/chat/messagingScreen.module.css'
 import ChatSidebar from '../components/chat/ChatSidebar'
 import Chat from '../components/chat/Chat'
+import { getAllUsersAction } from '../actions/userActions'
 
 const MessagingScreen = () => {
   const [isOpened, setIsOpened] = useState(true)
+  const dispatch = useDispatch()  
+
+  useEffect(() => {
+    dispatch(getAllUsersAction())
+  }, [])
 
   return (
     <div className={styles.messagingScreenConatiner}>

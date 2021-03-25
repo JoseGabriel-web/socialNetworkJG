@@ -28,3 +28,15 @@ export const getUserAction = () => async (dispatch) => {
     dispatch({type: userConstants.GET_USER_INFO_FAIL, payload: error.response.data.error})
   }
 }
+
+export const getAllUsersAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: userConstants.GET_ALL_USERS_REQUEST })
+    const { data } = await axios.get('/api/user/getAllUsers')
+    console.log(' Getting all users from sidebar chat -> ',data.users)
+    dispatch({ type: userConstants.GET_ALL_USERS_SUCCESS, payload: data.users })
+  } catch(error) {
+    console.log('Getting all posts Error -> ',error.response)
+    dispatch({ type: userConstants.GET_ALL_USERS_FAIL })
+  }
+}

@@ -2,6 +2,16 @@ import { User } from '../models/User.js'
 import { updatedAllUserPost } from '../controllers/postControllers.js'
 import { updateAllUserFollowers } from './followerControlers.js'
 
+export const getAllUsers = async ( req, res, next ) => {  
+  try {
+    const users = await User.find({}).select('name profilePicture -_id')
+    // const formatedUsers = users.map()
+    return res.status(201).json({ users })
+  } catch(error) {
+    next(error)
+  }
+}
+
 export const getUserInfo = (req, res, next) => {
   console.log('GOING THROUGH USER INFO')
   return User.findById({ _id: req.user._id }, (err, user) => {

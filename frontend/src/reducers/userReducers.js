@@ -12,3 +12,16 @@ export const userInfoReducer = (state = {}, action) => {
       return state
   }
 }
+
+export const getAllUsersReducer = (state = {}, action) => {  
+  switch (action.type) {
+    case userConstants.GET_ALL_USERS_FAIL:
+      return { loading: false }        
+    case userConstants.GET_ALL_USERS_REQUEST:
+      return {loading: true}        
+    case userConstants.GET_ALL_USERS_SUCCESS:
+      return { laoding: false, users: action.payload }        
+    default:
+      return state
+  }
+}

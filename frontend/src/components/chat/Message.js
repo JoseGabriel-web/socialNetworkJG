@@ -12,13 +12,15 @@ const Message = ({ message }) => {
   }
 
   return (
-    <div
-      className={`${styles.chatMessage} ${
-        isCurrentUser(message) ? styles.userMessage : null
-      }`}
-    >
-      <div><strong className={styles.username}>{message.sender}:</strong> {message.body}</div>
-      <div>{message.createdDate}</div>
+    <div>    
+      <div
+        className={`${styles.chatMessage} ${
+          isCurrentUser(message) ? styles.userMessage : null
+        }`}
+      >
+        <div><strong className={styles.username}>{message.sender}:</strong> {message.body}</div>
+        <div>{message.createdDate}</div>
+      </div>    
     </div>
   )
 }
