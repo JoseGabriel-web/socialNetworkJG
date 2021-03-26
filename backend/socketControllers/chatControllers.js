@@ -2,26 +2,32 @@ import { createMessage } from '../controllers/messageControllers.js'
 import { getUsersInChatRoom } from '../controllers/chatRoomControllers.js'
 import { onlineUsers } from './onlineUsersController.js'
 
+const emitMsgNotification = (chatRoomUsers, io, sender) => {
+  chatRoomUsers.forEach(user => {         
+    const isOnline = Object.keys(onlineUsers).includes(user)      
+    if(isOnline) {
+      onlineUsers[user].socketIds.forEach(socketId => {                
+        io.to(`${socketId}`).emit('messageNotification', sender) 
+      })
+    }
+  })
+}
+
 export const chatControllers = (io, socket) => {
   
   socket.on('sendMessage', async ({ chatRoomId, sender, body }) => {
-    createMessage({ chatRoomId, sender, body })
-    console.log('Request for Message received in backend')
+    createMessage({ chatRoomId, sender, body })    
     const chatRoomUsers = await getUsersInChatRoom(chatRoomId)
     const newMessage = { chatRoomId, sender, body, createdAt: Date.now() }
-    chatRoomUsers.forEach(user => {
-      const isOnline = Object.keys(onlineUsers).includes(user)
-      if(isOnline) {
-        const userSocketIds = onlineUsers[user].socketIds
-        userSocketIds.forEach(socketId => {
-          io.to(socketId).emit('receiveMessage', { newMessage })
-        })
-      }
-    })
-    io.to(socket.id).emit('receiveMessage', newMessage)
+    io.to(chatRoomId).emit('receiveMessage', newMessage)    
+    emitMsgNotification(chatRoomUsers, io, sender)    
   })
 
-  
+  socket.on('joinRoom', ({ name, chatRoomId }) => {
+    console.log(onlineUsers[name], chatRoomId)
+    socket.leaveAll()
+    socket.join(chatRoomId)
+  })
 
 
 }

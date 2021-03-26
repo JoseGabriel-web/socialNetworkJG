@@ -9,11 +9,11 @@ const Message = ({ message }) => {
 
   const isCurrentUser = (message) => {    
     return message.sender === user?.name
-  }
+  }  
 
   return (
-    <div>    
-      <div
+    <div>   
+      <div      
         className={`${styles.chatMessage} ${
           isCurrentUser(message) ? styles.userMessage : null
         }`}

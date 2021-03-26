@@ -11,16 +11,21 @@ const ChatInput = () => {
   const [body, setBody] = useState(null)
 
   const handleSendMessage = () => {
-    if(body) {
-      console.log({ chatRoomId, sender: user.name, body })
-      console.log('Hellow world')
+    if(body && user) {        
       socket.emit('sendMessage', { chatRoomId, sender: user.name, body })
+      setBody('')
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if(e.key === 'Enter') {
+      handleSendMessage()
     }
   }
 
   return (
     <div className={styles.chatInputContainer}>
-      <input value={body} onChange={(e) => setBody(e.target.value)} className={styles.chatInput} />
+      <input onKeyDown={handleKeyDown} value={body} onChange={(e) => setBody(e.target.value)} className={styles.chatInput} />
       <div className={styles.sendMessageBtn} onClick={() => handleSendMessage()}>
         <i className='fas fa-location-arrow' />
       </div>

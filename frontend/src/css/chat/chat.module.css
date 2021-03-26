@@ -12,6 +12,7 @@
   max-width: 100%;
   padding: 3vh;
   padding-bottom: 0;
+  scroll-behavior: smooth;
   overflow-x: hidden;
   overflow-y: auto;      
 }

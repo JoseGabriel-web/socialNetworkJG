@@ -13,6 +13,8 @@ import { followerRoutes } from './routes/followerRoutes.js'
 import { postCommentRoutes } from './routes/postCommentRoutes.js'
 import { errorMiddleware } from './middleware/errorMiddleware.js'
 import * as socketControllers from './socketControllers/index.js'
+import { Message } from './models/Message.js'
+import { ChatRoom } from './models/ChatRoom.js'
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server) 
@@ -35,6 +37,15 @@ app.use('/api/post/comment', postCommentRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/followers', followerRoutes)
 app.use(errorMiddleware)
+
+app.get('/deleteAllMessages', async (req,res) => {
+  await Message.deleteMany({ })
+  res.send('All Messages deleted')
+})
+app.get('/deleteAllChatRooms', async (req,res) => {
+  await ChatRoom.deleteMany({ })
+  res.send('All ChatRooms deleted')
+})
 
 const PORT = process.env.PORT || 4000
 server.listen(PORT)

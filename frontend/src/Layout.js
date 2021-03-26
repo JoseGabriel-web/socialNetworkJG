@@ -42,6 +42,9 @@ const Layout = ({ location, history }) => {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight) 
   }, [])  
+  useEffect(() => {
+    updateHeight()  
+  }, [])  
   
   useEffect(() => {    
     confgAxios()

@@ -8,17 +8,17 @@ export const createChatRoom = async (users) => {
 }
 
 // Gets ChatRoom and if doesn't exist creates one
-export const getChatRoom = async ( req, res, next ) => {
+export const getChatRoom = async (req, res, next) => {
   try {
     const { users } = req.body
-    const chatRoom = await ChatRoom.findOne({ users })    
-    if(!chatRoom) {
-      const newChatRoomId = await createChatRoom(users)
+    const chatRoom = await ChatRoom.findOne({ users: users.sort() })
+    if (!chatRoom) {
+      const newChatRoomId = await createChatRoom(users.sort())
       return res.status(201).json({ chatRoomId: newChatRoomId, messages: [] })
     }
     const messages = await getMessages(chatRoom._id)
     res.status(201).json({ chatRoomId: chatRoom._id, messages })
-  } catch(error) {
+  } catch (error) {
     next(error)
   }
 }
