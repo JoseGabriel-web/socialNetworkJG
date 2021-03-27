@@ -9,6 +9,8 @@ import * as followerActions from '../actions/followerActions'
 import ChangeProfilePicture from '../components/profile/ChangeProfilePicture'
 import ProfileSettings from '../components/profile/ProfileSettings'
 import * as utils from '.././utils/index'
+import { socket } from '../Layout'
+import { replaceSpace } from '../utils/string'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
@@ -43,6 +45,13 @@ const ProfileScreen = () => {
     const { newFollowersCount } = await dispatch(
       followerActions.follow(user.name, profile.user.name, followersCount)
     )
+    const notification = {
+      from: user.name,
+      body: `${user.name} started following you!`,
+      link: `/profile/${replaceSpace(profile.user.name)}/followers`,
+      type: 'follow'
+    }
+    socket.emit('sendNotification', { notification, username: profile.user.name })
     setFollowersCount(await newFollowersCount)
     setFollowing(true)
   }
@@ -56,11 +65,20 @@ const ProfileScreen = () => {
   }
 
   useEffect(() => {
+    if(!profile) {
+      (async () => {      
+        const { followers } = await dispatch(getProfile(params.username))
+        setFollowersCount(await followers?.length)      
+        setFollowing(isFollowing(await followers))
+      })()
+    }
+  }, [params.username])
+  useEffect(() => {    
     (async () => {      
       const { followers } = await dispatch(getProfile(params.username))
       setFollowersCount(await followers?.length)      
       setFollowing(isFollowing(await followers))
-    })()
+    })()    
   }, [params.username])
 
   return (

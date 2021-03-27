@@ -24,7 +24,7 @@ const HomeScreen = () => {
   return (
     <div className={styles.homeContainer} style={{backgroundImage: `url(${backgroundImg})`}}>
       <div className={styles.homeFeedContainer}>        
-        <Feed posts={posts? posts.reverse() : null} loading={loading} />    
+        <Feed posts={posts? posts : null} loading={loading} />    
       </div>     
   </div>  
   )

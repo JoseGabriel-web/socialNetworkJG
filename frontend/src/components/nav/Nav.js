@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import defaultProfilePicture from '../../images/user.png'
-import Notification from './Notification'
+import Notifications from './Notifications'
 import styles from '../../css/nav/nav.module.css'
 import * as utils from '../../utils/index'
 // import logo from '../images/logo_transparent.png'
@@ -82,32 +82,12 @@ const Nav = () => {
                   : styles.displayNone
               }
             >
-              {user ? (
-                <>
-                  <div className={styles.notificationHeader}>
-                    <h4>Notifications:</h4>
-                  </div>
-                  <div className={styles.userNotificationsContainer}>
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                    <Notification label='This is a Notification Component' />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div
-                    className={styles.notificationHeader}
-                    style={{ borderBottom: 'none' }}
-                  >
-                    <h4>Please log in, to view notifications.</h4>
-                  </div>
-                </>
-              )}
+              <div className={styles.notificationHeader}>
+                <h4>Notifications:</h4>
+              </div>
+              <div className={styles.userNotificationsContainer}>
+                <Notifications />                  
+              </div>
             </div>
           </div>
 

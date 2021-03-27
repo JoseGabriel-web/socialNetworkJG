@@ -5,6 +5,8 @@ import { io } from 'socket.io-client'
 import confgAxios from './confgAxios'
 import * as userActions from './actions/userActions'
 import styles from './css/layout/layout.module.css'
+import { getAllUsersAction } from './actions/userActions'
+import { getProfile } from './actions/profileActions'
 import Nav from './components/nav/Nav'
 import HomeScreen from './screens/HomeScreen'
 import Sidebar from './components/layout/Sidebar'
@@ -15,7 +17,7 @@ export const socket = io({
   reconnection: true
 })  
 
-const Layout = ({ location, history }) => {    
+const Layout = ({ location }) => {    
 
   const dispatch = useDispatch()
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
@@ -50,6 +52,12 @@ const Layout = ({ location, history }) => {
     confgAxios()
     dispatch(userActions.getUserAction())    
   }, [])  
+  
+  useEffect(() => {    
+    if(!user) {
+      dispatch(userActions.getUserAction())   
+    }
+  }, [user])  
   
   return (    
     <div className={styles.layout}>

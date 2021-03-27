@@ -1,13 +1,21 @@
 import { createMessage } from '../controllers/messageControllers.js'
 import { getUsersInChatRoom } from '../controllers/chatRoomControllers.js'
 import { onlineUsers } from './onlineUsersController.js'
+// import * as notificationControllers from '../controllers/notificationControllers.js'
 
-const emitMsgNotification = (chatRoomUsers, io, sender) => {
+const emitMsgNotification = (chatRoomUsers, io, socket, sender) => {
+  // const notification = {
+  //   from: sender,
+  //   body: `Message from ${sender}`,
+  //   type: 'Message',      
+  // }
   chatRoomUsers.forEach(user => {         
-    const isOnline = Object.keys(onlineUsers).includes(user)      
+    const isOnline = Object.keys(onlineUsers).includes(user)    
+    // notificationControllers.createNotification(notification, user)
     if(isOnline) {
-      onlineUsers[user].socketIds.forEach(socketId => {                
-        io.to(`${socketId}`).emit('messageNotification', sender) 
+      onlineUsers[user].socketIds.forEach(socketId => {           
+        // io.to(`${socketId}`).emit('messageNotification', sender)
+        socket.broadcast.to(`${socketId}`).emit('messageNotification', sender)
       })
     }
   })
@@ -20,7 +28,7 @@ export const chatControllers = (io, socket) => {
     const chatRoomUsers = await getUsersInChatRoom(chatRoomId)
     const newMessage = { chatRoomId, sender, body, createdAt: Date.now() }
     io.to(chatRoomId).emit('receiveMessage', newMessage)    
-    emitMsgNotification(chatRoomUsers, io, sender)    
+    emitMsgNotification(chatRoomUsers, io, socket, sender)    
   })
 
   socket.on('joinRoom', ({ name, chatRoomId }) => {

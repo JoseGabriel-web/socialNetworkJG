@@ -22,6 +22,7 @@ export const getUserInfo = (req, res, next) => {
         name: user.name,
         email: user.email,
         profilePicture: user.profilePicture,
+        notifications: user.notifications,
       })
   })
 }

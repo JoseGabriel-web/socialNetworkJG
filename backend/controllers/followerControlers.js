@@ -1,5 +1,9 @@
 import { User } from '../models/User.js'
+import * as notificationControllers from '../controllers/notificationControllers.js'
 
+const replaceSpace = (string) => {
+  return string.split(' ').join('+')
+}
 
 export const getFollowers = async (req,res) => {
   let username = req.params.username.split('+').join(' ')
@@ -20,11 +24,19 @@ export const follow = (req,res) => {
       User.updateOne({name: followerName}, {$push: {following: [userToFollowName] }}, (err,result) => {
         if(err) res.status(500).json({error})
         else {
+          const notification = {
+            from: followerName,
+            body: `${followerName} started Following you!`,
+            link: `/profile/${replaceSpace(userToFollowName)}/followers`,
+            type: 'follow'
+          }
+          notificationControllers.createNotification(notification, userToFollowName)
           res.status(200).json({message: `${followerName} started following ${userToFollowName}`})  
         }
       })
     }
   })
+
 }
 
 export const unfollow = (req,res) => {

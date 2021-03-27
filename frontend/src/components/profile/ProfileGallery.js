@@ -19,7 +19,9 @@ const ProfileGallery = () => {
   }
 
   const isCurrentUser = () => {
-    return profile.user.name === user.name
+    if(user) {
+      return profile.user.name === user.name
+    }
   }
 
   const handleOpenPost = (post) => {

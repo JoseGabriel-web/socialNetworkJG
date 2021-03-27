@@ -24,6 +24,7 @@ connectDB()
 io.on('connection', (socket) => {  
   socketControllers.onlineUsersController(io, socket)
   socketControllers.chatControllers(io, socket)  
+  socketControllers.liveNotificationControllers(io, socket)    
 })
 
 app.use(express.json())

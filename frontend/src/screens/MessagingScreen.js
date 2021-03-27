@@ -12,11 +12,14 @@ const MessagingScreen = () => {
   const userInfoReducer = useSelector(state => state.userInfoReducer)
   const { user } = userInfoReducer
   const [isOpened, setIsOpened] = useState(true)
+  const [newMessages, setNewMessages] = useState([])
   const dispatch = useDispatch()  
 
   useEffect(() => {
-    dispatch(getAllUsersAction())
-  }, [])
+    if(user) {
+      dispatch(getAllUsersAction())
+    }
+  }, [user])
   useEffect(() => {
     if(chatRoomId && user) {
       socket.emit('joinRoom', { name: user.name, chatRoomId })
@@ -26,14 +29,14 @@ const MessagingScreen = () => {
   return (
     <div className={styles.messagingScreenConatiner}>
       <div className={styles.chatComponentContainer}>                        
-        <Chat isOpened={isOpened} setIsOpened={setIsOpened} />         
+        <Chat newMessages={newMessages} setNewMessages={setNewMessages} isOpened={isOpened} setIsOpened={setIsOpened} />         
       </div>      
       <div
         className={`${styles.chatsidebarComponentContainer} ${
           isOpened ? styles.isOpened : styles.isClosed
         }`}
       >
-        <ChatSidebar />
+        <ChatSidebar setNewMessages={setNewMessages} />
       </div>      
     </div>
   )

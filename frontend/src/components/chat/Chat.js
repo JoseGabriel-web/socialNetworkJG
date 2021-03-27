@@ -6,11 +6,10 @@ import Message from './Message'
 import Loading from '../layout/Loading'
 import { socket } from '../../Layout'
 
-const Chat = ({ isOpened, setIsOpened }) => {
+const Chat = ({ isOpened, setIsOpened, newMessages, setNewMessages }) => {
 
   const chatRoomInfoReducer = useSelector(state => state.chatRoomInfoReducer)  
-  const { messages = [], loading } = chatRoomInfoReducer
-  const [newMessages, setNewMessages] = useState([])
+  const { messages = [], loading } = chatRoomInfoReducer  
   const chatRef = useRef(null)
 
   socket.on('receiveMessage', (newMessage) => {    
