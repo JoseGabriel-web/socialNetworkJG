@@ -5,7 +5,7 @@ export const createMessage = async ({ chatRoomId, sender, body }) => {
     await Message.create({
       chatRoomId,
       sender,
-      body,    
+      body,  
     })
     return
   } catch(error) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { io } from 'socket.io-client'
@@ -26,24 +26,32 @@ const Layout = ({ location }) => {
   const updateHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }  
+  }    
+
+  // socket.on('connect', () => {
+  
+  // })
+  // socket.on('disconnect', () => {
+    
+  // })
 
   useEffect(() => {
-    if(user) {        
+    if(user) {             
       socket.emit('userConnected', { username: user.name })
       socket.on('onlineUsers', ({ onlineUsernames }) => {
         console.log(onlineUsernames)
-      })  
-      return () => {      
-        socket.off()      
+      }) 
+      return () => {   
+        socket.off()
       }
     }
-  },[location.search, user])  
+  },[location.search, user])      
 
   useEffect(() => {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight) 
   }, [])  
+  
   useEffect(() => {
     updateHeight()  
   }, [])  

@@ -3,16 +3,29 @@ import { useSelector } from 'react-redux'
 import styles from '../../css/chat/chatInput.module.css'
 import { socket } from '../../Layout'
 
-const ChatInput = () => {
+const ChatInput = ({ overSpeedLimit, setOverSpeedLimit }) => {
   const chatRoomInfoReducer = useSelector(state => state.chatRoomInfoReducer)
   const userInfoReducer = useSelector(state => state.userInfoReducer)
   const { user } = userInfoReducer
   const { chatRoomId } = chatRoomInfoReducer
   const [body, setBody] = useState(null)
+  const [messageJustSent, setMessageJustSent] = useState(false)
 
   const handleSendMessage = () => {
-    if(body && user) {        
+    if(messageJustSent && overSpeedLimit) {
+      return
+    } else if(messageJustSent) {
+      setOverSpeedLimit(true)
+      return setTimeout(() => {
+        setOverSpeedLimit(false)
+      }, 1000)      
+    }
+    if(body && user) {
       socket.emit('sendMessage', { chatRoomId, sender: user.name, body })
+      setMessageJustSent(true)
+      setTimeout(() => {
+        setMessageJustSent(false)
+      }, 1000)
       setBody('')
     }
   }

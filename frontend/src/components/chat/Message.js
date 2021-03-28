@@ -11,6 +11,10 @@ const Message = ({ message }) => {
     return message.sender === user?.name
   }  
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US')
+  }
+
   return (
     <div>   
       <div      
@@ -19,7 +23,7 @@ const Message = ({ message }) => {
         }`}
       >
         <div><strong className={styles.username}>{message.sender}:</strong> {message.body}</div>
-        <div>{message.createdDate}</div>
+        <div>{message && formatDate(message.createdDate)}</div>
       </div>    
     </div>
   )
