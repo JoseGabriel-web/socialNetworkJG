@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import * as userConstants from '../../constants/userConstants'
 import defaultProfilePicture from '../../images/user.png'
 import Notifications from './Notifications'
 import styles from '../../css/nav/nav.module.css'
@@ -24,6 +25,8 @@ const Nav = () => {
   const handleLogout = () => {    
     localStorage.removeItem('accessToken')    
     localStorage.removeItem('refreshToken')    
+    localStorage.removeItem('user')    
+    dispatch({ type: userConstants.GET_USER_INFO_FAIL })
     window.location.href = '/login'
   }
 

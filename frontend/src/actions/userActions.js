@@ -23,6 +23,7 @@ export const getUserAction = () => async (dispatch) => {
   dispatch({ type: userConstants.GET_USER_INFO_REQUEST })
   try {
     const { data } = await axios.get('/api/user/getUserInfo')
+    localStorage.setItem('user', JSON.stringify(data))
     dispatch({ type: userConstants.GET_USER_INFO_SUCCESS, payload: data })
   }  catch(error) {
     dispatch({type: userConstants.GET_USER_INFO_FAIL, payload: error.response.data.error})

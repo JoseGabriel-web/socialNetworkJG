@@ -1,6 +1,8 @@
 import * as userConstants from '../constants/userConstants'
 
-export const userInfoReducer = (state = {}, action) => {  
+const savedUser = { user: JSON.parse(localStorage.getItem('user')) } || {}
+
+export const userInfoReducer = (state = savedUser, action) => {  
   switch (action.type) {
     case userConstants.GET_USER_INFO_REQUEST:
       return {loading: true}        

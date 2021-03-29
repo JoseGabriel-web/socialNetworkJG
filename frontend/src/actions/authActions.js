@@ -11,7 +11,7 @@ export const registerAction = (name, email, password, history) => async (dispatc
     token.setAccessToken(data.accessToken)
     token.setRefreshToken(data.refreshToken) 
     dispatch({type: authConstants.REGISTER_SUCCESS}) 
-    return history.push('/')
+    return history.push('/home')
   } catch (error) {        
     dispatch({type: authConstants.REGISTER_FAIL, payload: error.response.data.error})
   }
@@ -24,7 +24,7 @@ export const loginAction = (email, password, history) => async (dispatch, getSta
     token.setAccessToken(data.accessToken)
     token.setRefreshToken(data.refreshToken)     
     dispatch({ type: authConstants.LOGIN_SUCCESS }) 
-    return history.push('/')          
+    return history.push('/home')          
   } catch (error) {    
     dispatch({ type: authConstants.LOGIN_FAIL, payload: error.response.data.error })
   }

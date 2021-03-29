@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import { loginAction } from '../actions/userActions'
 import { loginAction } from '../actions/authActions'
 import styles from '../css/login/login.module.css'
 import Loading from '../components/layout/Loading'
@@ -18,17 +17,12 @@ const LoginScreen = ({history}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(loginAction(email, password, history))
+    return dispatch(loginAction(email, password, history))
   }
 
-  const handleAlreadyLogged = () => {
+  useEffect(() => {
     if(user) return history.push('/home')
-    return
-  }
-
-  useEffect(
-    handleAlreadyLogged
-  , [user, history])
+  }, [user])
 
   return (
     <div className={styles.loginContainer}>
