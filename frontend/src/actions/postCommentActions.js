@@ -11,16 +11,6 @@ import {
 
 export const createPostComment = (postId, label) => async (dispatch, getState) => {
   dispatch({type: CREATE_POST_COMMENT_REQUEST})
-  const { loginReducer } = getState()
-  const { user } = loginReducer
-  const { accessToken } = user
-
-  const config = {
-    headers: {           
-      'Content-type': 'application/json',      
-      authorization: `Bearer ${accessToken}`,
-    },
-  }
 
   const body = {
     postId,
@@ -28,7 +18,7 @@ export const createPostComment = (postId, label) => async (dispatch, getState) =
   }
 
   try {
-    const { data } = await axios.post('/api/post/comment/createPostComment', body, config)
+    const { data } = await axios.post('/api/post/comment/createPostComment', body)
     const { newComment } = await data
     console.log(data)
     dispatch({type: CREATE_POST_COMMENT_SUCCESS, payload: newComment})

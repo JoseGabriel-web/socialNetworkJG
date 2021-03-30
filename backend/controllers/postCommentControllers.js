@@ -3,7 +3,8 @@ import { User } from '../models/User.js'
 
 
 export const createPostComment = async (req,res) => {
-  const { _id, postId, label } = req.body
+  const { _id } = req.user
+  const { postId, label } = req.body
   const user = await User.findById({_id}).select(['name', 'profilePicture'])
   let newComment = {
     label,

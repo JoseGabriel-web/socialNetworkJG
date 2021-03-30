@@ -23,9 +23,9 @@ const Nav = () => {
   const dispatch = useDispatch()  
 
   const handleLogout = () => {    
-    localStorage.removeItem('accessToken')    
-    localStorage.removeItem('refreshToken')    
-    localStorage.removeItem('user')    
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    localStorage.removeItem('user')
     dispatch({ type: userConstants.GET_USER_INFO_FAIL })
     window.location.href = '/login'
   }

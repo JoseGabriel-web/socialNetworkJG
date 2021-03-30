@@ -1,9 +1,9 @@
 import express from 'express'
 import * as postCommentControllers from '../controllers/postCommentControllers.js'
-import { auth } from '../middleware/auth.js'
+import { checkAuth } from '../middleware/checkAuth.js'
 const postCommentRoutes = express.Router()
 
-postCommentRoutes.post('/createPostComment', auth, postCommentControllers.createPostComment)
-postCommentRoutes.delete('/deletePostComment', auth, postCommentControllers.deletePostComment)
+postCommentRoutes.post('/createPostComment', checkAuth, postCommentControllers.createPostComment)
+postCommentRoutes.delete('/deletePostComment', checkAuth, postCommentControllers.deletePostComment)
 
 export { postCommentRoutes }

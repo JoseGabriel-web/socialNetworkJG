@@ -1,4 +1,5 @@
 import { onlineUsers } from './onlineUsersController.js'
+import * as notificationControllers from '../controllers/notificationControllers.js'
 
 export const liveNotificationControllers = (io, socket) => {
   
@@ -10,5 +11,11 @@ export const liveNotificationControllers = (io, socket) => {
     }
   })
 
-  
+  socket.on('deleteNotification', ({ notification, username }) => {
+    if(notification) {
+      console.log('Information to delete notification -> ', notification, username)
+      notificationControllers.deleteNotification(notification, username)
+    }
+  })
+
 }

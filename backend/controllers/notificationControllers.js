@@ -10,11 +10,12 @@ export const createNotification = async ({ from, body, link, type }, username) =
   return
 }
 
-export const deleteNotification = async ({ from, body, link, type }, username) => {  
+export const deleteNotification = async ({ _id, from, body, link, type }, username) => {  
   const notificationToRemove = { from, body, link, type }
   const user = await User.findOne({ name: username })
-  user.notifications = user.notifications.filter(notification => notification != notificationToRemove)
+  user.notifications.pull(_id)
   await user.save()
-  console.log(`Notification -> ${notificationToRemove} removed from ${username}`)
+  console.log('Delete controller info ->', { _id, from, body, link, type }, username)
+  console.log(`Notification -> ${notificationToRemove} removed from ${user}`)
   return
 }

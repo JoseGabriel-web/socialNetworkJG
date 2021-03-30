@@ -5,7 +5,8 @@ export const addToOnlineUsers = (username, socketId) => {
     onlineUsers[username] = {
       socketIds: [socketId]
     }
-  } else {
+  }
+  if(!onlineUsers[username].socketIds.includes(socketId)) {
     onlineUsers[username].socketIds.push(socketId)
   }
 }

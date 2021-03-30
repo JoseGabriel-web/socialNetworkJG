@@ -1,23 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import styles from '../../css/nav/notification.module.css'
-import { socket } from '../../Layout'
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import styles from "../../css/nav/notification.module.css"
+import { socket } from "../../Layout"
+import * as userConstants from "../../constants/userConstants"
 
 const Notifications = () => {
-  const userInfoReducer = useSelector(state => state.userInfoReducer)
-  const { user } = userInfoReducer  
-  const [notifications, setNotifications] = useState([])  
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { user } = userInfoReducer
+  const dispatch = useDispatch()
+  const [notifications, setNotifications] = useState([])
+
   const handleOnClick = (notification) => {
-    console.log(notification, ' <- this should be deleted')
+    if(user) {
+      handleDeleteNotification(notification)
+      dispatch({
+        type: userConstants.GET_USER_INFO_SUCCESS,
+        payload: {
+          ...user,
+          notifications: notifications.filter((noti) => noti._id !== notification._id),
+        },
+      })
+      console.log(notifications.filter((noti) => noti._id !== notification._id))
+    }
   }
 
-  socket.on('receiveNotification', (notification) => {    
-    setNotifications([...notifications, notification])
+  const handleDeleteNotification = (notification) => {
+    socket.emit("deleteNotification", { notification, username: user.name })
+  }
+
+  socket.on("receiveNotification", (notification) => {
+    console.log(notifications.some(not => not.from === notification.from && not.body === notification.body))
+    if(!notifications.some(not => not.from === notification.from && not.body === notification.body)) {
+      setNotifications([...notifications, notification])
+    }
   })
 
   useEffect(() => {
-    if(user) {
+    if (user) {
       setNotifications(user.notifications)
     }
   }, [user])
@@ -27,12 +47,15 @@ const Notifications = () => {
       {notifications
         ? notifications.map((notification) => (
             <div className={styles.notificationContainer}>
-              <Link to={notification.link} onClick={() => handleOnClick(notification)}>              
+              <Link
+                to={notification.link}
+                onClick={() => handleOnClick(notification)}
+              >
                 <h4>{notification.body}</h4>
               </Link>
             </div>
           ))
-        : ''}           
+        : ""}
     </div>
   )
 }

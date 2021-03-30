@@ -23,6 +23,7 @@ const confgAxios = () => {
     (error) => {
       const originalRequest = error.config      
       if(error.response.status === 401 && originalRequest.url === '/api/auth/refreshToken') {                
+        window.location.href = '/login'
         return Promise.reject(error)
       }
 
