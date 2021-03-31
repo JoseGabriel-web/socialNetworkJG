@@ -19,10 +19,7 @@ const LoginScreen = ({history}) => {
     e.preventDefault()
     return dispatch(loginAction(email, password, history))
   }
-
-  useEffect(() => {
-    if(user) return history.push('/home')
-  }, [user])
+  
 
   return (
     <div className={styles.loginContainer}>

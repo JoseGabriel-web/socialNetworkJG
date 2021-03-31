@@ -28,7 +28,7 @@ const MessagingScreen = () => {
   }, [chatRoomId, user])  
 
   return (
-    <div className={styles.messagingScreenConatiner}>
+    <div className={styles.messagingScreenConatiner}>              
       <div className={styles.chatComponentContainer}>
         <Chat
           newMessages={newMessages}
@@ -36,7 +36,7 @@ const MessagingScreen = () => {
           isOpened={isOpened}
           setIsOpened={setIsOpened}          
         />        
-      </div>
+      </div>              
       
       <div
         className={`${styles.chatsidebarComponentContainer} ${

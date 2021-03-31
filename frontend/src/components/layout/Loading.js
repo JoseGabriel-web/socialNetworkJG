@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from '../../css/layout/loading.module.css'
 
-const Loading = () => {
+const Loading = ({ small }) => {
   return (
     <div className={styles.loadingContainer}>      
-      <div className={styles.loading} />
+      <div className={small? styles.loadingSmall : styles.loading} />
     </div>
   )
 }

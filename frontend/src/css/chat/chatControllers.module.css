@@ -1,0 +1,41 @@
+.chatControllersContainer {
+  height: 100%;  
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(254, 255, 255);
+  border-bottom: solid 1px;
+}
+
+.chatSidebarController {
+  height: 100%;
+  width: 70px;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: solid 1px;
+}
+
+.chatSidebarController div {
+  height: 100%;
+  width: 100%;
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background);
+  color: var(--color);
+  font-size: 1.25rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.chatCurrentRoomUsers {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize; 
+  padding: 0 1rem;
+}

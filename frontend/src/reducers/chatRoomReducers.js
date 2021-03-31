@@ -7,7 +7,7 @@ export const chatRoomInfoReducer = (state = {}, action) => {
     case chatRoomConstants.GET_CHATROOM_REQUEST:
       return { loading: true }
     case chatRoomConstants.GET_CHATROOM_SUCCESS:
-      return { loading: false, chatRoomId: action.payload.chatRoomId, messages: action.payload.messages }
+      return { loading: false, chatRoomId: action.payload.chatRoomId, messages: action.payload.messages, users: action.payload.users }
     default:
       return state
   }

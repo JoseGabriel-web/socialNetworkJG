@@ -20,7 +20,7 @@ const ChatInput = ({ overSpeedLimit, setOverSpeedLimit }) => {
         setOverSpeedLimit(false)
       }, 1000)      
     }
-    if(body && user) {
+    if(body && user && chatRoomId) {
       socket.emit('sendMessage', { chatRoomId, sender: user.name, body })
       setMessageJustSent(true)
       setTimeout(() => {
@@ -28,6 +28,7 @@ const ChatInput = ({ overSpeedLimit, setOverSpeedLimit }) => {
       }, 1000)
       setBody('')
     }
+    return
   }
 
   const handleKeyDown = (e) => {

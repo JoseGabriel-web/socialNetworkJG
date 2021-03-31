@@ -14,10 +14,10 @@ export const getChatRoom = async (req, res, next) => {
     const chatRoom = await ChatRoom.findOne({ users: users.sort() })
     if (!chatRoom) {
       const newChatRoomId = await createChatRoom(users.sort())
-      return res.status(201).json({ chatRoomId: newChatRoomId, messages: [] })
+      return res.status(201).json({ chatRoomId: newChatRoomId, messages: [], users })
     }
     const messages = await getMessages(chatRoom._id)
-    res.status(201).json({ chatRoomId: chatRoom._id, messages })
+    res.status(201).json({ chatRoomId: chatRoom._id, messages, users })
   } catch (error) {
     next(error)
   }
