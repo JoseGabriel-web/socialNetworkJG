@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
 import styles from "../../css/chat/chatsidebar.module.css"
 import Loading from "../layout/Loading"
 import ChatSidebarUser from "./ChatSidebarUser"
@@ -25,7 +25,7 @@ const ChatSidebar = ({ setNewMessages }) => {
           users
             .filter((sidebarUser) => sidebarUser.name !== user.name)
             .filter((sidebarUser) => inputFilter(sidebarUser))
-            .map((sidebarUser, index) => (
+            .map((sidebarUser) => (
               <ChatSidebarUser
                 setNewMessages={setNewMessages}
                 sidebarUser={sidebarUser}

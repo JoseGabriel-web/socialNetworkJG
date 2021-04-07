@@ -1,11 +1,11 @@
+import { Comment } from '../models/Comment.js'
+import { Post } from '../models/Post.js'
 import { User } from '../models/User.js'
-import { updatedAllUserPost } from '../controllers/postControllers.js'
-import { updateAllUserFollowers } from './followerControlers.js'
+// import { updateAllUserFollowers } from './followerControlers.js'
 
 export const getAllUsers = async ( req, res, next ) => {  
   try {
-    const users = await User.find({}).select('name profilePicture -_id')
-    // const formatedUsers = users.map()
+    const users = await User.find({}).select('name profilePicture -_id')    
     return res.status(201).json({ users })
   } catch(error) {
     next(error)
@@ -32,17 +32,13 @@ export const updateProfilePicture = async (req, res, next) => {
     url: req.file.path,
     public_id: req.file.filename,
   }
-  const user = await User.findOne({ _id: req.user._id })
   User.updateOne(
     { _id: req.user._id },
     { $set: { profilePicture: profilePicture } },
-    (err, result) => {
+    (err, _) => {
       if (err) return next(err)
       else {
-        updatedAllUserPost(user.name, {
-          name: user.name,
-          profilePicture: profilePicture.url,
-        })
+        updateAllInstances(req.user._id)
         res.status(200).json({ profilePicture })
       }
     }
@@ -52,8 +48,7 @@ export const updateProfilePicture = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const { _id } = req.user
   const { name, email, password } = req.body
-  const user = await User.findOne({ _id })
-  const postsUsername = await user.name  
+  const user = await User.findOne({ _id })  
   user.name = name || (await user.name)
   user.email = email || (await user.email)
   if (password) {
@@ -61,11 +56,7 @@ export const updateUser = async (req, res, next) => {
   }
   user.save((err, savedUser) => {
     if (err) return next(err)
-    let postUpdatedUser = {
-      name: savedUser.name,
-      profilePicture: savedUser.profilePicture.url,
-    }
-    updatedAllUserPost(postsUsername, postUpdatedUser, next)        
+    updateAllInstances(savedUser._id)
     return res
       .status(201)
       .json({
@@ -75,3 +66,32 @@ export const updateUser = async (req, res, next) => {
       })
   })
 }
+
+// should move this code down here to an UpdateControllers.js
+
+const updateAllInstances = (userId) => {
+  updateComments(userId)
+  updatePosts(userId)
+}
+
+const updateComments = async (userId) => {
+  let comments = await Comment.find({ creator: userId })
+  comments.forEach(async comment => {
+    let userComment = await User.findById({ _id: comment.creator })
+    comment.user.name = await userComment.name
+    comment.user.profilePicture = await userComment.profilePicture.url
+    comment.save()
+  })
+}
+
+const updatePosts = async (userId) => {
+  let posts = await Post.find({ creator: userId })
+  posts.forEach(async post => {
+    let userPost = await User.findById({ _id: post.creator })
+    post.user.name = await userPost.name
+    post.user.profilePicture = await userPost.profilePicture.url
+    post.save()
+  })
+}
+
+// todo's -> updatedFollowers and Following | updateMessages | updateNotifications should provide the documents _id to UI for better backend - fronend comunication an ease of tasks in backend also should twick the messagin rooms to use the users _id and should provide the sidebarUser _id along with the currentUser _id to create Rooms

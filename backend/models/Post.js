@@ -1,18 +1,9 @@
 import mongoose from 'mongoose'
 
-const commentSchema = mongoose.Schema({
-  label: { type: String, required: true },
-  user: {    
-    name: { type: String, required: true },
-    profilePicture: { type: String, default: null },    
-  },  
-  likes: [{type: String}],
-  createdAt: { type: Date, default: Date.now },
-})
-
 const postSchema = mongoose.Schema({
-  user: {    
-    name: { type: String, required: true },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user: {
+    name: { type: String, default: null },
     profilePicture: { type: String, default: null },
   },
   title: { type: String, required: true },
@@ -21,8 +12,8 @@ const postSchema = mongoose.Schema({
     url: { type: String, required: true },
     public_id: { type: String, required: true },
   },  
-  likes: [{type: String, required: true}],
-  comments: [commentSchema],
+  likes: [{type: String, required: true}],  
+  comments: [],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })

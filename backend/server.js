@@ -10,11 +10,12 @@ import { postRoutes } from './routes/postRoutes.js'
 import { profileRoutes } from './routes/profileRoutes.js'
 import { chatRoomRoutes } from './routes/chatRoomRoutes.js'
 import { followerRoutes } from './routes/followerRoutes.js'
-import { postCommentRoutes } from './routes/postCommentRoutes.js'
+import { commentRoutes } from './routes/commentRoutes.js'
 import { errorMiddleware } from './middleware/errorMiddleware.js'
 import * as socketControllers from './socketControllers/index.js'
 import { Message } from './models/Message.js'
 import { ChatRoom } from './models/ChatRoom.js'
+import { Post } from './models/Post.js'
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server) 
@@ -34,7 +35,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/chatRoom', chatRoomRoutes)
-app.use('/api/post/comment', postCommentRoutes)
+app.use('/api/post/comment', commentRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/followers', followerRoutes)
 app.use(errorMiddleware)
@@ -46,6 +47,10 @@ app.get('/deleteAllMessages', async (req,res) => {
 app.get('/deleteAllChatRooms', async (req,res) => {
   await ChatRoom.deleteMany({ })
   res.send('All ChatRooms deleted')
+})
+app.get('/deleteAllPosts', async (req,res) => {
+  await Post.deleteMany({ })
+  res.send('All Posts deleted')
 })
 
 const PORT = process.env.PORT || 4000

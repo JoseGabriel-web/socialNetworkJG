@@ -7,7 +7,7 @@
   "scripts": {
     "client": "npm start --prefix ./frontend",
     "server": "nodemon ./backend/server",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Jose Gabriel Mercedes Geronimo",
   "license": "ISC",

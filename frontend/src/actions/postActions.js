@@ -30,7 +30,9 @@ export const createPost = (title, description, image) => async (
     const { data } = await axios.post('/api/post/createPost', body)
     const { message } = await data
     dispatch({ type: CREATE_POST_SUCCESS, payload: message })
-    dispatch(getPosts())
+    if(await data) {
+      dispatch(getPosts())
+    }
   } catch (error) {    
     dispatch({ type: CREATE_POST_FAIL, payload: error.response.data.error })
   }
@@ -39,11 +41,10 @@ export const createPost = (title, description, image) => async (
 export const getPosts = () => async (dispatch, getState) => {
   dispatch({ type: GET_POSTS_REQUEST })  
   try {    
-    const { data } = await axios.get('/api/post/getPosts')
-    const { posts } = await data
-    dispatch({ type: GET_POSTS_SUCCESS, payload: await posts })
+    const { data } = await axios.get('/api/post/getPosts')    
+    dispatch({ type: GET_POSTS_SUCCESS, payload: data.posts })
   } catch (error) {
-    dispatch({ type: GET_POSTS_FAIL, payload: error.response.data.error })
+    dispatch({ type: GET_POSTS_FAIL, payload: 'error.response.data.error' })
   }
 }
 

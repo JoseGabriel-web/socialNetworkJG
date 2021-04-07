@@ -13,10 +13,8 @@ const ChatSidebarUser = ({ sidebarUser, setNewMessages }) => {
   const { user } = userInfoReducer
   const [notificationCount, setNotificationCount] = useState(0)
 
-  socket.on('messageNotification', (sender) => {
-    console.log('Jose veloo aqui -> ', sender)
-    if(sender === sidebarUser.name) {
-      console.log('Jose veloo aqui -> ', sender)
+  socket.on('messageNotification', (sender) => {    
+    if(sender === sidebarUser.name) {      
       setNotificationCount(notificationCount + 1)
     }
   })
