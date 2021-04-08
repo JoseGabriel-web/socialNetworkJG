@@ -23,7 +23,8 @@ const Feed = ({ posts, loading }) => {
             description={post.description}
             comments={post.comments}
             postId={post._id}
-            likes={post.likes}            
+            likes={post.likes} 
+            creator={post.creator}           
           />
         ))}
       </div> : (

@@ -54,33 +54,33 @@ export const unfollow = (req,res) => {
   })
 }
 
-export const updateAllUserFollowers = (username, newUsername, next) => {
-  // Search all users followers list and change name where username to newUsername  
-  User.updateMany({ followers: { $in: [username]} }, { $push: { followers: [newUsername] } }, (err,result) => {
-    if(err) return next(err)
-    else {
-      User.updateMany({ followers: { $in: [username]} }, { $pull: { followers: { $in: [username]} }}, (err, result) => {
-        if(err) return next(err)
-        else { 
-          updateAllUserFollowing(username, newUsername, next)
-        }
-      })
-    }
-  })
-}
-export const updateAllUserFollowing = (username, newUsername, next) => {    
-  User.updateMany( { following: { $in: [username]} }, { $push: { following: [newUsername] } },(err, result) => {
-      if (err) return next(err)
-      else {
-        User.updateMany( { following: { $in: [username]} }, { $pull: {following: { $in: [username]}} },
-          (err, result) => {
-            if (err) return next(err)
-            else {
-              return     
-            }
-          }
-        )
-      }
-    }
-  )
-}
+// Should delete this nonsense once the new followers system is written.
+// export const updateAllUserFollowers = (username, newUsername, next) => {  
+//   User.updateMany({ followers: { $in: [username]} }, { $push: { followers: [newUsername] } }, (err,result) => {
+//     if(err) return next(err)
+//     else {
+//       User.updateMany({ followers: { $in: [username]} }, { $pull: { followers: { $in: [username]} }}, (err, result) => {
+//         if(err) return next(err)
+//         else { 
+//           updateAllUserFollowing(username, newUsername, next)
+//         }
+//       })
+//     }
+//   })
+// }
+// export const updateAllUserFollowing = (username, newUsername, next) => {    
+//   User.updateMany( { following: { $in: [username]} }, { $push: { following: [newUsername] } },(err, result) => {
+//       if (err) return next(err)
+//       else {
+//         User.updateMany( { following: { $in: [username]} }, { $pull: {following: { $in: [username]}} },
+//           (err, result) => {
+//             if (err) return next(err)
+//             else {
+//               return     
+//             }
+//           }
+//         )
+//       }
+//     }
+//   )
+// }

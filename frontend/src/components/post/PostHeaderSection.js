@@ -6,10 +6,8 @@ import DeletePost from '../layout/DeletePost'
 import defaultProfilePicture from '../../images/user.png'
 import * as utils from '../../utils/index'
 
-const PostHeaderSection = ({ postId, public_id, name, profilePicture }) => {
-  const [isOpened, setIsOpened] = useState(false)
-  // const loginReducer = useSelector(state => state.loginReducer)
-  // const { user } = loginReducer  
+const PostHeaderSection = ({ postId, public_id, name, profilePicture, creator }) => {
+  const [isOpened, setIsOpened] = useState(false)  
   const userInfoReducer = useSelector(state => state.userInfoReducer)
   const { user } = userInfoReducer    
   
@@ -24,7 +22,7 @@ const PostHeaderSection = ({ postId, public_id, name, profilePicture }) => {
         <Link style={{textTransform: 'capitalize'}} to={`/profile/${utils.string.replaceSpace(name)}/gallery`}>{name}</Link>
       </div>
 
-      { user && user.name === name?(<div
+      { user && user._id === creator?(<div
         className={styles.deletePostBtn}
         onClick={handleDeletePostPopUpState}
       >

@@ -17,7 +17,7 @@ const PostCommentSection = ({
 }) => {
   const dispatch = useDispatch()
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { name } = userInfoReducer?.user || { name: '' }
+  const { user } = userInfoReducer
   const [label, setLabel] = useState('')
   const [initialComments, setInitialComments] = useState([...comments])
   const [newComments, setNewComments] = useState([])
@@ -86,7 +86,7 @@ const PostCommentSection = ({
                   >
                     <h5 style={{textTransform: 'capitalize'}}>{comment.user.name}:</h5>
                   </Link>                  
-                  {name && name === comment.user.name ? (
+                  {user && user._id === comment.creator ? (
                     <i
                       className='fas fa-trash-alt'
                       onClick={() => handleDeleteComment(comment.label)}
