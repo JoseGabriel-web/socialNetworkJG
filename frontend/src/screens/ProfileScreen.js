@@ -26,7 +26,15 @@ const ProfileScreen = () => {
   const [editProfilePicturePopUpState,setEditProfilePicturePopUpState] = useState(false)
 
   const isFollowing = (followersList) => {
-    return followersList && followersList.includes(user?.name)
+    let result = false
+    if(followersList) {
+      for(let i = 0; i < followersList.length; i++) {
+        if(followersList[i].followerId === user._id) {
+          result = true
+        }
+      }
+    }
+    return result
   }
 
   const isSelected = (path) => {
@@ -43,7 +51,7 @@ const ProfileScreen = () => {
 
   const handleFollow = async () => {
     const { newFollowersCount } = await dispatch(
-      followerActions.follow(user.name, profile.user.name, followersCount)
+      followerActions.follow(profile.user._id, profile.user.name, followersCount)
     )
     const notification = {
       from: user.name,
@@ -58,7 +66,7 @@ const ProfileScreen = () => {
 
   const handleUnfollow = async () => {
     const { newFollowersCount } = await dispatch(
-      followerActions.unFollow(user.name, profile.user.name, followersCount)
+      followerActions.unFollow(profile.user._id, profile.user.name, followersCount)
     )
     setFollowersCount(await newFollowersCount)
     setFollowing(false)

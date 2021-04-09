@@ -1,86 +1,70 @@
 import { User } from '../models/User.js'
+import { Follower } from '../models/Follower.js'
 import * as notificationControllers from '../controllers/notificationControllers.js'
 
 const replaceSpace = (string) => {
   return string.split(' ').join('+')
 }
 
-export const getFollowers = async (req,res) => {
-  let username = req.params.username.split('+').join(' ')
-  try {
-    const user = await User.findOne({name: username}).select('followers')    
-    res.status(200).json({followersList: await user.followers})
-    console.log('Get Followers')
+// Returns [ { userId, folowerId, followerName } ]
+export const getFollowers = async (userId) => {
+  try {    
+    return await Follower.find({ userId }).lean()
   } catch(error) {
-    throw new Error(error)
+    console.error(error.message)
   }
 }
 
-export const follow = (req,res) => {
-  const { followerName, userToFollowName } = req.body    
-  User.updateOne({name: userToFollowName}, {$push: {followers: [followerName] }}, (err,result) => {
-    if(err) res.status(500).json({error})
-    else {
-      User.updateOne({name: followerName}, {$push: {following: [userToFollowName] }}, (err,result) => {
-        if(err) res.status(500).json({error})
-        else {
-          const notification = {
-            from: followerName,
-            body: `${followerName} started Following you!`,
-            link: `/profile/${replaceSpace(userToFollowName)}/followers`,
-            type: 'follow'
-          }
-          notificationControllers.createNotification(notification, userToFollowName)
-          res.status(200).json({message: `${followerName} started following ${userToFollowName}`})  
-        }
-      })
-    }
-  })
-
+// Returns [ { userId, folowerId, followeName } ]
+export const getFollowings = async (userId) => {
+  try {    
+    return await Follower.find({ followerId: userId }).lean()
+  } catch(error) {
+    console.error(error.message)
+  }
 }
 
-export const unfollow = (req,res) => {
-  const { followerName, userToUnFollowName } = req.query        
-  User.updateOne({name: userToUnFollowName}, {$pull: {followers: { $in: [followerName]}}}, (err,result) => {
-    if(err) res.status(500).json({error})
-    else {      
-      User.updateOne({name: followerName}, {$pull: {following: { $in: [userToUnFollowName]}}}, (err,result) => {
-        if(err) res.status(500).json({error})
-        else {      
-          res.status(200).json({message: `${followerName} unfollowed ${userToUnFollowName}`})     
-        }
-      })
-    }
-  })
+export const getFollowersList = async ( req, res, next) => {
+  try {
+    let username = req.params.username.split('+').join(' ')
+    const user = await User.findOne({ name: username })    
+    res.status(200).json({ followersList: await getFollowers(user._id) })
+  } catch(error) {
+    next(error)
+  }
 }
 
-// Should delete this nonsense once the new followers system is written.
-// export const updateAllUserFollowers = (username, newUsername, next) => {  
-//   User.updateMany({ followers: { $in: [username]} }, { $push: { followers: [newUsername] } }, (err,result) => {
-//     if(err) return next(err)
-//     else {
-//       User.updateMany({ followers: { $in: [username]} }, { $pull: { followers: { $in: [username]} }}, (err, result) => {
-//         if(err) return next(err)
-//         else { 
-//           updateAllUserFollowing(username, newUsername, next)
-//         }
-//       })
-//     }
-//   })
-// }
-// export const updateAllUserFollowing = (username, newUsername, next) => {    
-//   User.updateMany( { following: { $in: [username]} }, { $push: { following: [newUsername] } },(err, result) => {
-//       if (err) return next(err)
-//       else {
-//         User.updateMany( { following: { $in: [username]} }, { $pull: {following: { $in: [username]}} },
-//           (err, result) => {
-//             if (err) return next(err)
-//             else {
-//               return     
-//             }
-//           }
-//         )
-//       }
-//     }
-//   )
-// }
+// Takes { userId }
+export const follow = async ( req, res, next ) => {
+  try {
+    const { _id } = req.user
+    const { userId } = req.body
+
+    const follower = await User.findOne({ _id })
+    const following = await User.findOne({ _id: userId })      
+    await Follower.create({ userId, followerId: _id, followerName: follower.name })      
+    const notification = {
+      from: follower.name,
+      body: `${follower.name} started Following you!`,
+      link: `/profile/${replaceSpace(following.name)}/followers`,
+      type: 'follow'
+    }
+    notificationControllers.createNotification(notification, following.name)
+    res.status(200).json({message: `${follower.name} started following ${following.name}`})    
+  } catch(error) {
+    next(error)
+  }
+}
+
+// Takes { userId }
+export const unfollow = async ( req, res, next ) => {
+  try {
+    const { _id } = req.user
+    const { userId } = req.query
+    console.log(_id, userId)
+    await Follower.deleteOne({ userId, followerId: _id })
+    res.status(200).json({message: `Someone unfollowed someone`}) 
+  } catch (error) {
+    next(error)
+  }  
+}

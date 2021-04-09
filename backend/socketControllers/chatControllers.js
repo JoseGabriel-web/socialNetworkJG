@@ -23,11 +23,11 @@ const emitMsgNotification = (chatRoomUsers, io, socket, sender) => {
 
 export const chatControllers = (io, socket) => {
   
-  socket.on('sendMessage', async ({ chatRoomId, sender, body }) => {
-    createMessage({ chatRoomId, sender, body })    
+  socket.on('sendMessage', async ({ chatRoomId, creator, sender, body }) => {
+    createMessage({ chatRoomId, creator, sender, body })    
     const chatRoomUsers = await getUsersInChatRoom(chatRoomId)
     const date = new Date().toLocaleDateString('en-US')
-    const newMessage = { chatRoomId, sender, body, createdDate: date }
+    const newMessage = { chatRoomId, creator, sender, body, createdDate: date }
     io.to(chatRoomId).emit('receiveMessage', newMessage)    
     emitMsgNotification(chatRoomUsers, io, socket, sender)    
   })

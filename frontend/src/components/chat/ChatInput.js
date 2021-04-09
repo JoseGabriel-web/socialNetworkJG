@@ -21,7 +21,7 @@ const ChatInput = ({ overSpeedLimit, setOverSpeedLimit }) => {
       }, 1000)      
     }
     if(body && user && chatRoomId) {
-      socket.emit('sendMessage', { chatRoomId, sender: user.name, body })
+      socket.emit('sendMessage', { chatRoomId, creator: user._id, sender: user.name, body })
       setMessageJustSent(true)
       setTimeout(() => {
         setMessageJustSent(false)

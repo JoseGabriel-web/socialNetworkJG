@@ -1,9 +1,10 @@
 import { Message } from '../models/Message.js'
 
-export const createMessage = async ({ chatRoomId, sender, body }) => {
-  try {
+export const createMessage = async ({ chatRoomId, sender, body, creator }) => {
+  try {    
     await Message.create({
       chatRoomId,
+      creator,
       sender,
       body,  
     })

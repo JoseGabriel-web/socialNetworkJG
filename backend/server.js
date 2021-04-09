@@ -52,6 +52,14 @@ app.get('/deleteAllPosts', async (req,res) => {
   await Post.deleteMany({ })
   res.send('All Posts deleted')
 })
+app.get('/getAllMessages', async (req,res) => {
+  let messages = await Message.find({ })
+  res.json(messages)
+})
+app.get('/getAllChatRooms', async (req,res) => {
+  let chatRooms = await ChatRoom.find({ })
+  res.send(JSON.stringify(chatRooms))
+})
 
 const PORT = process.env.PORT || 4000
 server.listen(PORT)

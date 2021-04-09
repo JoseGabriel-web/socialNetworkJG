@@ -46,24 +46,40 @@ export const updateProfilePicture = async (req, res, next) => {
 }
 
 export const updateUser = async (req, res, next) => {
-  const { _id } = req.user
-  const { name, email, password } = req.body
-  const user = await User.findOne({ _id })  
-  user.name = name || (await user.name)
-  user.email = email || (await user.email)
-  if (password) {
-    user.password = password
-  }
-  user.save((err, savedUser) => {
-    if (err) return next(err)
-    updateControllers.updateAllInstances(savedUser._id)
+  try {
+    const { _id } = req.user
+    const { name, email, password } = req.body
+    const user = await User.findOne({ _id })  
+    user.name = name || (await user.name)
+    user.email = email || (await user.email)
+    if (password) {
+      user.password = password
+    }
+    // user.save((err, savedUser) => {
+    //   if (err) return next(err)
+    //   updateControllers.updateAllInstances(savedUser._id)
+    //   return res
+    //     .status(201)
+    //     .json({
+    //       _id: savedUser._id,
+    //       name: savedUser.name,
+    //       email: savedUser.email,
+    //       profilePicture: savedUser.profilePicture,
+    //       notifications: user.notifications,
+    //     })
+    // })
+    await user.save()      
+    updateControllers.updateAllInstances(user._id)
     return res
       .status(201)
       .json({
-        _id: savedUser._id,
-        name: savedUser.name,
-        email: savedUser.email,
-        profilePicture: savedUser.profilePicture,
-      })
-  })
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profilePicture: user.profilePicture,
+        notifications: user.notifications,
+      })    
+  } catch(error) {
+    next(error)
+  }  
 }

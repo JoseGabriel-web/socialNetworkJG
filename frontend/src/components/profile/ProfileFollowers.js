@@ -27,7 +27,7 @@ const ProfileFollowers = () => {
         </div>
       ) : followersList? followersList.map(follower => (
         <div className={styles.follower}>
-          <h3>{follower}</h3>
+          <h3>{follower.followerName}</h3>
         </div>
       )) : 'Please check connection or enter valid URL'}
     </div>

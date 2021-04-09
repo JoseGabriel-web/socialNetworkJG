@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as userConstants from '../constants/userConstants'
 import * as utils from '.././utils/index'
+import * as chatRoomConstants from '../constants/chatRoomConstants'
 import { socket } from '../Layout'
 
 export const updateUserAction = (name, email, password) => async (dispatch, getState) => {  
@@ -12,6 +13,7 @@ export const updateUserAction = (name, email, password) => async (dispatch, getS
   try {
     const { data } = await axios.post('/api/user/updateUser', { name, email, password })     
     dispatch({ type: userConstants.GET_USER_INFO_SUCCESS, payload: data })
+    dispatch({ type: chatRoomConstants.GET_CHATROOM_FAIL })
     return { error: null, updatedUserLink: `/profile/${utils.string.replaceSpace(data.name)}/settings` }
   } catch(error) {
     return { error: error.response.data.error }

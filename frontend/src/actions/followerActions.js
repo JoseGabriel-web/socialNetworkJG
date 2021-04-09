@@ -25,12 +25,11 @@ export const getProfileFollowersList = (username) => async (dispatch, getState) 
   }
 }
 
-export const follow = (followerName, userToFollowName, followerCount) => async (dispatch, getState) => {
+export const follow = (userId, userToFollowName, followerCount) => async (dispatch, getState) => {
   dispatch({type: FOLLOW_USER_REQUEST})
 
   const config = {
-    followerName, 
-    userToFollowName
+    userId
   }
 
   try {
@@ -44,7 +43,7 @@ export const follow = (followerName, userToFollowName, followerCount) => async (
   }
 }
 
-export const unFollow = (followerName, userToUnFollowName, followerCount) => async (dispatch, getState) => {
+export const unFollow = (userId, userToUnFollowName, followerCount) => async (dispatch, getState) => {
   dispatch({type: UNFOLLOW_USER_REQUEST})
 
   const config = {
@@ -52,8 +51,7 @@ export const unFollow = (followerName, userToUnFollowName, followerCount) => asy
       'Content-type': 'application/json',      
     },
     params: {
-      followerName, 
-      userToUnFollowName
+      userId
     },
   }  
 
