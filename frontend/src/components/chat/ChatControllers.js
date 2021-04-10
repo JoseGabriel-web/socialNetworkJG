@@ -23,7 +23,7 @@ const ChatControllers = ({ isOpened, setIsOpened }) => {
       <div className={styles.chatCurrentRoomUsers}>
         { users && user? users.filter(username => username !== user.name).map(username => (
           <Link to={`/profile/${string.replaceSpace(username)}/gallery`}>          
-            <h2>{username}</h2>
+            <h2 className={styles.chatUsername}>{username}</h2>
           </Link>
         )) : loading? (
           <div styles={{height: '100%', padding: '1rem'}}>

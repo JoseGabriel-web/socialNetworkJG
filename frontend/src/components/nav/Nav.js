@@ -95,20 +95,23 @@ const Nav = () => {
           </div>
 
           <div className={styles.userNav}>
-            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>              
-              <div
-                className={styles.profilePicture}
-                style={{
-                  backgroundImage: `url(${
-                    updatedProfilePicture
-                      ? updatedProfilePicture.url
-                      : profilePicture && profilePicture.url
-                      ? profilePicture.url
-                      : defaultProfilePicture
-                  })`,
-                }}
-              />
+            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>                                                        
+                <div
+                  className={styles.profilePicture}
+                  style={{
+                    backgroundImage: `url(${
+                      updatedProfilePicture
+                        ? updatedProfilePicture.url
+                        : profilePicture && profilePicture.url
+                        ? profilePicture.url
+                        : defaultProfilePicture
+                    })`,
+                  }}
+                />              
+
+
             </div>
+
             <ul
               className={
                 userNavMenuState ? styles.userNavOptions : styles.displayNone

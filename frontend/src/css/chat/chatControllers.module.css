@@ -38,4 +38,16 @@
   align-items: center;
   text-transform: capitalize; 
   padding: 0 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.chatUsername {
+  font-size: 3vh;
+}
+
+@media (max-width: 766px) {
+  .chatUsername {
+    font-size: 2.5vh;
+  }
 }

@@ -54,9 +54,8 @@ const ProfileScreen = () => {
       followerActions.follow(profile.user._id, profile.user.name, followersCount)
     )
     const notification = {
-      from: user.name,
-      body: `${user.name} started following you!`,
-      link: `/profile/${replaceSpace(profile.user.name)}/followers`,
+      from: user._id,
+      to: profile.user._id,          
       type: 'follow'
     }
     socket.emit('sendNotification', { notification, username: profile.user.name })

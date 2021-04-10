@@ -7,19 +7,11 @@ dotenv.config()
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
-const notificationSchema = mongoose.Schema({
-  from: { type: String },
-  body: { type: String },  
-  link: { type: String },  
-  type: { type: String },
-  createdAt: {type: Date, default: Date.now},
-})
-
 const userSchema = mongoose.Schema({
   name: {type: String, lowercase: true, required: true, unique: true},  
   email: {type: String, lowercase: true, required: true, unique: true}, 
   password: {type: String, required: true},  
-  notifications: [notificationSchema],  
+  notifications: [],  
   profilePicture: {
     url: { type: String, default: null },
     public_id: { type: String },
@@ -27,21 +19,6 @@ const userSchema = mongoose.Schema({
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}
 })
-
-// const userSchema = mongoose.Schema({
-//   name: {type: String, lowercase: true, required: true, unique: true},  
-//   email: {type: String, lowercase: true, required: true, unique: true}, 
-//   password: {type: String, required: true},  
-//   notifications: [notificationSchema],
-//   followers: [{ type: String, required: true }],
-//   following: [{ type: String, required: true }],  
-//   profilePicture: {
-//     url: { type: String, default: null },
-//     public_id: { type: String },
-//   },    
-//   createdAt: {type: Date, default: Date.now},
-//   updatedAt: {type: Date, default: Date.now}
-// })
 
 userSchema.methods = {
   createAccessToken: async function() {

@@ -1,6 +1,5 @@
-import { Comment } from '../models/Comment.js'
-import { Post } from '../models/Post.js'
 import { User } from '../models/User.js'
+import { getNotifications } from './notificationControllers.js'
 import * as updateControllers from './updateControllers.js'
 
 export const getAllUsers = async ( req, res, next ) => {  
@@ -13,7 +12,7 @@ export const getAllUsers = async ( req, res, next ) => {
 }
 
 export const getUserInfo = (req, res, next) => {  
-  return User.findById({ _id: req.user._id }, (err, user) => {
+  return User.findById({ _id: req.user._id }, async (err, user) => {
     if (err) return next(err)
     return res
       .status(201)
@@ -22,7 +21,7 @@ export const getUserInfo = (req, res, next) => {
         name: user.name,
         email: user.email,
         profilePicture: user.profilePicture,
-        notifications: user.notifications,
+        notifications: await getNotifications(user._id),
       })
   })
 }
@@ -55,21 +54,10 @@ export const updateUser = async (req, res, next) => {
     if (password) {
       user.password = password
     }
-    // user.save((err, savedUser) => {
-    //   if (err) return next(err)
-    //   updateControllers.updateAllInstances(savedUser._id)
-    //   return res
-    //     .status(201)
-    //     .json({
-    //       _id: savedUser._id,
-    //       name: savedUser.name,
-    //       email: savedUser.email,
-    //       profilePicture: savedUser.profilePicture,
-    //       notifications: user.notifications,
-    //     })
-    // })
-    await user.save()      
-    updateControllers.updateAllInstances(user._id)
+    await user.save()
+    if(name) {
+      updateControllers.updateAllInstances(user._id)
+    }
     return res
       .status(201)
       .json({
@@ -77,7 +65,7 @@ export const updateUser = async (req, res, next) => {
         name: user.name,
         email: user.email,
         profilePicture: user.profilePicture,
-        notifications: user.notifications,
+        notifications: await getNotifications(user._id),
       })    
   } catch(error) {
     next(error)

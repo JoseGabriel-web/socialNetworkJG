@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema({
     url: { type: String, required: true },
     public_id: { type: String, required: true },
   },  
-  likes: [{type: String, required: true}],  
+  likes: [],  
   comments: [],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const commentSchema = mongoose.Schema({
   label: { type: String, required: true },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  postId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
   user: {
     name: { type: String, default: null },
     profilePicture: { type: String, default: null },

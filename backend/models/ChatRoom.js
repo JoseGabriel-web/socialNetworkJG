@@ -2,11 +2,12 @@ import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema({ 
   name: { type: String, required: true }, 
-  userId: { type: mongoose.Types.ObjectId, required: true } 
+  userId: { type: mongoose.Types.ObjectId, required: true }
 })
 
 const chatRoomSchema = mongoose.Schema({
   users: [userSchema],
+  chatRoomQuery: { type: String, required: true },
   createdDate: { type: Date, default: Date.now }        
 })
 

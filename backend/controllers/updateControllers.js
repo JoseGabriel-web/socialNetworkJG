@@ -4,13 +4,15 @@ import { User } from '../models/User.js'
 import { Follower } from '../models/Follower.js'
 import { Message } from '../models/Message.js'
 import { ChatRoom } from '../models/ChatRoom.js'
+import { Like } from '../models/Like.js'
 
 export const updateAllInstances = (userId) => {
+  updateChatRoomUsers(userId)
   updateComments(userId)
   updatePosts(userId)
   updateFollowers(userId)
   updateMessages(userId)
-  updateChatRoomUsers(userId)
+  updateLikes(userId)
 }
 
 export const updateComments = async (userId) => {
@@ -51,29 +53,30 @@ export const updateMessages = async (userId) => {
   })
 }
 
-export const updateChatRoomUsers = async (userId) => {
-  // let chatRooms = await ChatRoom.find({ 'users.userId': { $in: [userId]} })
-  // chatRooms.forEach(chatRoom => {
-  //   chatRoom.users.forEach(async user => {
-  //     let updatedUser = await User.findById({ _id: user.userId })
-  //     user.name = await updatedUser.name
-  //     console.log(updatedUser)
-  //   })
-  //   chatRoom.save()
-  //   // console.log(chatRoom)
-  // })
-  ChatRoom.find({ 'users.userId': userId }, (err, chatRooms) => {
-    if(err) return console.error(err)
-    chatRooms.forEach(chatRoom => {
-      chatRoom.users.forEach(async user => {
-        let updatedUser = await User.findById({ _id: user.userId })
-        user.name = await updatedUser.name
-        console.log(updatedUser.name)
-      })
-      console.log(chatRoom)
-      chatRoom.save()
-    })
+export const updateLikes = async (userId) => {
+  let likes = await Like.find({ creator: userId })
+  likes.forEach(async like => {
+    let userLike = await User.findById({ _id: like.creator })
+    like.name = await userLike.name    
+    like.save()
   })
+}
+
+export const updateChatRoomUsers = async (userId) => {  
+  try {
+    const chatRooms = await ChatRoom.find({ 'users.userId': userId })    
+    for(let i = 0; i < chatRooms.length; i++) {      
+      for(let j = 0; j < chatRooms[i].users.length; j++) {        
+        if(chatRooms[i].users[j].userId.toString() == userId.toString()) {
+          let updatedUser = await User.findById({ _id: userId }).select('name').lean()
+          chatRooms[i].users[j].name = updatedUser.name          
+          chatRooms[i].save()
+        }
+      }
+    }          
+  } catch (error) {
+    console.error(error.message)    
+  }
 }
 
 // TODOS
@@ -83,5 +86,5 @@ export const updateChatRoomUsers = async (userId) => {
 // [x] - updateFollowers
 // [x] - updateMessages
 // [x] - also should twick the messagin rooms to use the users _id and should provide the sidebarUser _id along with the currentUser _id to create Rooms
+// [x] - updateChatRooms users names 
 // [] - updateNotifications 
-// [] - updateChatRooms users names 

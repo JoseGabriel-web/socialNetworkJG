@@ -3,18 +3,24 @@ import * as notificationControllers from '../controllers/notificationControllers
 
 export const liveNotificationControllers = (io, socket) => {
   
-  socket.on('sendNotification', ({notification, username}) => {    
-    if(Object.keys(onlineUsers).includes(username)) {
+  socket.on('sendNotification', async ({notification, username}) => { 
+    if(notification) {
+      const { from, to, type } = notification
+      notification = await notificationControllers.createNotification({ from, to, type })
+      if(!notification) return
+    }
+    if(username && Object.keys(onlineUsers).includes(username)) {
       onlineUsers[username].socketIds.forEach(socketId => {
         io.to(`${socketId}`).emit('receiveNotification', notification)
       })
+    } else {
+      return
     }
   })
 
-  socket.on('deleteNotification', ({ notification, username }) => {
-    if(notification) {
-      console.log('Information to delete notification -> ', notification, username)
-      notificationControllers.deleteNotification(notification, username)
+  socket.on('deleteNotification', ({ notificationId }) => {
+    if(notificationId) {      
+      notificationControllers.deleteNotification(notificationId)
     }
   })
 

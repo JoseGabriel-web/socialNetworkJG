@@ -26,14 +26,11 @@ const Notifications = () => {
   }
 
   const handleDeleteNotification = (notification) => {
-    socket.emit("deleteNotification", { notification, username: user.name })
+    socket.emit("deleteNotification", { notificationId: notification._id })
   }
 
-  socket.on("receiveNotification", (notification) => {
-    console.log(notifications.some(not => not.from === notification.from && not.body === notification.body))
-    if(!notifications.some(not => not.from === notification.from && not.body === notification.body)) {
-      setNotifications([...notifications, notification])
-    }
+  socket.on("receiveNotification", (notification) => {        
+    setNotifications([...notifications, notification])
   })
 
   useEffect(() => {
