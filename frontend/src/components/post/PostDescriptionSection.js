@@ -21,11 +21,8 @@ const PostDescriptionSection = ({ title, description }) => {
   }, [])
 
   return (
-    <div
-      className={styles.postDescriptionContainer}
-      style={{ padding: description || title ? '0.5rem' : '' }}
-    >
-      <h3>{title}</h3>
+    <div className={styles.postDescriptionContainer}>
+      <h3 className={styles.descriptionTitle}>{title}</h3>
       {isTooLong(description) === false ? (
         <div>
           <p className={styles.descriptionContainer}>

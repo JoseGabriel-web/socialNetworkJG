@@ -1,21 +1,23 @@
-import React, {useState, useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { likePost } from '../../actions/postActions'
-import Popup from '../layout/Popup'
-import styles from '../../css/post/postActionsSection.module.css'
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { likePost } from "../../actions/postActions"
+import Popup from "../layout/Popup"
+import styles from "../../css/post/postActionsSection.module.css"
 
-const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommentSectionOpened }) => {  
-  const dispatch = useDispatch()
-  const userInfoReducer = useSelector(state => state.userInfoReducer)
-  const { user = {name: null} } = userInfoReducer
-  const { name } = user
+const PostActionsSection = ({
+  postId,
+  likes,
+  isCommentSectionOpened,
+  setIsCommentSectionOpened,
+}) => {
+  const dispatch = useDispatch()  
+  const { user } = useSelector((state) => state.userInfoReducer)
   const [likesList, setLikesList] = useState(likes)
   const [liked, setLiked] = useState(false)
-  const [likesCount, setLikesCount] = useState(likes.length)  
+  const [likesCount, setLikesCount] = useState(likes.length)
   const [isOpened, setIsOpened] = useState(false)
-  const [noUserAlert, setNoUserAlert] = useState('')
+  const [noUserAlert, setNoUserAlert] = useState("")
   const [isBookmarked, setIsBookmarked] = useState(false)
-
 
   const handleCommentSection = () => {
     setIsCommentSectionOpened(!isCommentSectionOpened)
@@ -26,69 +28,65 @@ const PostActionsSection = ({ postId, likes, isCommentSectionOpened, setIsCommen
   }
 
   const handleSave = () => {
-    if(name === null) {
-      setNoUserAlert('save')
+    if (user && user.name === null) {
+      setNoUserAlert("save")
       return setIsOpened(true)
-    }
+    } 
   }
 
-  const handleLike = async () => {   
-    if(name === null) {
-      setNoUserAlert('like')
+  const handleLike = async () => {
+    if (user && user.name === null) {
+      setNoUserAlert("like")
       return setIsOpened(true)
-    } else if(liked) {            
-      const {isLiked, newLikesCount} = await dispatch(likePost('unlike', postId, name, likesCount))     
-      setLikesList(likesList.filter(like => like !== user.name))
-      setLikesCount(await newLikesCount)  
-      setLiked(await isLiked)
-    } else {      
-      const {isLiked, newLikesCount} = await dispatch(likePost('like', postId, name, likesCount))              
+    } else if (liked) {
+      const { newLikesCount } = await dispatch(likePost("unlike", postId, likesCount))
+      setLikesList(likesList.filter((like) => like !== user.name))
+      setLikesCount(await newLikesCount)      
+    } else {
+      const { newLikesCount } = await dispatch(likePost("like", postId, likesCount))
       setLikesList([...likesList, user.name])
       setLikesCount(await newLikesCount)
-      setLiked(await isLiked)
-    }    
-  }
-
-  const capitalizeString = (string) => {
-    if (string?.split(' ').length > 1) {
-      return string
-        .split(' ')
-        .map((word) => capitalizeString(word))
-        .join(' ')
     }
-    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
   }
-
 
   useEffect(() => {
-    if(likes.find(like => like === user.name)) {
+    if (user && likesList.includes(user.name)) {
       setLiked(true)
-    } 
-    else {
+    } else {
       setLiked(false)
     }
-  },[])  
+  }, [likesList, user])
 
   return (
     <div className={styles.postActionsSectionContainer}>
-      <div className={styles.postInfoContainer}>        
-        <h3 className={styles.likesTooltipContiner}>{likesCount} <i className='far fa-thumbs-up' />
-          <div className={styles.likesTooltip}>{likes && likesList.map(like => (
-            <h6>{capitalizeString(like)}</h6>
-          ))}</div>
+      <div className={styles.postInfoContainer}>
+        <h3 className={styles.likesTooltipContiner}>
+          {likesCount} <i className='far fa-thumbs-up' />
+          <div className={styles.likesTooltip}>
+            {likes &&
+              likesList.map((like) => <h6 className={styles.capitalize}>{like}</h6>)}
+          </div>
         </h3>
       </div>
-      <div className={styles.openPostCommentsContainer} onClick={handleCommentSection} >
-        <i className={isCommentSectionOpened? 'fas fa-sort-down' : 'fas fa-sort-up'} />
-        <h4>          
-          Comments
-        </h4>
-      </div>    
+      <div
+        className={styles.openPostCommentsContainer}
+        onClick={handleCommentSection}
+      >
+        <i
+          className={
+            isCommentSectionOpened ? "fas fa-sort-down" : "fas fa-sort-up"
+          }
+        />
+        <h4>Comments</h4>
+      </div>
       <div className={styles.likePostContainer} onClick={handleLike}>
-        <i className={`${liked? 'fas' : 'far' } fa-heart`} style={{cursor: 'pointer'}} />
-      </div>      
+        <i
+          className={`${liked ? "fas" : "far"} fa-heart`}
+          style={{ cursor: "pointer" }}
+        />
+      </div>
       <div className={styles.sharePostContainer} onClick={handleSave}>
-        <i className={isBookmarked? 'fas fa-bookmark' : 'far fa-bookmark'} />
+        <i className={isBookmarked ? "fas fa-bookmark" : "far fa-bookmark"} />
       </div>
       <Popup isOpened={isOpened}>
         <div onClick={handleNoUser}>

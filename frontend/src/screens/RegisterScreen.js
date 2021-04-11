@@ -7,8 +7,10 @@ import Loading from '../components/layout/Loading'
 
 const RegisterScreen = ({ history }) => {
   const dispatch = useDispatch()
-  const loginReducer = useSelector((state) => state.loginReducer)
-  const { user, loading } = loginReducer
+  const registerReducer = useSelector((state) => state.registerReducer)
+  const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const { loading } = registerReducer
+  const { user } = userInfoReducer
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

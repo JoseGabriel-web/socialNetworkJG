@@ -6,8 +6,8 @@ const postSchema = mongoose.Schema({
     name: { type: String, default: null },
     profilePicture: { type: String, default: null },
   },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
+  title: { type: String },
+  description: { type: String },
   image: {
     url: { type: String, required: true },
     public_id: { type: String, required: true },

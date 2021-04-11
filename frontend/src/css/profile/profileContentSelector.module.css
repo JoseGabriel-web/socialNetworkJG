@@ -1,0 +1,33 @@
+.profileContentSelector {
+  max-height: calc(var(--vh, 1%) * 7);
+  height: calc(var(--vh, 1%) * 7);
+  width: 100%;  
+  display: flex;
+  flex-direction: row;  
+}
+.profileContentSelector .profileContentSelectorTab {
+  width: 100%;
+  height: 100%;  
+  border-right: solid 1px;
+  background: var(--background);
+  color: var(--color);
+  font-size: 2vh;
+}
+.profileContentSelectorTab div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;   
+  transition: ease 200ms all;  
+}
+.profileContentSelectorTab:hover div {
+  backdrop-filter: brightness(150%);
+}
+.active {
+  backdrop-filter: brightness(150%);
+}
+
+.profileContentSelector .profileContentSelectorTab:last-of-type {
+  border: none;
+}

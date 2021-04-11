@@ -67,19 +67,9 @@ export const deletePost = (id, public_id) => async (dispatch) => {
   }
 }
 
-export const likePost = (action, postId, username, likesCount) => async (
-  dispatch,
-  getState
-) => {
-
-  const body = {
-    action,
-    postId,
-    username
-  }
-
+export const likePost = (action, postId, likesCount) => async ( dispatch, _ ) => {
   try {
-    await axios.post('/api/post/likePost', body)
+    await axios.post('/api/post/likePost', { action, postId })
     if(action === 'like') {
       dispatch({ type: LIKE_POST, payload: action })          
       const newLikesCount = likesCount + 1  

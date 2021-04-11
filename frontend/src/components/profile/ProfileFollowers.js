@@ -7,17 +7,15 @@ import Loading from '../layout/Loading'
 const ProfileFollowers = () => {  
   const dispatch = useDispatch()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const userFollowersListReducer = useSelector((state) => state.userFollowersListReducer)  
-  const followUserReducer = useSelector((state) => state.followUserReducer)  
-  const unFollowUserReducer = useSelector((state) => state.unFollowUserReducer) 
-  const follow = followUserReducer.message
-  const unFollow = unFollowUserReducer.message
+  const userFollowersListReducer = useSelector((state) => state.userFollowersListReducer)   
   const { profile } = profileReducer
   const { followersList, loading = true } = userFollowersListReducer
 
   useEffect(() => {
-    dispatch(getProfileFollowersList(profile? profile.user.name : ''))
-  }, [])
+    if(profile) {
+      dispatch(getProfileFollowersList(profile? profile.user._id : ''))
+    }
+  }, [profile])
 
   return (
     <div className={styles.profileFollowersContainer}>

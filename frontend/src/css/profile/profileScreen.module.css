@@ -18,51 +18,6 @@
   border-radius: 1rem;
 }
 
-.profileHeader {    
-  max-height: calc(var(--vh, 1%) * 26);    
-  height: calc(var(--vh, 1%) * 26);    
-  overflow: hidden;
-  min-height: 20%;     
-  width: 100%;
-  border-bottom: solid 1px;  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;   
-  padding: 1rem;       
-}
-
-.flex {
-  flex: 1;
-}
-
-.profilePicture {
-  /* height: 120px; */
-  /* width: 120px;  */
-  height: calc(var(--vh, 1%) * 18);
-  width: calc(var(--vh, 1%) * 18); 
-  border-radius: 50%;   
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-.profilePicture .profileAction {
-  position: absolute;
-  top: -10px;
-  left: -45px;
-  height: 50px;
-  width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 50%;
-  border: solid 1px;
-  cursor: pointer;
-}
-
 /* Part two */
 .profileContent {      
   height: calc(var(--vh, 1%) * 60);
@@ -70,43 +25,6 @@
   width: 100%;    
 }
 
-.profileContentSelector {
-  max-height: calc(var(--vh, 1%) * 7);
-  height: calc(var(--vh, 1%) * 7);
-  width: 100%;  
-  display: flex;
-  flex-direction: row;  
-}
-.profileContentSelector .profileContentSelectorTab {
-  width: 100%;
-  height: 100%;  
-  border-right: solid 1px;
-  background: var(--background);
-  color: var(--color);  
-}
-.profileContentSelectorTab div {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;   
-  transition: ease 200ms all;  
-}
-.profileContentSelectorTab:hover div {
-  backdrop-filter: brightness(150%);
-}
-.active {
-  backdrop-filter: brightness(150%);
-}
-
-.profileContentSelector .profileContentSelectorTab:last-of-type {
-  border: none;
-} 
-
-.profileContentComponent {    
-  display: flex;  
-  width: 100%;
-}
 .responsive {
  flex: 1;
 }

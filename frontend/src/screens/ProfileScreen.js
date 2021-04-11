@@ -1,40 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Switch, useParams } from 'react-router-dom'
-import defaultProfilePicture from '../images/user.png'
-import styles from '../css/profile/profileScreen.module.css'
-import { getProfile } from '../actions/profileActions'
-import { sections } from '../data/profileData'
-import * as followerActions from '../actions/followerActions'
-import ChangeProfilePicture from '../components/profile/ChangeProfilePicture'
-import ProfileSettings from '../components/profile/ProfileSettings'
-import * as utils from '.././utils/index'
-import { socket } from '../Layout'
-import { replaceSpace } from '../utils/string'
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
+import styles from "../css/profile/profileScreen.module.css"
+import { getProfile } from "../actions/profileActions"
+import * as followerActions from "../actions/followerActions"
+import ChangeProfilePicture from "../components/profile/ChangeProfilePicture"
+import { socket } from "../Layout"
+import ProfileHeader from "../components/profile/ProfileHeader"
+import ProfileContentSelector from "../components/profile/ProfileContentSelector"
+import ProfileContentComponent from "../components/profile/ProfileContentComponent"
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
   const params = useParams()
-  const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const profileReducer = useSelector((state) => state.profileReducer)
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { updatedProfilePicture } = updateProfilePictureReducer
   const { profile, error } = profileReducer
   const { user } = userInfoReducer
   const [followersCount, setFollowersCount] = useState(0)
   const [following, setFollowing] = useState(false)
-  const [editProfilePicturePopUpState,setEditProfilePicturePopUpState] = useState(false)
+  const [
+    editProfilePicturePopUpState,
+    setEditProfilePicturePopUpState,
+  ] = useState(false)
 
   const isFollowing = (followersList) => {
-    let result = false
-    if(followersList) {
-      for(let i = 0; i < followersList.length; i++) {
-        if(followersList[i].followerId === user._id) {
-          result = true
-        }
-      }
-    }
-    return result
+    return followersList && followersList.some(({ followerId }) => followerId === user._id)
   }
 
   const isSelected = (path) => {
@@ -42,50 +33,44 @@ const ProfileScreen = () => {
   }
 
   const isCurrentUser = () => {
-    return profile?.user?.name === user?.name    
-  }
-
-  const handleProfilePictureUpdate = () => {
-    setEditProfilePicturePopUpState(!editProfilePicturePopUpState)
+    return profile?.user?.name === user?.name
   }
 
   const handleFollow = async () => {
-    const { newFollowersCount } = await dispatch(
-      followerActions.follow(profile.user._id, profile.user.name, followersCount)
-    )
+    const { newFollowersCount } = await dispatch(followerActions.follow( profile.user._id, followersCount ))
     const notification = {
       from: user._id,
-      to: profile.user._id,          
-      type: 'follow'
+      to: profile.user._id,
+      type: "follow",
     }
-    socket.emit('sendNotification', { notification, username: profile.user.name })
+    socket.emit("sendNotification", {
+      notification,
+      username: profile.user.name,
+    })
     setFollowersCount(await newFollowersCount)
     setFollowing(true)
   }
 
   const handleUnfollow = async () => {
-    const { newFollowersCount } = await dispatch(
-      followerActions.unFollow(profile.user._id, profile.user.name, followersCount)
-    )
+    const { newFollowersCount } = await dispatch( followerActions.unFollow( profile.user._id, followersCount ))
     setFollowersCount(await newFollowersCount)
     setFollowing(false)
   }
 
+  const getProfileInfo = async () => {
+      const { followers } = await dispatch(getProfile(params.username))
+      setFollowersCount(await followers?.length)
+      setFollowing(isFollowing(await followers))
+  }
+  
   useEffect(() => {
-    if(!profile) {
-      (async () => {      
-        const { followers } = await dispatch(getProfile(params.username))
-        setFollowersCount(await followers?.length)      
-        setFollowing(isFollowing(await followers))
-      })()
+    if (!profile) {
+      getProfileInfo()
     }
   }, [params.username])
-  useEffect(() => {    
-    (async () => {      
-      const { followers } = await dispatch(getProfile(params.username))
-      setFollowersCount(await followers?.length)      
-      setFollowing(isFollowing(await followers))
-    })()    
+
+  useEffect(() => {
+    getProfileInfo()
   }, [params.username])
 
   return (
@@ -94,114 +79,21 @@ const ProfileScreen = () => {
         <h1>{error}</h1>
       ) : (
         <div>
-          <div className={styles.profileHeader}>
-            <div
-              className={styles.profilePicture}
-              style={{
-                backgroundImage: `url(${
-                  updatedProfilePicture &&
-                  updatedProfilePicture.url &&
-                  isCurrentUser()
-                    ? updatedProfilePicture.url
-                    : profile && profile.user.profilePicture.url
-                    ? profile.user.profilePicture.url
-                    : defaultProfilePicture
-                })`,
-              }}
-            >
-              <div
-                className={styles.profileAction}
-                onClick={
-                  isCurrentUser()
-                    ? handleProfilePictureUpdate
-                    : following
-                    ? handleUnfollow
-                    : handleFollow
-                }
-              >
-                <i
-                  className={
-                    isCurrentUser()
-                      ? 'fas fa-image'
-                      : following
-                      ? 'fas fa-times'
-                      : 'fas fa-user-plus'
-                  }
-                />
-              </div>
-            </div>
-            <h3 style={{ textTransform: 'capitalize' }}>
-              {profile ? profile.user.name : 'username'}
-            </h3>
-          </div>
+          <ProfileHeader
+            isCurrentUser={isCurrentUser}
+            setEditProfilePicturePopUpState={setEditProfilePicturePopUpState}
+            following={following}
+            handleUnfollow={handleUnfollow}
+            handleFollow={handleFollow}
+          />
 
           <div className={styles.profileContent}>
-            <div className={styles.profileContentSelector}>
-              {sections.map((section) => (
-                <Link
-                  key={section.label}
-                  to={`/profile/${
-                    profile && utils.string.replaceSpace(profile.user.name)
-                  }/${section.endpoint}`}
-                  className={styles.profileContentSelectorTab}
-                >
-                  <div
-                    className={
-                      isSelected(section.endpoint) ? styles.active : null
-                    }
-                  >
-                    {section.label === 'Followers' ? followersCount : null}
-                    {section.label === 'Gallery'
-                      ? profile?.posts?.length
-                      : null}
-                    <h4 style={{ padding: '0 10px' }}>{section.label}</h4>
-                    <i className={section.icon} />
-                  </div>
-                </Link>
-              ))}
-              {isCurrentUser() ? (
-                <Link
-                  key={'settings'}
-                  to={`/profile/${
-                    profile && utils.string.replaceSpace(profile.user.name)
-                  }/settings`}
-                  className={styles.profileContentSelectorTab}
-                >
-                  <div
-                    className={isSelected('settings') ? styles.active : null}
-                  >
-                    <h4>Settings</h4>
-                    <i
-                      style={{ paddingLeft: '10px' }}
-                      className='fas fa-cogs'
-                    />
-                  </div>
-                </Link>
-              ) : null}
-            </div>
-
-            <div className={styles.profileContentComponent}>
-              <Switch>
-                {sections.map((section) => (
-                  <Route
-                    key={section.endpoint}
-                    path={`/profile/${
-                      profile && utils.string.replaceSpace(profile.user.name)
-                    }/${section.endpoint}`}
-                    component={section.component}
-                  />
-                ))}
-                {isCurrentUser() ? (
-                  <Route
-                    key={'settings'}
-                    path={`/profile/${profile && utils.string.replaceSpace(
-                      profile?.user?.name
-                    )}/settings`}
-                    component={ProfileSettings}
-                  />
-                ) : null}
-              </Switch>
-            </div>
+            <ProfileContentSelector
+              isSelected={isSelected}
+              followersCount={followersCount}
+              isCurrentUser={isCurrentUser}
+            />
+            <ProfileContentComponent isCurrentUser={isCurrentUser} />
           </div>
         </div>
       )}

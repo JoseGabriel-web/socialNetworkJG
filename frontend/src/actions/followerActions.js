@@ -10,22 +10,20 @@ import {
   GET_FOLLOWER_LIST_REQUEST,
   GET_FOLLOWER_LIST_SUCCESS
 } from '../constants/followerConstants'
-import * as utils from '.././utils/index'
 
-export const getProfileFollowersList = (username) => async (dispatch, getState) => {
+export const getProfileFollowersList = (userId) => async (dispatch, getState) => {
   dispatch({type: GET_FOLLOWER_LIST_REQUEST})
 
   try {
-    const { data } = await axios.get(`/api/followers/getFollowers/${utils.string.replaceSpace(username)}`)
-    const { followersList } = await data
-    console.log(data, ' This comes from followers actions')
+    const { data } = await axios.get(`/api/followers/getFollowers/${userId}`)
+    const { followersList } = await data    
     dispatch({type: GET_FOLLOWER_LIST_SUCCESS, payload: followersList})
   } catch (error) {
     dispatch({type: GET_FOLLOWER_LIST_FAIL, payload: error.response.data})
   }
 }
 
-export const follow = (userId, userToFollowName, followerCount) => async (dispatch, getState) => {
+export const follow = (userId, followerCount) => async (dispatch, _) => {
   dispatch({type: FOLLOW_USER_REQUEST})
 
   const config = {
@@ -36,14 +34,14 @@ export const follow = (userId, userToFollowName, followerCount) => async (dispat
     const { data } = await axios.put('/api/followers/follow', config)
     const { message } = await data    
     dispatch({type: FOLLOW_USER_SUCCESS, payload: await message})
-    dispatch(getProfileFollowersList(userToFollowName))
+    dispatch(getProfileFollowersList(userId))
     return { newFollowersCount: followerCount + 1 }
   } catch (error) {
     dispatch({type: FOLLOW_USER_FAIL, payload: error.response.data})
   }
 }
 
-export const unFollow = (userId, userToUnFollowName, followerCount) => async (dispatch, getState) => {
+export const unFollow = (userId, followerCount) => async (dispatch, _) => {
   dispatch({type: UNFOLLOW_USER_REQUEST})
 
   const config = {
@@ -59,7 +57,7 @@ export const unFollow = (userId, userToUnFollowName, followerCount) => async (di
     const { data } = await axios.delete('/api/followers/unfollow', config)
     const { message } = await data    
     dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})    
-    dispatch(getProfileFollowersList(userToUnFollowName))    
+    dispatch(getProfileFollowersList(userId))    
     return { newFollowersCount: followerCount - 1 }
   } catch (error) {
     dispatch({type: UNFOLLOW_USER_FAIL, payload: error.response.data})

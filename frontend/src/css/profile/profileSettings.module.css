@@ -1,6 +1,5 @@
 .profileSettingsContainer {  
-  /* height: calc(93vh - 33vh); */
-  height: 100%;
+  height: calc(var(--vh, 1%) * (93vh - 33vh));  
   width: 100%;            
 }
 
@@ -153,4 +152,8 @@
   .informationContainer {
     border-bottom: dotted 3px;
   }  
+  .profileSettingsHeader {    
+    font-size: 2vh;
+  }
+  
 }

@@ -1,7 +1,13 @@
 .postDescriptionContainer {
-  width: 100%; 
-  border-bottom: solid 1px; 
+  width: 100%;
+  border-bottom: solid 1px;
+  font-size: 2vh;
+  padding: 1rem;
 }
 .descriptionContainer {
   word-wrap: break-word;
+}
+
+.descriptionTitle {
+  padding-bottom: 1rem;
 }

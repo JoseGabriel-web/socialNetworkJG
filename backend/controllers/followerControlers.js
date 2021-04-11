@@ -24,11 +24,9 @@ export const getFollowings = async (userId) => {
   }
 }
 
-export const getFollowersList = async ( req, res, next) => {
-  try {
-    let username = req.params.username.split('+').join(' ')
-    const user = await User.findOne({ name: username })    
-    res.status(200).json({ followersList: await getFollowers(user._id) })
+export const getFollowersList = async ( req, res, next ) => {
+  try {        
+    res.status(200).json({ followersList: await getFollowers(req.params.userId) })
   } catch(error) {
     next(error)
   }

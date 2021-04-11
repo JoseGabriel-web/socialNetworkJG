@@ -20,6 +20,7 @@ import { Like } from "./models/Like.js"
 import { Comment } from "./models/Comment.js"
 import { User } from "./models/User.js"
 import { Notification } from "./models/Notification.js"
+import { Follower } from "./models/Follower.js"
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server)
@@ -55,6 +56,10 @@ app.get("/deleteAllChatRooms", async (req, res) => {
 app.get("/deleteAllPosts", async (req, res) => {
   await Post.deleteMany({})
   res.send("All Posts deleted")
+})
+app.get("/deleteAllFollowers", async (req, res) => {
+  await Follower.deleteMany({})
+  res.send("All Followers deleted")
 })
 app.get("/getAllMessages", async (req, res) => {
   let messages = await Message.find({})

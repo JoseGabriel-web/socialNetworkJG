@@ -18,9 +18,9 @@ const Post = ({ user, title, description, image, likes, postId, comments, isVide
           <PostMediaSection isVideo={isVideo} image={image.url} />
         </div>        
         <div className={styles.postActionSectionContainer}>
-      <div className={styles.postDescriptionSectionContainer}>
+      {title || description ? (<div className={styles.postDescriptionSectionContainer}>
         <PostDescriptionSection title={title} description={description} />   
-      </div>
+      </div>) : null }
           <PostActionsSection postId={postId} likes={likes} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   
         </div>
         <div className={styles.postCommentSectionContainer}>
