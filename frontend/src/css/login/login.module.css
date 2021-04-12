@@ -69,21 +69,12 @@
 
 
 
-@media (max-width: 900px) {
-
-  .sectionOne {
-    color: black;
-    background: transparent;
-    backdrop-filter: blur(10px);
-  }
-
+@media (max-width: 900px) {  
   .sectionTwo {
     display: none;
   }
-  .loginContainer {
-    background: url('../../images/img.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;  
-    background-position: center;
+  button {
+    color: black;
+    background: white;
   }
 }

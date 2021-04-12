@@ -4,14 +4,6 @@
   overflow-y: auto;
 }
 
-.follower {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  border-bottom: solid 1px;
-}
-
 .profileFollowersLoader {
   position: relative;
 }

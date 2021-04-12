@@ -20,7 +20,7 @@ export const getUserInfo = (req, res, next) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        profilePicture: user.profilePicture,
+        profilePicture: user.profilePicture,        
         notifications: await getNotifications(user._id),
       })
   })

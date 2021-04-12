@@ -17,7 +17,7 @@ export const userFollowersListReducer = (state = {}, action) => {
     case GET_FOLLOWER_LIST_REQUEST:
       return {loading: true}
     case GET_FOLLOWER_LIST_SUCCESS:
-      return {loading: false, followersList: action.payload}
+      return { loading: false, followersList: action.payload.followersList, followingList: action.payload.followingList }
     default:
       return state
   }

@@ -11,37 +11,39 @@ import {
   GET_FOLLOWER_LIST_SUCCESS
 } from '../constants/followerConstants'
 
-export const getProfileFollowersList = (userId) => async (dispatch, getState) => {
+export const getProfileFollowersInfo = (profileUserId, userId) => async (dispatch, getState) => {
   dispatch({type: GET_FOLLOWER_LIST_REQUEST})
-
   try {
-    const { data } = await axios.get(`/api/followers/getFollowers/${userId}`)
-    const { followersList } = await data    
-    dispatch({type: GET_FOLLOWER_LIST_SUCCESS, payload: followersList})
+    const config = {
+      params: {
+        profileUserId, 
+        userId
+      }
+    }
+    const { data } = await axios.get('/api/followers/getFollowersInfo', config)
+    dispatch({type: GET_FOLLOWER_LIST_SUCCESS, payload: data})
   } catch (error) {
     dispatch({type: GET_FOLLOWER_LIST_FAIL, payload: error.response.data})
   }
 }
 
-export const follow = (userId, followerCount) => async (dispatch, _) => {
+export const follow = (profileUserId, followerCount, alternateProfileUserId, alternateUserId) => async (dispatch, _) => {
   dispatch({type: FOLLOW_USER_REQUEST})
-
-  const config = {
-    userId
-  }
-
   try {
-    const { data } = await axios.put('/api/followers/follow', config)
+    const { data } = await axios.put('/api/followers/follow', { userId: profileUserId })
     const { message } = await data    
     dispatch({type: FOLLOW_USER_SUCCESS, payload: await message})
-    dispatch(getProfileFollowersList(userId))
-    return { newFollowersCount: followerCount + 1 }
+    if(followerCount) {
+      dispatch(getProfileFollowersInfo(profileUserId))
+      return { newFollowersCount: followerCount + 1 }
+    }
+    dispatch(getProfileFollowersInfo(alternateProfileUserId, alternateUserId))
   } catch (error) {
     dispatch({type: FOLLOW_USER_FAIL, payload: error.response.data})
   }
 }
 
-export const unFollow = (userId, followerCount) => async (dispatch, _) => {
+export const unFollow = (profileUserId, followerCount, alternateProfileUserId, alternateUserId) => async (dispatch, _) => {
   dispatch({type: UNFOLLOW_USER_REQUEST})
 
   const config = {
@@ -49,16 +51,19 @@ export const unFollow = (userId, followerCount) => async (dispatch, _) => {
       'Content-type': 'application/json',      
     },
     params: {
-      userId
+      userId: profileUserId
     },
   }  
 
   try {
     const { data } = await axios.delete('/api/followers/unfollow', config)
     const { message } = await data    
-    dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})    
-    dispatch(getProfileFollowersList(userId))    
-    return { newFollowersCount: followerCount - 1 }
+    dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})     
+    if(followerCount) {
+      dispatch(getProfileFollowersInfo(profileUserId))    
+      return { newFollowersCount: followerCount - 1 }        
+    }  
+    dispatch(getProfileFollowersInfo(alternateProfileUserId, alternateUserId))
   } catch (error) {
     dispatch({type: UNFOLLOW_USER_FAIL, payload: error.response.data})
   }

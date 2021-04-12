@@ -14,7 +14,7 @@ export const getProfile = async ( req, res, next) => {
         name: user.name,
         email: user.email,        
         followers: await getFollowers(user._id),
-        following: await getFollowings(user._id),
+        followingList: await getFollowings(user._id),
         profilePicture: user.profilePicture,
         createdAt: user.createdAt,
       },

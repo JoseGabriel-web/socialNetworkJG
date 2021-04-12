@@ -4,6 +4,7 @@ import { registerAction } from '../actions/authActions'
 import { Link } from 'react-router-dom'
 import styles from '../css/register/register.module.css'
 import Loading from '../components/layout/Loading'
+import registerImg from '../images/registerImg.png'
 
 const RegisterScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -80,7 +81,7 @@ const RegisterScreen = ({ history }) => {
             </div>
           </div>
 
-          <div className={styles.sectionTwo}></div>
+          <div className={styles.sectionTwo} styles={{backgroundImage: `url(${registerImg})`}}></div>
         </>
       )}
     </div>

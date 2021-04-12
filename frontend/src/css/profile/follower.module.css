@@ -1,0 +1,30 @@
+.follower {
+  height: 80px;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px;
+}
+
+.followerName {
+  text-transform: capitalize;
+}
+
+.followerStatus {
+  max-height: 90%;
+  border: solid 1px;
+  padding: .5rem 1rem;
+  font-size: 2vh;
+  cursor: pointer;
+}
+
+.isFollowing {
+  background: var(--background);
+  color: var(--color);  
+}
+
+.isNotFollowing {
+
+}

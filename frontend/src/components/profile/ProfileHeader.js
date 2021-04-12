@@ -24,6 +24,7 @@ const ProfileHeader = ({
 
   return (
     <div className={styles.profileHeader}>
+      
       <div
         className={styles.profilePicture}
         style={{
@@ -37,7 +38,8 @@ const ProfileHeader = ({
               : defaultProfilePicture
           })`,
         }}
-      >
+      >      
+
         <div
           className={styles.profileAction}
           onClick={
@@ -65,5 +67,15 @@ const ProfileHeader = ({
     </div>
   )
 }
+
+// const ProfileHeader = () => {
+//   return (
+//     <div className={styles.perfectSquareContainer}>
+//       <div className={styles.perfectSquare}>
+
+//       </div>
+//     </div>
+//   )
+// }
 
 export default ProfileHeader

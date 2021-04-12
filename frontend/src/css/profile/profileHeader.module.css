@@ -17,27 +17,60 @@
   flex: 1;
 }
 
-.profilePicture {
-  height: 120px;
-  width: 120px; 
-  
-  border-radius: 50%;   
+.profilePicture {  
+  max-height: 120px;
+  max-width: 120px;
+  min-height: 70px;
+  min-width: 70px;  
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
 }
 
 .profilePicture .profileAction {
+  top: -1vh;
+  left: -6vh;
+  max-height: 50px;
+  max-width: 50px;
+  min-height: 30px;
+  min-width: 30px;
+  width: 4vw;
+  height: 4vw;
   position: absolute;
-  top: -10px;
-  left: -45px;
-  height: 50px;
-  width: 50px;
+  padding: 1rem;
+  /* top: -10px;  
+  left: -45px;   */
+  /* height: 50px;
+  width: 50px; */  
+  /* padding: 0.5rem 1rem; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem 1rem;
   border-radius: 50%;
   border: solid 1px;
   cursor: pointer;
+}
+
+/* EXPERIMENT BELOW */
+
+.perfectSquareContainer {
+  height: calc(var(--vh, 1%) * 26);  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.perfectSquare {
+  border: solid 1px;
+  max-height: 120px;
+  max-width: 120px;
+  min-height: 60px;
+  min-width: 60px;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
 }

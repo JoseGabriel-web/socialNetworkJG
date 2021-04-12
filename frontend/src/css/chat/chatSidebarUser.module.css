@@ -23,6 +23,7 @@
 .chatSidebarUserName {
   flex: 1;
   padding: 1rem;  
+  text-transform: capitalize;
 }
 .chatSidebarUserBtns {
   display: flex;

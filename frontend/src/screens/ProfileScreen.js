@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import styles from "../css/profile/profileScreen.module.css"
 import { getProfile } from "../actions/profileActions"
+import { socket } from "../Layout"
+import styles from "../css/profile/profileScreen.module.css"
 import * as followerActions from "../actions/followerActions"
 import ChangeProfilePicture from "../components/profile/ChangeProfilePicture"
-import { socket } from "../Layout"
 import ProfileHeader from "../components/profile/ProfileHeader"
 import ProfileContentSelector from "../components/profile/ProfileContentSelector"
 import ProfileContentComponent from "../components/profile/ProfileContentComponent"
@@ -29,7 +29,7 @@ const ProfileScreen = () => {
   }
 
   const isSelected = (path) => {
-    return window.location.pathname.includes(path) ? true : false
+    return window.location.pathname.includes(path)
   }
 
   const isCurrentUser = () => {
