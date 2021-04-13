@@ -1,9 +1,10 @@
 .registerContainer {
-  height: 100vh;
+  height: calc(var(--vh, 1%) * 100);
   width: 100%;
   display: flex; 
   flex-direction: row-reverse;
   overflow: hidden;
+  overflow: -moz-hidden-unscrollable;
 }
 
 .sectionOne {
@@ -20,14 +21,10 @@
   width: 80%;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  /* border: solid; */
+  justify-content: center;   
   padding: 1vw;
 }
-.label {
-  font-size: bold;
-  font-weight: 700;
-}
+
 .form {
   display: flex;
   flex-direction: column;    
@@ -36,6 +33,7 @@
 
 .form label, button {
   margin: 1rem 0 0.5rem 0;
+  font-weight: bold;
 }
 
 .form button {
@@ -52,6 +50,9 @@
   text-align: center;  
 }
 
+.disclaimers a {
+  color: purple;
+}
 
 .sectionTwo {
   height: 100%;  

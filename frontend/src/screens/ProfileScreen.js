@@ -37,7 +37,7 @@ const ProfileScreen = () => {
   }
 
   const handleFollow = async () => {
-    const { newFollowersCount } = await dispatch(followerActions.follow( profile.user._id, followersCount ))
+    const { newFollowersCount } = await dispatch(followerActions.follow( profile.user._id, followersCount, null, null ))
     const notification = {
       from: user._id,
       to: profile.user._id,

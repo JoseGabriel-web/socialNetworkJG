@@ -7,6 +7,17 @@
   font-family: 'Mukta', sans-serif;
 }
 
+:root {
+  --over: 10;  
+  --shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 1px 3px 1px;  
+  --darker-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px 0px, rgba(0, 0, 0, 0.2) 0px 1px 3px 1px;  
+  --inset-shadow: inset rgba(0, 0, 0, 0.3) 1px 1px 4px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;  
+  --color: black;
+  --background: white;
+  --background: rgb(28, 28, 28);
+  --color: white;
+}
+
 button, input {  
   -webkit-appearance: none;
 }
@@ -32,3 +43,23 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Solution for IOS zooming on input // fixed it with meta tag in HTML viewport set initial-scale=1 // so below lines not necessary */
+/* input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+  font-size: 16px;
+} */

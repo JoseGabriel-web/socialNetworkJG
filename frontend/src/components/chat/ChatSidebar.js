@@ -4,7 +4,7 @@ import styles from "../../css/chat/chatsidebar.module.css"
 import Loading from "../layout/Loading"
 import ChatSidebarUser from "./ChatSidebarUser"
 
-const ChatSidebar = ({ setNewMessages }) => {
+const ChatSidebar = ({ setNewMessages, setIsOpened }) => {
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { user } = userInfoReducer
   const getAllUsersReducer = useSelector((state) => state.getAllUsersReducer)
@@ -29,6 +29,7 @@ const ChatSidebar = ({ setNewMessages }) => {
               <ChatSidebarUser
                 setNewMessages={setNewMessages}
                 sidebarUser={sidebarUser}
+                setIsOpened={setIsOpened}
               />
             ))
         ) : (

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../../css/layout/dragOrDrop.module.css'
 
-const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBackground, backgroundSize }) => {      
+const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBackground, backgroundSize, isRounded }) => {      
 
   const handleIsVideo = () => {        
     
@@ -45,7 +45,7 @@ const DragOrDrop = ({ setImage, preview, setPreview, isActive, setIsActive, noBa
       style={{background: preview && !noBackground? `url(${preview})` : ''}}      
     >
       {preview ? (
-        <div className={preview? styles.hasFile : ''}  style={{backgroundImage: preview? `url(${preview})` : '', backgroundSize}} height='100%' width='100%' />
+        <div className={preview? styles.hasFile : ''}  style={{backgroundImage: preview? `url(${preview})` : '', backgroundSize, maxHeight: '100%', maxWidth: '100%', borderRadius: isRounded? '50%' : ''}} height='100%' width='100%' />
       ) : (
         <div className={styles.dragAndDropBody}>
           {isActive ? (

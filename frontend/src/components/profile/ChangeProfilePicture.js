@@ -16,7 +16,10 @@ const ChangeProfilePicture = ({ setEditProfilePicturePopUpState, editProfilePict
   }
 
   const handleUpdateProfilePicture = () => {
-    dispatch(updateProfilePicture(image))
+    if(image) {    
+      dispatch(updateProfilePicture(image))
+    }
+    handlePopUpState()
   }
 
   return (
@@ -31,6 +34,7 @@ const ChangeProfilePicture = ({ setEditProfilePicturePopUpState, editProfilePict
             setIsActive={setIsActive}
             noBackground={true}
             backgroundSize={'100%'}
+            isRounded={true}
           />        
         </div>
         <div className={`fas fa-check ${styles.uploadProfilePictureCheck}`} onClick={handleUpdateProfilePicture} />

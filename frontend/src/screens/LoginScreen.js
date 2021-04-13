@@ -20,6 +20,19 @@ const LoginScreen = ({history}) => {
     return dispatch(loginAction(email, password, history))
   }
   
+  const updateHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  } 
+  
+  useEffect(() => {
+      window.addEventListener("resize", updateHeight);
+      return () => window.removeEventListener("resize", updateHeight) 
+    }, [])  
+  
+  useEffect(() => {
+    updateHeight()  
+  }, []) 
 
   return (
     <div className={styles.loginContainer}>

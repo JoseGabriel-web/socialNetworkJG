@@ -66,13 +66,13 @@ const CreatePost = () => {
       <Popup isOpened={isOpened}>
         <div className={styles.formContainer} ref={ref}>
           <div className={styles.createPostHeader}>
-            <i className='far fa-times-circle' onClick={handleFormState} />
+            <i className='fas fa-times-circle' onClick={handleFormState} />
             <div className={styles.spacer}>
-              <h1>Create Post</h1>
+              <h1>create post</h1>
             </div>
             <div className={styles.postBtnContainer}>
               <div className={styles.postBtn} onClick={handleSubmitPost}>
-                Post
+                post
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ const CreatePost = () => {
             
               <div className={styles.firstPart}>
               <div className={styles.fieldGroup}>
-                <label htmlFor='title'>Title:</label>
+                <label htmlFor='title'>title:</label>
                 <input
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}

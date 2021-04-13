@@ -7,7 +7,7 @@ import defaultProfilePicture from "../../images/user.png"
 import styles from "../../css/chat/chatSidebarUser.module.css"
 import * as utils from "../../utils/index"
 
-const ChatSidebarUser = ({ sidebarUser, setNewMessages }) => {
+const ChatSidebarUser = ({ sidebarUser, setNewMessages, setIsOpened }) => {
   const dispatch = useDispatch()
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { user } = userInfoReducer
@@ -33,6 +33,9 @@ const ChatSidebarUser = ({ sidebarUser, setNewMessages }) => {
     setNewMessages([])
     getUserChatRoom(sidebarUser)
     setNotificationCount(0)
+    if(window.innerWidth < 1000) {
+      setIsOpened(false)
+    }
   }
 
   return (

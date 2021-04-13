@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import Loading from '../layout/Loading'
 import defaultProfilePicture from "../../images/user.png"
 import styles from "../../css/profile/profileHeader.module.css"
 
@@ -15,7 +16,7 @@ const ProfileHeader = ({
     (state) => state.updateProfilePictureReducer
   )
   const profileReducer = useSelector((state) => state.profileReducer)  
-  const { updatedProfilePicture } = updateProfilePictureReducer
+  const { updatedProfilePicture, loading } = updateProfilePictureReducer
   const { profile } = profileReducer  
 
   const handleProfilePictureUpdate = () => {
@@ -23,22 +24,24 @@ const ProfileHeader = ({
   }
 
   return (
-    <div className={styles.profileHeader}>
-      
+    <div className={styles.profileHeader}>            
       <div
         className={styles.profilePicture}
-        style={{
-          backgroundImage: `url(${
-            updatedProfilePicture &&
-            updatedProfilePicture.url &&
-            isCurrentUser()
-              ? updatedProfilePicture.url
-              : profile && profile.user.profilePicture.url
-              ? profile.user.profilePicture.url
-              : defaultProfilePicture
-          })`,
-        }}
-      >      
+        style={loading? { border: 'solid 2px black' } : (
+          {
+            backgroundImage: `url(${
+              updatedProfilePicture &&
+              updatedProfilePicture.url &&
+              isCurrentUser()
+                ? updatedProfilePicture.url
+                : profile && profile.user.profilePicture.url
+                ? profile.user.profilePicture.url
+                : defaultProfilePicture
+            })`,
+          }
+        )}
+    >
+      {loading? <Loading small={true} /> : null }
 
         <div
           className={styles.profileAction}

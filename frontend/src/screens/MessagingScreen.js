@@ -34,7 +34,7 @@ const MessagingScreen = () => {
           newMessages={newMessages}
           setNewMessages={setNewMessages}
           isOpened={isOpened}
-          setIsOpened={setIsOpened}          
+          setIsOpened={setIsOpened}         
         />        
       </div>              
       
@@ -43,7 +43,7 @@ const MessagingScreen = () => {
           isOpened ? styles.isOpened : styles.isClosed
         }`}
       >
-        <ChatSidebar setNewMessages={setNewMessages} />
+        <ChatSidebar setNewMessages={setNewMessages} setIsOpened={setIsOpened} />
       </div>
     </div>
   )

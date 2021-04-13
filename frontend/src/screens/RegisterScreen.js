@@ -21,11 +21,21 @@ const RegisterScreen = ({ history }) => {
     e.preventDefault()
     if (password !== confirmPassword) return
     return dispatch(registerAction(name, email, password, history))
-  }
+  }  
 
+  const updateHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  } 
+  
   useEffect(() => {
-    if (user) return history.push('/home')
-  }, [user, history])
+      window.addEventListener("resize", updateHeight);
+      return () => window.removeEventListener("resize", updateHeight) 
+    }, [])  
+  
+  useEffect(() => {
+    updateHeight()  
+  }, []) 
 
   return (
     <div className={styles.registerContainer}>
@@ -81,7 +91,7 @@ const RegisterScreen = ({ history }) => {
             </div>
           </div>
 
-          <div className={styles.sectionTwo} styles={{backgroundImage: `url(${registerImg})`}}></div>
+          <div className={styles.sectionTwo} style={{backgroundImage: `url(${registerImg})`}}></div>
         </>
       )}
     </div>
