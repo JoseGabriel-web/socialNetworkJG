@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { loginAction } from '../actions/authActions'
 import styles from '../css/login/login.module.css'
 import Loading from '../components/layout/Loading'
-import backgroundImg from '../images/img.jpg'
+import backgroundImg from '../images/loginImg.jpg'
 
 const LoginScreen = ({history}) => {
   const loginReducer = useSelector(state => state.loginReducer)

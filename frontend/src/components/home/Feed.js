@@ -5,7 +5,7 @@ import styles from '../../css/home/feed.module.css'
 import Loading from '../layout/Loading'
 
 
-const Feed = ({ posts, loading }) => {    
+const Feed = ({ posts }) => {    
 
   return (    
     <div className={styles.feedContainer}>

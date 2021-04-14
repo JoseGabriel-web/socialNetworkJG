@@ -9,6 +9,7 @@ const userRoutes = express.Router()
 userRoutes.post('/updateUser', checkAuth, userControllers.updateUser)
 userRoutes.get('/getUserInfo', checkAuth, userControllers.getUserInfo)
 userRoutes.get('/getAllUsers', checkAuth, userControllers.getAllUsers)
+userRoutes.delete('/deleteUser', checkAuth, userControllers.deleteUser)
 userRoutes.post('/updateProfilePicture', profileImg, checkAuth, userControllers.updateProfilePicture)
 
 export { userRoutes }

@@ -65,6 +65,10 @@ app.get("/getAllMessages", async (req, res) => {
   let messages = await Message.find({})
   res.json(messages)
 })
+app.get("/getAllUsers", async (req, res) => {
+  let users = await User.find({})
+  res.json(users)
+})
 app.get("/getAllChatRooms", async (req, res) => {
   let chatRooms = await ChatRoom.find({})
   res.send(JSON.stringify(chatRooms))

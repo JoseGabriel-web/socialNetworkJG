@@ -26,3 +26,16 @@ export const loginReducer = (state = {}, action) => {
       return state
   }
 }
+
+export const logoutReducer = (state = {}, action) => {  
+  switch (action.type) {
+    case authConstants.LOGOUT_FAIL:
+      return {loading: false}        
+    case authConstants.LOGOUT_REQUEST:
+      return {laoding: true}
+    case authConstants.LOGOUT_SUCCESS:
+      return {loading: false}        
+    default:
+      return state
+  }
+}

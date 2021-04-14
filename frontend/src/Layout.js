@@ -34,6 +34,7 @@ const Layout = ({ location }) => {
   // socket.on('disconnect', () => {
     
   // })
+  
 
   useEffect(() => {
     if(user) {             
@@ -50,7 +51,7 @@ const Layout = ({ location }) => {
   useEffect(() => {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight) 
-  }, [])  
+  }, [])
   
   useEffect(() => {
     updateHeight()  

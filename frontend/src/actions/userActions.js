@@ -43,3 +43,15 @@ export const getAllUsersAction = () => async (dispatch) => {
     dispatch({ type: userConstants.GET_ALL_USERS_FAIL })
   }
 }
+
+export const deleteUserAccountAction = () => async (dispatch) => {
+  try {
+    await axios.delete('/api/user/deleteUser')
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    localStorage.removeItem('user')
+    dispatch({ type: userConstants.DELETE_USER_SUCCESS })    
+  } catch (error) {
+    dispatch({ type: userConstants.DELETE_USER_FAIL })
+  }
+}

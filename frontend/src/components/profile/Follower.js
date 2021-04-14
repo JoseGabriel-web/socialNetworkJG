@@ -13,14 +13,10 @@ const Follower = ({ follower, followingList, user }) => {
   const [isFollowing, setIsFollowing] = useState(false)
 
   const handleFollow = () => {
-    dispatch(
-      followerActions.follow(follower.followerId, null, profile.user._id, user._id)
-    )
+    dispatch(followerActions.follow(follower.followerId, user._id, profile.user._id))
   }
   const handleUnFollow = () => {
-    dispatch(
-      followerActions.unFollow(follower.followerId, null, profile.user._id, user._id)
-    )
+    dispatch(followerActions.unFollow(follower.followerId, user._id, profile.user._id))
   }
 
   const handleClick = () => {
@@ -44,8 +40,6 @@ const Follower = ({ follower, followingList, user }) => {
       setIsFollowing(checkFollowerStatus())
     }
   }, [followingList])
-
-  // check if followerId is in followingList userId
 
   return (
     <div className={styles.follower}>

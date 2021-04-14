@@ -6,13 +6,13 @@ import ChatSidebarUser from "./ChatSidebarUser"
 
 const ChatSidebar = ({ setNewMessages, setIsOpened }) => {
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { user } = userInfoReducer
   const getAllUsersReducer = useSelector((state) => state.getAllUsersReducer)
+  const { user } = userInfoReducer
   const { users } = getAllUsersReducer
   const [filter, setFilter] = useState()
 
   const inputFilter = (sidebarUser) => {    
-    if(!filter || sidebarUser.name.indexOf(filter) > -1) {
+    if(!filter || sidebarUser.name.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
       return true
     }
     return false

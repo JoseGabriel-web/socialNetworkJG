@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const notificationSchema = mongoose.Schema({
-  from: { type: String, required: true },
+  from: { type: mongoose.Types.ObjectId, required: true },
   to: { type: mongoose.Types.ObjectId, required: true },
   body: { type: String },  
   link: { type: String },  

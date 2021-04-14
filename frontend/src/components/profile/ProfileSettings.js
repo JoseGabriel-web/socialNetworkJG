@@ -2,17 +2,30 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateUserAction } from '../../actions/userActions'
 import styles from '../../css/profile/profileSettings.module.css'
-import Loading from '../layout/Loading'
+import * as userActions from '../../actions/userActions'
+import Popup from '../layout/Popup'
 
 const ProfileSettings = ({ history }) => {
+
   const dispatch = useDispatch()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const { profile, loading = true } = profileReducer
+  const { profile } = profileReducer
   const [newName, setNewName] = useState(null)
   const [newEmail, setNewEmail] = useState(null)
   const [newPassword, setNewPassword] = useState(null)
   const [errorField, setErrorField] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [deleteAccPopUpState, setDeleteAccPopUpState] = useState(false)
+
+  const handleDeleteAccPopUp = () => {
+    setDeleteAccPopUpState(!deleteAccPopUpState)
+  }
+
+  const handleDeleteAccount = () => {
+    handleDeleteAccPopUp()
+    dispatch(userActions.deleteUserAccountAction())    
+    history.push('/register')    
+  }  
 
   const handleUpdate = async () => {
     if (newName || newEmail || newPassword) {
@@ -26,8 +39,7 @@ const ProfileSettings = ({ history }) => {
         handleClearForm()
         history.push(updatedUserLink)
       }
-    }
-    console.log('Insert new values')
+    }    
   }
 
   const handleClearForm = () => {
@@ -155,7 +167,7 @@ const ProfileSettings = ({ history }) => {
         <div className={styles.preferencesSaveOrDeleteContainer}>
           <div className={styles.preferencesContainer}></div>
           <div className={styles.saveOrDeleteContainer}>
-            <div className={styles.deleteAccountBtn}>
+            <div className={styles.deleteAccountBtn} onClick={handleDeleteAccPopUp}>
               <i className='fas fa-trash' />
               <strong>Delete Account</strong>
             </div>
@@ -166,6 +178,19 @@ const ProfileSettings = ({ history }) => {
           </div>
         </div>
       </div>
+      <Popup isOpened={deleteAccPopUpState}>
+        <div className={styles.deleteAccPopUpContainer}>
+          
+          <h2>Are you sure?</h2>
+          <div className={styles.deleteAccPopUpBtnsContainer}>
+
+            <div className={styles.confirmDeleteBtn} onClick={handleDeleteAccount}>Yes, Delete Account</div>
+            <div className={styles.cancelDeleteBtn} onClick={handleDeleteAccPopUp}>No, close</div>
+
+          </div>
+
+        </div>
+      </Popup>
     </div>
   )
 }

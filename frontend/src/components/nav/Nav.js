@@ -6,6 +6,7 @@ import defaultProfilePicture from '../../images/user.png'
 import Notifications from './Notifications'
 import styles from '../../css/nav/nav.module.css'
 import * as utils from '../../utils/index'
+import * as authActions from '../../actions/authActions'
 // import logo from '../../images/logo_transparent.png'
 // import logo from '../../images/logoCropped.png'
 
@@ -18,16 +19,12 @@ const Nav = () => {
   const updateProfilePictureReducer = useSelector(
     (state) => state.updateProfilePictureReducer
     )
-    const { updatedProfilePicture } = updateProfilePictureReducer
-    const ref = useRef(null)  
+  const { updatedProfilePicture } = updateProfilePictureReducer
+  const ref = useRef(null)  
   const dispatch = useDispatch()  
 
   const handleLogout = () => {    
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('user')
-    dispatch({ type: userConstants.GET_USER_INFO_FAIL })
-    window.location.href = '/login'
+    return dispatch(authActions.logoutAction())
   }
 
   const handleUserMenuOpen = () => {

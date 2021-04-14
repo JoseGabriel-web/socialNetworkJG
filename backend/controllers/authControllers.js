@@ -64,7 +64,8 @@ export const generateAccessToken = async (req, res, next) => {
 
 export const logout = async (req,res,next) => {
   try {
-    const { refreshToken } = req.body
+    const { refreshToken } = req.query
+    console.log(refreshToken)
     await RefreshToken.findOneAndDelete({ refreshToken })
     return res.status(201).json({ message: 'User Logged out' })
   } catch(error) {

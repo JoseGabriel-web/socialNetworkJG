@@ -39,6 +39,7 @@ const CreatePost = () => {
   }
 
   const handleSubmitPost = async () => {
+    if(!image) return
     dispatch(createPost(title, description, image, isVideo))    
     handleClearForm()
     handleCloseForm()

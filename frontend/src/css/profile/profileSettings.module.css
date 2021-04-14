@@ -139,7 +139,34 @@
   margin-right: 0.625rem;  
 }
 
+.deleteAccPopUpContainer {
+  background: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
 
+.deleteAccPopUpBtnsContainer {
+  display: flex;
+  flex-direction: row;
+  font-size: 2vh;
+}
+
+.deleteAccPopUpBtnsContainer div {
+  margin: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: solid;
+  cursor: pointer;
+}
+.confirmDeleteBtn {
+  background: rgb(181, 1, 1);
+  color: white;
+}
+.cancelDeleteBtn {
+  background: black;
+  color: white;
+}
 
 @media (max-width: 762px) {
   .informationPreferencesSaveOrDeleteContainer {

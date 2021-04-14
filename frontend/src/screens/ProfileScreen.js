@@ -15,18 +15,13 @@ const ProfileScreen = () => {
   const params = useParams()
   const profileReducer = useSelector((state) => state.profileReducer)
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
+  const userFollowersListReducer = useSelector((state) => state.userFollowersListReducer)
+  const { followersList, followingList } = userFollowersListReducer
   const { profile, error } = profileReducer
   const { user } = userInfoReducer
   const [followersCount, setFollowersCount] = useState(0)
   const [following, setFollowing] = useState(false)
-  const [
-    editProfilePicturePopUpState,
-    setEditProfilePicturePopUpState,
-  ] = useState(false)
-
-  const isFollowing = (followersList) => {
-    return followersList && followersList.some(({ followerId }) => followerId === user._id)
-  }
+  const [ editProfilePicturePopUpState, setEditProfilePicturePopUpState ] = useState(false)
 
   const isSelected = (path) => {
     return window.location.pathname.includes(path)
@@ -36,8 +31,7 @@ const ProfileScreen = () => {
     return profile?.user?.name === user?.name
   }
 
-  const handleFollow = async () => {
-    const { newFollowersCount } = await dispatch(followerActions.follow( profile.user._id, followersCount, null, null ))
+  const emitFollowNotification = () => {
     const notification = {
       from: user._id,
       to: profile.user._id,
@@ -47,21 +41,38 @@ const ProfileScreen = () => {
       notification,
       username: profile.user.name,
     })
-    setFollowersCount(await newFollowersCount)
-    setFollowing(true)
   }
 
-  const handleUnfollow = async () => {
-    const { newFollowersCount } = await dispatch( followerActions.unFollow( profile.user._id, followersCount ))
-    setFollowersCount(await newFollowersCount)
-    setFollowing(false)
+  const handleFollow = async () => {    
+    dispatch(followerActions.follow( profile.user._id, user._id ))
+    emitFollowNotification()
+  }  
+
+  const handleUnfollow = async () => {    
+    dispatch( followerActions.unFollow( profile.user._id, user._id ))    
   }
 
-  const getProfileInfo = async () => {
-      const { followers } = await dispatch(getProfile(params.username))
-      setFollowersCount(await followers?.length)
-      setFollowing(isFollowing(await followers))
+  const getProfileInfo = async () => {       
+      dispatch(getProfile(params.username))      
   }
+
+  useEffect(() => {
+    if(followersList) {
+      setFollowersCount(followersList.length)
+    }
+  },[followersList])
+  
+  useEffect(() => {
+    if(followingList) {
+      setFollowing(followersList.some(({ followerId }) => followerId === user._id))
+    }
+  },[followingList])
+
+  useEffect(() => {
+    if(profile && user) {
+      dispatch(followerActions.getProfileFollowersInfo(profile.user._id, user._id))
+    }
+  }, [profile])
   
   useEffect(() => {
     if (!profile) {

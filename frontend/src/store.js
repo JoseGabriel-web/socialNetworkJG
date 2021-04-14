@@ -27,6 +27,8 @@ const reducers = combineReducers({
   userInfoReducer: userReducers.userInfoReducer,
   chatRoomInfoReducer: chatRoomReducers.chatRoomInfoReducer,
   getAllUsersReducer: userReducers.getAllUsersReducer,
+  deleteUserAccountReducer: userReducers.deleteUserAccountReducer,
+  logoutReducer: authReducers.logoutReducer,
 })
 
 const store = createStore(reducers, composeWithDevTools(

@@ -12,9 +12,7 @@ const ProfileHeader = ({
   handleUnfollow,
   handleFollow
 }) => {  
-  const updateProfilePictureReducer = useSelector(
-    (state) => state.updateProfilePictureReducer
-  )
+  const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const profileReducer = useSelector((state) => state.profileReducer)  
   const { updatedProfilePicture, loading } = updateProfilePictureReducer
   const { profile } = profileReducer  

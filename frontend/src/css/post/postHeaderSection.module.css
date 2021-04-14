@@ -11,13 +11,15 @@
   height: 35px;
   width: 35px;
   border-radius: 50%;
+  background: white;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 1rem ;
+  margin: 0 1rem;
+
   /* font-size: 2rem; */
 }
 .postHeaderUsername {

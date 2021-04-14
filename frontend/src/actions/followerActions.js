@@ -27,29 +27,26 @@ export const getProfileFollowersInfo = (profileUserId, userId) => async (dispatc
   }
 }
 
-export const follow = (profileUserId, followerCount, alternateProfileUserId, alternateUserId) => async (dispatch, _) => {
+export const follow = (profileUserId, userId, alternateProfileUserId) => async (dispatch, _) => {
   dispatch({type: FOLLOW_USER_REQUEST})
   try {
     const { data } = await axios.put('/api/followers/follow', { userId: profileUserId })
     const { message } = await data    
     dispatch({type: FOLLOW_USER_SUCCESS, payload: await message})
-    if(followerCount) {
-      dispatch(getProfileFollowersInfo(profileUserId))
-      return { newFollowersCount: followerCount + 1 }
+    if(alternateProfileUserId) {      
+      dispatch(getProfileFollowersInfo(alternateProfileUserId, userId))
+    } else {
+      dispatch(getProfileFollowersInfo(profileUserId, userId))
     }
-    dispatch(getProfileFollowersInfo(alternateProfileUserId, alternateUserId))
   } catch (error) {
     dispatch({type: FOLLOW_USER_FAIL, payload: error.response.data})
   }
 }
 
-export const unFollow = (profileUserId, followerCount, alternateProfileUserId, alternateUserId) => async (dispatch, _) => {
+export const unFollow = (profileUserId, userId, alternateProfileUserId) => async (dispatch, _) => {
   dispatch({type: UNFOLLOW_USER_REQUEST})
 
   const config = {
-    headers: {
-      'Content-type': 'application/json',      
-    },
     params: {
       userId: profileUserId
     },
@@ -58,12 +55,12 @@ export const unFollow = (profileUserId, followerCount, alternateProfileUserId, a
   try {
     const { data } = await axios.delete('/api/followers/unfollow', config)
     const { message } = await data    
-    dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})     
-    if(followerCount) {
-      dispatch(getProfileFollowersInfo(profileUserId))    
-      return { newFollowersCount: followerCount - 1 }        
-    }  
-    dispatch(getProfileFollowersInfo(alternateProfileUserId, alternateUserId))
+    dispatch({type: UNFOLLOW_USER_SUCCESS, payload: await message})
+    if(alternateProfileUserId) {      
+      dispatch(getProfileFollowersInfo(alternateProfileUserId, userId))
+    } else {
+      dispatch(getProfileFollowersInfo(profileUserId, userId))
+    }
   } catch (error) {
     dispatch({type: UNFOLLOW_USER_FAIL, payload: error.response.data})
   }
