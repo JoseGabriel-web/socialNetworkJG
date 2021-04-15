@@ -31,14 +31,14 @@ export const loginAction = (email, password, history) => async (dispatch) => {
 }
 
 export const logoutAction = (history) => async (dispatch) => {
-  dispatch({type: authConstants.LOGIN_REQUEST})    
+  dispatch({type: authConstants.LOGOUT_REQUEST})    
   try {    
     await axios.delete('/api/auth/logout', { params: { refreshToken: token.getRefreshToken() } })
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('user')
-    dispatch({ type: userConstants.GET_USER_INFO_FAIL })    
-  } catch (error) {        
+    dispatch({ type: userConstants.GET_USER_INFO_FAIL })
+  } catch (error) {
     console.log(error.response)
     dispatch({ type: authConstants.LOGOUT_FAIL, payload: error.response.data })
   }

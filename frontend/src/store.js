@@ -18,7 +18,7 @@ const reducers = combineReducers({
   profileReducer: profileReducers.profileReducer,
   followUserReducer: followerReducers.followUserReducer,
   unFollowUserReducer: followerReducers.unFollowUserReducer,
-  userFollowersListReducer: followerReducers.userFollowersListReducer,
+  followersInfoReducer: followerReducers.followersInfoReducer,
   updateProfilePictureReducer: profilePictureReducers.updateProfilePictureReducer,
   createPostComment: postCommentReducers.createPostComment,
   deletePostComment: postCommentReducers.deletePostComment,  

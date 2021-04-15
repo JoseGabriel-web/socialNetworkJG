@@ -8,20 +8,16 @@ import Follower from "./Follower"
 const ProfileFollowers = () => {
   const dispatch = useDispatch()
   const profileReducer = useSelector((state) => state.profileReducer)
-  const userFollowersListReducer = useSelector(
-    (state) => state.userFollowersListReducer
+  const followersInfoReducer = useSelector(
+    (state) => state.followersInfoReducer
   )
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { user } = userInfoReducer
   const { profile } = profileReducer
-  const {
-    followersList,
-    followingList,
-    loading = true,
-  } = userFollowersListReducer
+  const { followersList, followingList, loading = true } = followersInfoReducer
 
-  const sortingFunc = (a,b) => {
-    return a.followerName.toUpperCase() < b.followerName.toUpperCase()? -1 : 1
+  const sortingFunc = (a, b) => {
+    return a.followerName.toUpperCase() < b.followerName.toUpperCase() ? -1 : 1
   }
 
   useEffect(() => {
@@ -42,20 +38,23 @@ const ProfileFollowers = () => {
         <div className={styles.profileFollowersLoader}>
           <Loading />
         </div>
-      ) : followersList? (
+      ) : followersList ? (
         <div>
-          {followersList.length > 0? (followersList.sort(sortingFunc).map((follower) => (
-            <Follower
-              key={follower.followerId}
-              follower={follower}
-              followingList={followingList}
-              user={user}
-            />         
-          ))) : (
+          {followersList.length > 0 ? (
+            followersList
+              .sort(sortingFunc)
+              .map((follower) => (
+                <Follower
+                  key={follower.followerId}
+                  follower={follower}
+                  followingList={followingList}
+                  user={user}
+                />
+              ))
+          ) : (
             <div>
               <i className='fas fa-users' />
               <i className='fas fa-users' />
-              {/* <i className='fas fa-user-friends' /> */}
             </div>
           )}
         </div>

@@ -1,0 +1,51 @@
+.notFoundContainer {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorContent {
+  height: 300px;
+  width: 600px;
+  max-height: 90%;
+  max-width: 90%;  
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.statusCode h1 {
+  font-size: 10vh;
+}
+
+.message h2 {
+  
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;  
+  padding: 0 1rem;
+}
+
+.options a {
+  border: solid 3px;
+  padding: 0.5rem 0.8rem;
+  width: 45%;
+  font-weight: bold;
+  background: var(--background);
+  color: var(--color);
+  transition: all 100ms ease-in;
+}
+.options a:hover {  
+  background: var(--color);
+  color: var(--background);
+  border-color: var(--background);
+}

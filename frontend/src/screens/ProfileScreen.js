@@ -10,13 +10,13 @@ import ProfileHeader from "../components/profile/ProfileHeader"
 import ProfileContentSelector from "../components/profile/ProfileContentSelector"
 import ProfileContentComponent from "../components/profile/ProfileContentComponent"
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch()
   const params = useParams()
   const profileReducer = useSelector((state) => state.profileReducer)
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const userFollowersListReducer = useSelector((state) => state.userFollowersListReducer)
-  const { followersList, followingList } = userFollowersListReducer
+  const followersInfoReducer = useSelector((state) => state.followersInfoReducer)
+  const { followersList, followingList } = followersInfoReducer
   const { profile, error } = profileReducer
   const { user } = userInfoReducer
   const [followersCount, setFollowersCount] = useState(0)
@@ -53,7 +53,7 @@ const ProfileScreen = () => {
   }
 
   const getProfileInfo = async () => {       
-      dispatch(getProfile(params.username))      
+      dispatch(getProfile(params.username, history))      
   }
 
   useEffect(() => {
@@ -86,28 +86,24 @@ const ProfileScreen = () => {
 
   return (
     <div className={styles.profileScreenContainer}>
-      {error ? (
-        <h1>{error}</h1>
-      ) : (
-        <div>
-          <ProfileHeader
-            isCurrentUser={isCurrentUser}
-            setEditProfilePicturePopUpState={setEditProfilePicturePopUpState}
-            following={following}
-            handleUnfollow={handleUnfollow}
-            handleFollow={handleFollow}
-          />
+      <div>
+        <ProfileHeader
+          isCurrentUser={isCurrentUser}
+          setEditProfilePicturePopUpState={setEditProfilePicturePopUpState}
+          following={following}
+          handleUnfollow={handleUnfollow}
+          handleFollow={handleFollow}
+        />
 
-          <div className={styles.profileContent}>
-            <ProfileContentSelector
-              isSelected={isSelected}
-              followersCount={followersCount}
-              isCurrentUser={isCurrentUser}
-            />
-            <ProfileContentComponent isCurrentUser={isCurrentUser} />
-          </div>
+        <div className={styles.profileContent}>
+          <ProfileContentSelector
+            isSelected={isSelected}
+            followersCount={followersCount}
+            isCurrentUser={isCurrentUser}
+          />
+          <ProfileContentComponent isCurrentUser={isCurrentUser} />
         </div>
-      )}
+      </div>
       <ChangeProfilePicture
         setEditProfilePicturePopUpState={setEditProfilePicturePopUpState}
         editProfilePicturePopUpState={editProfilePicturePopUpState}

@@ -15,7 +15,7 @@ const ProfileHeader = ({
   const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
   const profileReducer = useSelector((state) => state.profileReducer)  
   const { updatedProfilePicture, loading } = updateProfilePictureReducer
-  const { profile } = profileReducer  
+  const { profile, error } = profileReducer  
 
   const handleProfilePictureUpdate = () => {
     setEditProfilePicturePopUpState(!editProfilePicturePopUpState)
@@ -63,7 +63,7 @@ const ProfileHeader = ({
         </div>
       </div>
       <h3 style={{ textTransform: "capitalize" }}>
-        {profile ? profile.user.name : "username"}
+        {profile ? profile.user.name : error? error.message : "username"}
       </h3>
     </div>
   )

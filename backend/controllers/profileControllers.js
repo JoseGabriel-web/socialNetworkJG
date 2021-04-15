@@ -6,6 +6,7 @@ export const getProfile = async (req, res, next) => {
   name = name.split("+").join(" ")
   try {
     const user = await User.findOne({ name })
+    if(!user) return next(new Error('No user found'))
     const posts = await Post.find({ creator: user._id })
     const profile = {
       user: {
