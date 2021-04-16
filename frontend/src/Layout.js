@@ -25,14 +25,7 @@ const Layout = ({ location }) => {
   const updateHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }    
-
-  // socket.on('connect', () => {
-  
-  // })
-  // socket.on('disconnect', () => {
-    
-  // })
+  }
   
 
   useEffect(() => {
@@ -78,8 +71,8 @@ const Layout = ({ location }) => {
             <Route component={HomeScreen} path='/home' exact />
             <Route component={MessagingScreen} path='/messaging' exact />
             <Route component={ProfileScreen} path='/profile/:username' />
-            <Route component={NotFound} path='/notfound' />
-            <Redirect to='/login' />
+            <Route component={NotFound} path='/notfound' />            
+            <Redirect to='/notfound' />
           </Switch>                
         </div>
         <div className={styles.sidebarContainer}>

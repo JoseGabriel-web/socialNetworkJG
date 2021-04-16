@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import styles from "../../css/profile/profileGallery.module.css"
 import Loading from "../layout/Loading"
 import DeletePost from "../layout/DeletePost"
+import GalleryPost from "./GalleryPost"
 
 const ProfileGallery = () => {
   const profileReducer = useSelector((state) => state.profileReducer)
@@ -22,11 +23,9 @@ const ProfileGallery = () => {
     if (user) {
       return profile.user.name === user.name
     }
-  }
+  }  
 
-  const handleOpenPost = (post) => {}
-
-  // ADD OPTIONS TO ( DELETE, already done ) POST FROM HERE GALLERY / MAYBE EDIT IT (MAYBE)
+  // ADD OPTIONS TO ( DELETE POST, already done ) / MAYBE EDIT IT (MAYBE)
   return (
     <div className={styles.profileGalleryContainer}>
       {loading ? (
@@ -39,26 +38,7 @@ const ProfileGallery = () => {
             <Loading />
           ) : (
             profile.posts.map((post) => (
-              <div className={styles.galleryPost}>
-                {isCurrentUser() ? (
-                  <i
-                    className={`fas fa-times ${styles.deletePostIcon}`}
-                    onClick={() =>
-                      handleDeletePostPopUpState(post._id, post.image.public_id)
-                    }
-                  />
-                ) : null}
-                <i
-                  className={`fas fa-external-link-square-alt ${styles.openPostIcon}`}
-                  onClick={handleOpenPost(post)}
-                />
-                <img
-                  height='auto'
-                  width='100%'
-                  src={`${post.image.url}`}
-                  alt=''
-                />
-              </div>
+              <GalleryPost post={post} isCurrentUser={isCurrentUser} handleDeletePostPopUpState={handleDeletePostPopUpState} />
             ))
           )}
         </div>

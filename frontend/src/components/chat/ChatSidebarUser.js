@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getChatRoom } from "../../actions/chatRoomActions"
 import { socket } from "../../Layout"
@@ -6,12 +6,14 @@ import { Link } from "react-router-dom"
 import defaultProfilePicture from "../../images/user.png"
 import styles from "../../css/chat/chatSidebarUser.module.css"
 import * as utils from "../../utils/index"
+import useLazyImg from "../../hooks/useLazyImg"
 
 const ChatSidebarUser = ({ sidebarUser, setNewMessages, setIsOpened }) => {
   const dispatch = useDispatch()
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { user } = userInfoReducer
   const [notificationCount, setNotificationCount] = useState(0)
+  const { user } = userInfoReducer
+  const loadedImg = useLazyImg(sidebarUser.profilePicture.url)
 
   socket.on("messageNotification", (sender) => {
     if (sender === sidebarUser.name) {
@@ -36,7 +38,7 @@ const ChatSidebarUser = ({ sidebarUser, setNewMessages, setIsOpened }) => {
     if(window.innerWidth < 1000) {
       setIsOpened(false)
     }
-  }
+  }  
 
   return (
     <div style={{ cursor: "pointer" }} onClick={handleOnClick}>
@@ -44,11 +46,7 @@ const ChatSidebarUser = ({ sidebarUser, setNewMessages, setIsOpened }) => {
         <div
           className={styles.chatSidebarUserImg}
           style={{
-            backgroundImage: `url(${
-              sidebarUser.profilePicture.url
-                ? sidebarUser.profilePicture.url
-                : defaultProfilePicture
-            })`,
+            backgroundImage: `url(${ loadedImg || defaultProfilePicture })`,
           }}
         />
         <div className={styles.chatSidebarUserName}>{sidebarUser.name}</div>

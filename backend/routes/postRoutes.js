@@ -9,7 +9,7 @@ const postRoutes = express.Router()
 postRoutes.post('/createPost', postImg, checkAuth, postControllers.createPost)
 postRoutes.post('/likePost', checkAuth, postControllers.likePost)
 postRoutes.delete('/deletePost', checkAuth, deletePostImg, postControllers.deletePost)
-postRoutes.get('/getPosts', checkAuth, postControllers.getPosts)
+postRoutes.get('/getPosts', postControllers.getPosts)
 
 
 export { postRoutes }

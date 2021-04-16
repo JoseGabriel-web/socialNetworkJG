@@ -1,0 +1,51 @@
+.comment {
+  position: relative;
+  display: flex;  
+  flex-direction: column;  
+  background: white;
+  color: black;
+  border-radius: 1rem;
+  padding: 0.5rem; 
+  padding-top: 0; 
+}
+
+.comment .commentHeader {
+  display: flex;  
+  flex-direction: row; 
+  align-items: center;   
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.comment .commentHeaderProfileImg {
+  height: 35px;  
+  width: 35px;  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border: solid 1px;
+}
+
+.comment .commentHeader h5 {
+  margin-left: 10px;
+}
+
+.comment p {
+  max-height: 200px;
+  max-width: 100%;
+  padding: 0 0.5rem;  
+  overflow-y: auto;  
+}
+.comment p::-webkit-scrollbar {
+  width: 5px;
+  background: white;
+}
+.comment p::-webkit-scrollbar-thumb {  
+  background: black;
+  border-radius: 1rem;
+}
+.comment i:first-of-type {
+  margin-left: auto;
+  margin-right: 10px;
+}

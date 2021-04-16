@@ -5,19 +5,12 @@ import {
   deletePostComment,
 } from '../../actions/postCommentActions'
 import styles from '../../css/post/postCommentSection.module.css'
-import defaultProfilePic from '../../images/user.png'
-import { Link } from 'react-router-dom'
-import * as utils from '../../utils/index'
+import Comment from './Comment'
 
-const PostCommentSection = ({
-  postId,
-  isCommentSectionOpened,
-  setIsCommentSectionOpened,
-  comments,
-}) => {
+const PostCommentSection = ({ postId, isCommentSectionOpened, setIsCommentSectionOpened, comments }) => {
   const dispatch = useDispatch()
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { user } = userInfoReducer
+  const { user } = userInfoReducer  
   const [label, setLabel] = useState('')
   const [initialComments, setInitialComments] = useState([...comments])
   const [newComments, setNewComments] = useState([])
@@ -35,9 +28,7 @@ const PostCommentSection = ({
     }
     setLabel('')
     setIsCommentSectionOpened(true)
-  }
-
-  const handleLikeComment = () => {}
+  }  
 
   const handleDeleteComment = async (labelToDelete) => {
     const { isDeleted } = await dispatch(
@@ -71,30 +62,7 @@ const PostCommentSection = ({
         {comments &&
           updatedComments.map((comment, index) => (
             <div className={styles.commentContainer}>
-              <div className={styles.comment}>
-                <div className={styles.commentHeader}>
-                  <div
-                    className={styles.commentHeaderProfileImg}
-                    style={{
-                      backgroundImage: comment.user.profilePicture
-                        ? `url(${comment.user.profilePicture})`
-                        : `url(${defaultProfilePic})`,
-                    }}
-                  />
-                  <Link
-                    to={`/profile/${utils.string.replaceSpace(comment.user.name)}/gallery`}
-                  >
-                    <h5 style={{textTransform: 'capitalize'}}>{comment.user.name}:</h5>
-                  </Link>                  
-                  {user && user._id === comment.creator ? (
-                    <i
-                      className='fas fa-trash-alt'
-                      onClick={() => handleDeleteComment(comment.label)}
-                    />
-                  ) : null}
-                </div>
-                <p>{comment.label}</p>
-              </div>
+              <Comment key={comment.creator} comment={comment} user={user} handleDeleteComment={handleDeleteComment} />
             </div>
           ))}
       </div>

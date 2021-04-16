@@ -1,4 +1,3 @@
-export const replaceSpace = (string) => {  
-  console.log(string)
+export const replaceSpace = (string) => {    
   return string.split(' ').join('+')
 }

@@ -13,7 +13,7 @@ const App = () => {
     <Router>      
       <Switch>
         {appComponents.map(component => (
-          <Route path={component.path} component={component.component} />        
+          <Route key={component.path} path={component.path} component={component.component} />        
         ))}
         <Redirect to='/login' />
       </Switch>

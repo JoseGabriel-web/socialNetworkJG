@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getProfile } from "../actions/profileActions"
-import { socket } from "../Layout"
+import * as helpers from "../helpers/index"
 import styles from "../css/profile/profileScreen.module.css"
 import * as followerActions from "../actions/followerActions"
 import ChangeProfilePicture from "../components/profile/ChangeProfilePicture"
@@ -17,7 +17,7 @@ const ProfileScreen = ({ history }) => {
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const followersInfoReducer = useSelector((state) => state.followersInfoReducer)
   const { followersList, followingList } = followersInfoReducer
-  const { profile, error } = profileReducer
+  const { profile } = profileReducer
   const { user } = userInfoReducer
   const [followersCount, setFollowersCount] = useState(0)
   const [following, setFollowing] = useState(false)
@@ -31,22 +31,15 @@ const ProfileScreen = ({ history }) => {
     return profile?.user?.name === user?.name
   }
 
-  const emitFollowNotification = () => {
-    const notification = {
+  const handleFollow = async () => {
+    dispatch(followerActions.follow( profile.user._id, user._id ))
+    helpers.notification.emitNotification({
       from: user._id,
       to: profile.user._id,
       type: "follow",
-    }
-    socket.emit("sendNotification", {
-      notification,
-      username: profile.user.name,
+      username: profile.user.name
     })
   }
-
-  const handleFollow = async () => {    
-    dispatch(followerActions.follow( profile.user._id, user._id ))
-    emitFollowNotification()
-  }  
 
   const handleUnfollow = async () => {    
     dispatch( followerActions.unFollow( profile.user._id, user._id ))    

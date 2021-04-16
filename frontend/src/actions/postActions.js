@@ -21,6 +21,7 @@ export const createPost = (title, description, image) => async (
       dispatch(getPosts())
     }
   } catch (error) {    
+    console.log(error.response)
     dispatch({ type: postConstants.CREATE_POST_FAIL, payload: error.response.data.error })
   }
 }

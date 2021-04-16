@@ -17,6 +17,7 @@ const ProfileHeader = ({
   const { updatedProfilePicture, loading } = updateProfilePictureReducer
   const { profile, error } = profileReducer  
 
+
   const handleProfilePictureUpdate = () => {
     setEditProfilePicturePopUpState(!editProfilePicturePopUpState)
   }
@@ -68,15 +69,5 @@ const ProfileHeader = ({
     </div>
   )
 }
-
-// const ProfileHeader = () => {
-//   return (
-//     <div className={styles.perfectSquareContainer}>
-//       <div className={styles.perfectSquare}>
-
-//       </div>
-//     </div>
-//   )
-// }
 
 export default ProfileHeader
