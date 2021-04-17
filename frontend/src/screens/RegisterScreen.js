@@ -10,7 +10,7 @@ const RegisterScreen = ({ history }) => {
   const dispatch = useDispatch()
   const registerReducer = useSelector((state) => state.registerReducer)
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { loading } = registerReducer
+  const { loading, error } = registerReducer
   const { user } = userInfoReducer
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -47,38 +47,127 @@ const RegisterScreen = ({ history }) => {
             <div className={styles.formContainer}>
               <h1 className={styles.label}>Register.</h1>
               <form className={styles.form}>
+
                 <label htmlFor='name'>Name:</label>
-                <input
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                  type='text'
-                  placeholder='Enter your name'
-                  name='name'
-                />
+
+                <div className={styles.inputAndTooltipContainer}>
+                  <input
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    type='text'
+                    placeholder='Enter your name'
+                    name='name'
+                  />
+
+                  <div>
+                    <div
+                      className={`${
+                        error && error.field === 'name'
+                          ? 'fas fa-times-circle'
+                          : 'fas fa-info-circle'
+                      } ${styles.tooltip}`}
+                    >
+                    </div>
+                    <div className={styles.tooltipText}>
+                      {error && error.field === 'name'
+                            ? error.message
+                            : 'Here goes errors'
+                        }
+                    </div>              
+                  </div>
+
+                </div>
+
                 <label htmlFor='email'>Email:</label>
-                <input
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  type='email'
-                  placeholder='Enter your email..'
-                  name='email'
-                />
+
+                <div className={styles.inputAndTooltipContainer}>
+                  <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    type='email'
+                    placeholder='Enter your email..'
+                    name='email'
+                  />
+
+                  <div>
+                    <div
+                      className={`${
+                        error && error.field === 'email'
+                          ? 'fas fa-times-circle'
+                          : 'fas fa-info-circle'
+                      } ${styles.tooltip}`}
+                    >
+                    </div>
+                    <div className={styles.tooltipText}>
+                      {error && error.field === 'email'
+                            ? error.message
+                            : 'Here goes errors'
+                        }
+                    </div>              
+                  </div>
+
+                </div>
+
                 <label htmlFor='password'>Password:</label>
-                <input
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  type='password'
-                  placeholder='Enter your password..'
-                  name='password'
-                />
+
+                <div className={styles.inputAndTooltipContainer}>
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    type='password'
+                    placeholder='Enter your password..'
+                    name='password'
+                  />
+
+                  <div>
+                    <div
+                      className={`${
+                        error && error.field === 'password'
+                          ? 'fas fa-times-circle'
+                          : 'fas fa-info-circle'
+                      } ${styles.tooltip}`}
+                    >
+                    </div>
+                    <div className={styles.tooltipText}>
+                      {error && error.field === 'password'
+                            ? error.message
+                            : 'Here goes errors'
+                        }
+                    </div>              
+                  </div>
+
+                </div>
+
                 <label htmlFor='confirmPassword'>Confirm Password:</label>
-                <input
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  value={confirmPassword}
-                  type='password'
-                  placeholder='Confirm password'
-                  name='confirmPassword'
-                />
+
+                <div className={styles.inputAndTooltipContainer}>
+                  <input
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={confirmPassword}
+                    type='password'
+                    placeholder='Confirm password'
+                    name='confirmPassword'
+                  />
+
+                  <div>
+                    <div
+                      className={`${
+                        password !== confirmPassword? 'fas fa-times-circle'
+                          : 'fas fa-info-circle'
+                      } ${styles.tooltip}`}
+                    >
+                    </div>
+                    <div className={styles.tooltipText}>
+                      {password !== confirmPassword? 'Should be the same as the password'
+                            : 'Please confirm your password'
+                        }
+                    </div>              
+                  </div>
+
+                </div>
+
+                {/* tooltip */}
+
                 <button type='submit' onClick={(e) => handleSubmit(e)}>
                   Log in
                 </button>

@@ -8,7 +8,7 @@ import backgroundImg from '../images/loginImg.jpg'
 
 const LoginScreen = ({history}) => {
   const loginReducer = useSelector(state => state.loginReducer)
-  const { loading } = loginReducer
+  const { loading, error } = loginReducer
   const userInfoReducer = useSelector(state => state.userInfoReducer)
   const { user } = userInfoReducer
   const dispatch = useDispatch()
@@ -41,24 +41,69 @@ const LoginScreen = ({history}) => {
         <div className={styles.sectionOne}>
           <div className={styles.formContainer}>
             <h1 className={styles.label}>Log In.</h1>
-            <form className={styles.form}>
-              <label htmlFor='email'>Email:</label>
+            <form className={styles.form}>              
+
+            <label htmlFor='email'>Email:</label>
+
+            <div className={styles.inputAndTooltipContainer}>
               <input
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                type='email'
-                placeholder='Enter your email..'
-                name='email'
-              />
-              <label htmlFor='password'>Password:</label>
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  type='email'
+                  placeholder='Enter your email..'
+                  name='email'
+                />
+
+              <div>                              
+                <div
+                  className={`${
+                    error && error.field === 'email'
+                      ? 'fas fa-times-circle'
+                      : 'fas fa-info-circle'
+                  } ${styles.tooltip}`}
+                >
+                </div>
+                <div className={styles.tooltipText}>
+                  {error && error.field === 'email'
+                        ? error.message
+                        : 'Here goes errors'
+                    }
+                </div>              
+              </div>
+
+            </div>
+
+            <label htmlFor='password'>Password:</label>
+
+            <div className={styles.inputAndTooltipContainer}>
               <input
-                onChange={e => setPassword(e.target.value)}
-                value={password}
-                type='password'
-                placeholder='Enter your password..'
-                name='password'
-              />
-              <button type='submit' onClick={e => handleSubmit(e)}>Log in</button>
+                  onChange={e => setPassword(e.target.value)}
+                  value={password}
+                  type='password'
+                  placeholder='Enter your password..'
+                  name='password'
+                />
+
+              <div>
+                <div
+                  className={`${
+                    error && error.field === 'password'
+                      ? 'fas fa-times-circle'
+                      : 'fas fa-info-circle'
+                  } ${styles.tooltip}`}
+                >
+                </div>
+                <div className={styles.tooltipText}>
+                  {error && error.field === 'password'
+                        ? error.message
+                        : 'Here goes errors'
+                    }
+                </div>              
+              </div>
+
+            </div>
+            
+            <button type='submit' onClick={e => handleSubmit(e)}>Log in</button>
             </form>
             <div className={styles.disclaimers}>
               <h4>

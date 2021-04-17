@@ -13,7 +13,7 @@ export const registerAction = (name, email, password, history) => async (dispatc
     dispatch({type: authConstants.REGISTER_SUCCESS})     
     return history.push('/home')
   } catch (error) {        
-    dispatch({type: authConstants.REGISTER_FAIL, payload: error})
+    dispatch({type: authConstants.REGISTER_FAIL, payload: error.response.data})
   }
 }
 

@@ -16,8 +16,10 @@ const formatError = (error) => {
     formatedError.status = error.status
   } else if (error.message === "No user found") {
     formatedError.status = 404
+    formatedError.field = 'email'
   } else if (error.message === "Invalid password") {
     formatedError.status = 403
+    formatedError.field = 'password'
   } else if (error.message === "Internal server error!") {
     formatedError.status = 500
   } else if (error.message === "Access denied, token missing!") {

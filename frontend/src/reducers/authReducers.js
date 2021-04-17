@@ -8,7 +8,7 @@ export const registerReducer = (state = {}, action) => {
     case authConstants.REGISTER_SUCCESS:
       return {laoding: false}        
     case authConstants.REGISTER_FAIL:
-      return {loading: false, message: action.payload}        
+      return {loading: false, error: action.payload.error}
     default:
       return state
   }
@@ -21,7 +21,7 @@ export const loginReducer = (state = {}, action) => {
     case authConstants.LOGIN_SUCCESS:
       return {laoding: false}        
     case authConstants.LOGIN_FAIL:
-      return {loading: false, message: action.payload}        
+      return {loading: false, error: action.payload.error}        
     default:
       return state
   }
