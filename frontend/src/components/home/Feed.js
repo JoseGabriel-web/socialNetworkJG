@@ -24,7 +24,8 @@ const Feed = ({ posts }) => {
             comments={post.comments}
             postId={post._id}
             likes={post.likes} 
-            creator={post.creator}           
+            creator={post.creator}  
+            post={post}         
           />
         ))}
       </div> : (

@@ -40,6 +40,7 @@
 }
 .fieldGroup label {
   margin-top: 0.8rem;
+  font-size: 2.5vh;
 }
 .fieldGroup:first-of-type label {
   margin-top: 0rem;
@@ -51,8 +52,8 @@
 }
 
 .inputAndTooltipContainer input {
-  width: 100%;
-  padding: 0.3rem 1rem;
+  width: 100%;  
+  padding: 0.3vh 1vh;
   border-radius: 0.4rem;
   transition: 0.3s;
   padding-right: 2rem;
@@ -69,7 +70,7 @@
   background-color: var(--background);
   color: var(--color);
   border: solid 2px;
-  padding: 0 0.25rem;
+  padding: 0 0.25vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,14 +103,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 1rem;
+  padding: 1vh;
+  font-size: 2vh;
 }
 .deleteAccountBtn {
   width: 50%;
   margin-left: auto;
   margin-right: 1rem;
   border: solid 1px black;
-  padding: 0.5rem;
+  padding: 0.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,7 +127,7 @@
 .saveChangesBtn {
   width: 50%;
   border: solid 1px black;
-  padding: 0.5rem;
+  padding: 0.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +135,7 @@
   color: white; 
   background: rgb(1, 99, 1);
   border-radius: 0.4rem;
-  min-width: 100px;
+  min-width: 100px;  
 }
 .saveChangesBtn i {
   margin-right: 0.625rem;  
@@ -150,7 +152,7 @@
 .deleteAccPopUpBtnsContainer {
   display: flex;
   flex-direction: row;
-  font-size: 2vh;
+  font-size: 1.5vh;
 }
 
 .deleteAccPopUpBtnsContainer div {

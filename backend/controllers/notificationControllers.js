@@ -19,10 +19,12 @@ const getUsername = async (userId) => {
   return user.name
 }
 
-const getBody = async ({ from, type }) => {
+const getBody = async ({ from, type, to }) => {
   switch(type) {
     case 'follow':      
       return `${capitalizeString(await getUsername(from))} started following you!`
+    case 'welcome':      
+      return `Welcome ${capitalizeString(await getUsername(to)).split(' ')[0]}!`
     default:
       return `this is a notification without body lol.`
   }
@@ -33,7 +35,7 @@ const getLink = async ({ from, to, type }) => {
     case 'follow':
       return `/profile/${await replaceSpace(to)}/followers`
     default:
-      return `/home`
+      return null
   }
 }
 
@@ -49,7 +51,7 @@ export const createNotification = async ({ from, to, type }) => {
   try {    
     let existingNotification = await Notification.findOne({ from, to, type })
     if(!existingNotification) {
-      let body = await getBody({ from, type })
+      let body = await getBody({ from, type, to })
       let link = await getLink({ from, to, type })
       return await Notification.create({ from, to, body, link, type })
     } else {

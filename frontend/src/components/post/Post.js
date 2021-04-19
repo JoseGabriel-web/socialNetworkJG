@@ -6,7 +6,7 @@ import PostMediaSection from './PostMediaSection'
 import PostHeaderSection from './PostHeaderSection'
 import PostDescriptionSection from './PostDescriptionSection'
 
-const Post = ({ user, title, description, image, likes, postId, comments, isVideo, creator }) => { 
+const Post = ({ user, title, description, image, likes, postId, comments, isVideo, creator, post }) => { 
   const [isCommentSectionOpened, setIsCommentSectionOpened] = useState(true) 
   return (
     <div className={styles.postContainer}>   
@@ -21,7 +21,7 @@ const Post = ({ user, title, description, image, likes, postId, comments, isVide
       {title || description ? (<div className={styles.postDescriptionSectionContainer}>
         <PostDescriptionSection title={title} description={description} />   
       </div>) : null }
-          <PostActionsSection postId={postId} likes={likes} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   
+          <PostActionsSection post={post} postId={postId} likes={likes} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   
         </div>
         <div className={styles.postCommentSectionContainer}>
           <PostCommentSection comments={comments} postId={postId} isCommentSectionOpened={isCommentSectionOpened} setIsCommentSectionOpened={setIsCommentSectionOpened} />   

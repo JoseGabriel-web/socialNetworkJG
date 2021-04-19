@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { likePost } from "../../actions/postActions"
-import Popup from "../layout/Popup"
 import styles from "../../css/post/postActionsSection.module.css"
+import ViewPost from "../layout/ViewPost"
 
 const PostActionsSection = ({
   postId,
   likes,
   isCommentSectionOpened,
   setIsCommentSectionOpened,
+  post
 }) => {
   const dispatch = useDispatch()  
   const { user } = useSelector((state) => state.userInfoReducer)
@@ -23,8 +24,8 @@ const PostActionsSection = ({
     setIsCommentSectionOpened(!isCommentSectionOpened)
   }
 
-  const handleNoUser = () => {
-    setIsOpened(false)
+  const handleExpand = () => {
+    setIsOpened(!isOpened)
   }
 
   const handleSave = () => {
@@ -85,14 +86,10 @@ const PostActionsSection = ({
           style={{ cursor: "pointer" }}
         />
       </div>
-      <div className={styles.sharePostContainer} onClick={handleSave}>
-        <i className={isBookmarked ? "fas fa-bookmark" : "far fa-bookmark"} />
+      <div className={styles.sharePostContainer} onClick={handleExpand}>
+        <i className='fas fa-expand-arrows-alt' style={{ cursor: 'pointer' }} />
       </div>
-      <Popup isOpened={isOpened}>
-        <div onClick={handleNoUser}>
-          Please log in or sign up, to {noUserAlert} a post.
-        </div>
-      </Popup>
+      <ViewPost post={post} isOpened={isOpened} setIsOpened={setIsOpened} />
     </div>
   )
 }

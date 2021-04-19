@@ -1,6 +1,6 @@
-.profilePicture {
-  height: 30px;
-  width: 30px;
+.profilePicture {  
+  width: 4vh;
+  height: 4vh;
   margin-left: 0.3rem;  
   background-color: white;
   border-radius: 50%;  
@@ -51,10 +51,28 @@
   display: flex;  
 }
 
-/* .userNav {
-  max-height: 100%;  
-  display: flex;  
-} */
+.notificationBell {
+  position: relative;  
+}
+.notificationBell::before {
+  content: attr(data-notificationCount);
+  position: absolute;
+  top: 0;  
+  left: -2.3vh;
+  width: 2vh;
+  height: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3vh;
+  padding: 1px;
+  border-radius: 50%;
+  border: solid 3px;
+  background: var(--background);
+  color: var(--color);
+  border-color: var(--color);  
+  cursor: pointer;
+}
 
 .menu {  
   height: 100%;
@@ -70,6 +88,7 @@
   align-items: center;
   justify-content: space-around;
   font-size: 1.25vh;
+  cursor: pointer;
 }
 
 .userNavBtn i {
@@ -152,29 +171,4 @@
   width: 10px;
   background: black;
   border-radius: 2rem;
-}
-
-.searchContainer {
-  height: 100%;
-  width: 70%;
-  margin: 0 1rem; 
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-}
-.searchContainer input {
-  max-height: 100%;
-  width: 100%;
-  outline: none;
-  padding: 0.2rem 1rem;
-  border-radius: 1rem;
-  border: none;
-  box-shadow: var(--inset-shadow);
-}
-
-@media (min-width: 762px) {
-  .searchContainer {
-    /* flex: 1; */
-    margin: auto;  
-  }
 }

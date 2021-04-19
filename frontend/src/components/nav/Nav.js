@@ -1,30 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import * as userConstants from '../../constants/userConstants'
-import defaultProfilePicture from '../../images/user.png'
-import Notifications from './Notifications'
-import styles from '../../css/nav/nav.module.css'
-import * as utils from '../../utils/index'
-import * as authActions from '../../actions/authActions'
+import React, { useState, useEffect, useRef } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import defaultProfilePicture from "../../images/user.png"
+import Notifications from "./Notifications"
+import styles from "../../css/nav/nav.module.css"
+import * as utils from "../../utils/index"
+import * as authActions from "../../actions/authActions"
+
 // import logo from '../../images/logo_transparent.png'
-// import logo from '../../images/logoCropped.png'
+import logo from '../../images/logoCropped.png'
 
 const Nav = () => {
   const [userNavMenuState, setUserNavMenuState] = useState(false)
   const [userNavNotState, setUserNavNotState] = useState(false)
+  const [notificationsSize, setNotificationsSize] = useState(0)
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { user } = userInfoReducer
-  const { profilePicture } = user || {}   
+  const { profilePicture } = user || {}
   const updateProfilePictureReducer = useSelector(
     (state) => state.updateProfilePictureReducer
-    )
+  )
   const { updatedProfilePicture } = updateProfilePictureReducer
-  const ref = useRef(null)  
-  const dispatch = useDispatch()  
+  const ref = useRef(null)
+  const dispatch = useDispatch()
 
-  const handleLogout = () => {    
-    return dispatch(authActions.logoutAction())
+  const handleLogout = () => {
+    dispatch(authActions.logoutAction())
   }
 
   const handleUserMenuOpen = () => {
@@ -46,16 +47,23 @@ const Nav = () => {
     if (ref && !ref?.current?.contains(event.target)) {
       handleCloseAllMenu()
     }
-  }  
+  }
 
   useEffect(() => {
     if (ref === null) return
-    document.addEventListener('click', handleClickOutside, true)
+    document.addEventListener("click", handleClickOutside, true)
 
     return () => {
-      document.removeEventListener('click', handleClickOutside)
+      document.removeEventListener("click", handleClickOutside)
     }
-  })
+  })  
+
+  const formatNotificationsSize = (num) => {
+    if(num > 99) {
+      return '99+'
+    }
+    return num
+  }
 
   return (
     <div className={styles.navContianer}>
@@ -67,12 +75,13 @@ const Nav = () => {
         <div className={styles.spacer} />
 
         <div className={styles.menu} ref={ref}>
-          <div className={styles.searchContainer}>
-            <input type='text' placeholder='Search...' />
-          </div>
 
           <div className={styles.userNav}>
-            <div onClick={handleNotMenuOpen} className={styles.userNavBtn}>
+            <div
+              onClick={handleNotMenuOpen}
+              className={`${styles.notificationBell} ${styles.userNavBtn}`}
+              data-notificationCount={formatNotificationsSize(notificationsSize)}
+            >
               <i className='far fa-bell' />
             </div>
             <div
@@ -86,27 +95,25 @@ const Nav = () => {
                 <h4>Notifications:</h4>
               </div>
               <div className={styles.userNotificationsContainer}>
-                <Notifications />                  
+                <Notifications setNotificationsSize={setNotificationsSize} />
               </div>
             </div>
           </div>
 
           <div className={styles.userNav}>
-            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>                                                        
-                <div
-                  className={styles.profilePicture}
-                  style={{
-                    backgroundImage: `url(${
-                      updatedProfilePicture
-                        ? updatedProfilePicture.url
-                        : profilePicture && profilePicture.url
-                        ? profilePicture.url
-                        : defaultProfilePicture
-                    })`,
-                  }}
-                />              
-
-
+            <div onClick={handleUserMenuOpen} className={styles.userNavBtn}>
+              <div
+                className={styles.profilePicture}
+                style={{
+                  backgroundImage: `url(${
+                    updatedProfilePicture
+                      ? updatedProfilePicture.url
+                      : profilePicture && profilePicture.url
+                      ? profilePicture.url
+                      : defaultProfilePicture
+                  })`,
+                }}
+              />
             </div>
 
             <ul
@@ -116,11 +123,19 @@ const Nav = () => {
             >
               {user ? (
                 <>
-                  <Link to={`/profile/${utils.string.replaceSpace(user.name)}/gallery`}>
+                  <Link
+                    to={`/profile/${utils.string.replaceSpace(
+                      user.name
+                    )}/gallery`}
+                  >
                     <i className='fas fa-user' />
                     <h4>Profile</h4>
                   </Link>
-                  <Link to={`/profile/${utils.string.replaceSpace(user.name)}/settings`}>
+                  <Link
+                    to={`/profile/${utils.string.replaceSpace(
+                      user.name
+                    )}/settings`}
+                  >
                     <i className='fas fa-user-cog' />
                     <h4>Settings</h4>
                   </Link>

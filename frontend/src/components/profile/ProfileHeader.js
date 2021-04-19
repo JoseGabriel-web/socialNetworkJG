@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import Loading from '../layout/Loading'
+import Loading from "../layout/Loading"
 import defaultProfilePicture from "../../images/user.png"
 import styles from "../../css/profile/profileHeader.module.css"
 
@@ -10,37 +10,43 @@ const ProfileHeader = ({
   editProfilePicturePopUpState,
   following,
   handleUnfollow,
-  handleFollow
-}) => {  
-  const updateProfilePictureReducer = useSelector((state) => state.updateProfilePictureReducer)
-  const profileReducer = useSelector((state) => state.profileReducer)  
+  handleFollow,
+}) => {
+  const updateProfilePictureReducer = useSelector(
+    (state) => state.updateProfilePictureReducer
+  )
+  const profileReducer = useSelector((state) => state.profileReducer)
   const { updatedProfilePicture, loading } = updateProfilePictureReducer
-  const { profile, error } = profileReducer  
-
+  const { profile, error } = profileReducer
+  const [profilePicture, setProfilePicture] = useState(defaultProfilePicture)
 
   const handleProfilePictureUpdate = () => {
     setEditProfilePicturePopUpState(!editProfilePicturePopUpState)
   }
 
+  const handleProfilePicture = () => {    
+    if(isCurrentUser() && updatedProfilePicture?.url) {
+      return setProfilePicture(updatedProfilePicture.url)
+    }
+    setProfilePicture(profile?.user?.profilePicture.url || defaultProfilePicture)
+    return
+  }
+
+  useEffect(() => {
+    handleProfilePicture()
+  }, [updatedProfilePicture, profile])
+
+  useEffect(() => handleProfilePicture(), [])
+  
   return (
-    <div className={styles.profileHeader}>            
-      <div
-        className={styles.profilePicture}
-        style={loading? { border: 'solid 2px black' } : (
-          {
-            backgroundImage: `url(${
-              updatedProfilePicture &&
-              updatedProfilePicture.url &&
-              isCurrentUser()
-                ? updatedProfilePicture.url
-                : profile && profile.user.profilePicture.url
-                ? profile.user.profilePicture.url
-                : defaultProfilePicture
-            })`,
-          }
-        )}
-    >
-      {loading? <Loading small={true} /> : null }
+    <div className={styles.profileHeader}>
+      <div className={styles.profilePictureContainer}>
+        <div className={styles.profilePicture}>                    
+          {loading ? <Loading small={true} /> : (
+            <img src={profilePicture} alt='' />
+          )}
+        </div>
+
 
         <div
           className={styles.profileAction}
@@ -63,8 +69,8 @@ const ProfileHeader = ({
           />
         </div>
       </div>
-      <h3 style={{ textTransform: "capitalize" }}>
-        {profile ? profile.user.name : error? error.message : "username"}
+      <h3 className={styles.username} style={{ textTransform: "capitalize" }}>
+        {profile ? profile.user.name : error ? error.message : "username"}
       </h3>
     </div>
   )

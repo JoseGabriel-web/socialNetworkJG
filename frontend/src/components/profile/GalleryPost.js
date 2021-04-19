@@ -16,7 +16,7 @@ const GalleryPost = ({ post, isCurrentUser, handleDeletePostPopUpState }) => {
         />
       ) : null}
       <i
-        className={`fas fa-external-link-square-alt ${styles.openPostIcon}`}                  
+        className={`fas fa-expand-arrows-alt ${styles.openPostIcon}`}                  
       />
       <img
         height='auto'

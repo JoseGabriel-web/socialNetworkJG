@@ -6,7 +6,7 @@ export const registerReducer = (state = {}, action) => {
     case authConstants.REGISTER_REQUEST:
       return {loading: true}        
     case authConstants.REGISTER_SUCCESS:
-      return {laoding: false}        
+      return {laoding: false, newUser: true}        
     case authConstants.REGISTER_FAIL:
       return {loading: false, error: action.payload.error}
     default:
@@ -34,7 +34,7 @@ export const logoutReducer = (state = {}, action) => {
     case authConstants.LOGOUT_REQUEST:
       return {laoding: true}
     case authConstants.LOGOUT_SUCCESS:
-      return {loading: false}        
+      return {loading: false, error: action.payload.error}
     default:
       return state
   }

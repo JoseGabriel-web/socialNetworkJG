@@ -5,7 +5,7 @@ import styles from "../../css/nav/notification.module.css"
 import { socket } from "../../Layout"
 import * as userConstants from "../../constants/userConstants"
 
-const Notifications = () => {
+const Notifications = ({ setNotificationsSize }) => {
   const userInfoReducer = useSelector((state) => state.userInfoReducer)
   const { user } = userInfoReducer
   const dispatch = useDispatch()
@@ -20,8 +20,7 @@ const Notifications = () => {
           ...user,
           notifications: notifications.filter((noti) => noti._id !== notification._id),
         },
-      })
-      console.log(notifications.filter((noti) => noti._id !== notification._id))
+      })      
     }
   }
 
@@ -30,12 +29,15 @@ const Notifications = () => {
   }
 
   socket.on("receiveNotification", (notification) => {        
-    setNotifications([...notifications, notification])
+    let newNotifications = [...notifications, notification]
+    setNotifications(newNotifications)
+    setNotificationsSize(newNotifications.length)
   })
 
   useEffect(() => {
     if (user) {
       setNotifications(user.notifications)
+      setNotificationsSize(user.notifications.length)
     }
   }, [user])
 
@@ -44,12 +46,21 @@ const Notifications = () => {
       {notifications
         ? notifications.map((notification) => (
             <div className={styles.notificationContainer}>
-              <Link
-                to={notification.link}
-                onClick={() => handleOnClick(notification)}
-              >
+              { notification.link? (
+                <Link
+                  to={notification.link}
+                  onClick={() => handleOnClick(notification)}
+                >
                 <h4>{notification.body}</h4>
               </Link>
+              ) : (
+                <div
+                  to={notification.link}
+                  onClick={() => handleOnClick(notification)}
+                >
+                <h4>{notification.body}</h4>
+              </div>
+              ) }
             </div>
           ))
         : ""}

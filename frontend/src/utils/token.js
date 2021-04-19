@@ -12,3 +12,7 @@ export const getRefreshToken = () => {
   let item = window.localStorage.getItem('refreshToken')
   return item ? JSON.parse(item) : ''
 }
+export const removeTokens = () => {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+}
