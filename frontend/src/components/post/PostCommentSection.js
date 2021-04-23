@@ -1,68 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createPostComment,
   deletePostComment,
-} from '../../actions/postCommentActions'
-import styles from '../../css/post/postCommentSection.module.css'
-import Comment from './Comment'
+} from "../../actions/postCommentActions";
+import styles from "../../css/post/postCommentSection.module.css";
+import Comment from "./Comment";
 
-const PostCommentSection = ({ postId, isCommentSectionOpened, setIsCommentSectionOpened, comments }) => {
-  const dispatch = useDispatch()
-  const userInfoReducer = useSelector((state) => state.userInfoReducer)
-  const { user } = userInfoReducer  
-  const [label, setLabel] = useState('')
-  const [initialComments, setInitialComments] = useState([...comments])
-  const [newComments, setNewComments] = useState([])
-  const [updatedComments, setUpdatedComments] = useState([
-    ...initialComments,
-    ...newComments,
-  ])
+const PostCommentSection = ({
+  postId,
+  isCommentSectionOpened,
+  setIsCommentSectionOpened,
+  comments,
+}) => {
+  const dispatch = useDispatch();
+  const userInfoReducer = useSelector((state) => state.userInfoReducer);
+  const { user } = userInfoReducer;
+  const [label, setLabel] = useState("");
+  const [allComments, setAllComments] = useState([]);
 
   const handleAddComment = async () => {
-    if (label === '') return
-    const { newComment } = await dispatch(createPostComment(postId, label))
-    if (newComment) {
-      setUpdatedComments([...initialComments, ...newComments, newComment])
-      setNewComments([...newComments, newComment])
-    }
-    setLabel('')
-    setIsCommentSectionOpened(true)
-  }  
+    if (label === "") return;
+    const { newComment } = await dispatch(createPostComment(postId, label));
+    if (!newComment) return;
+    console.log("This is the new comment -> ", newComment);
+    setAllComments([...allComments, newComment]);
+    setLabel("");
+    setIsCommentSectionOpened(true);
+  };
 
-  const handleDeleteComment = async (labelToDelete) => {
-    const { isDeleted } = await dispatch(
-      deletePostComment(postId, labelToDelete)
-    )
+  const handleDeleteComment = (commentId) => {
+    const isDeleted = dispatch(deletePostComment(commentId));
     if (isDeleted) {
-      setNewComments(
-        newComments.filter((comment) => comment.label !== labelToDelete)
-      )
-      setInitialComments(
-        initialComments.filter((comment) => comment.label !== labelToDelete)
-      )
-      setUpdatedComments([
-        ...initialComments.filter((comment) => comment.label !== labelToDelete),
-        ...newComments.filter((comment) => comment.label !== labelToDelete),
-      ])
+      setAllComments(
+        allComments.filter((comment) => comment._id !== commentId)
+      );
     }
-  }  
+  };
 
   useEffect(() => {
-    setUpdatedComments([...comments])
-  }, [])
+    setAllComments([...comments]);
+  }, [comments]);
 
   return (
     <div className={styles.commentSectionContainer}>
       <div
         className={`${styles.commentsContainer} ${
-          isCommentSectionOpened ? '' : styles.closedCommentSection
+          isCommentSectionOpened ? "" : styles.closedCommentSection
         }`}
       >
         {comments &&
-          updatedComments.map((comment, index) => (
+          allComments.map((comment) => (
             <div className={styles.commentContainer}>
-              <Comment key={comment.creator} comment={comment} user={user} handleDeleteComment={handleDeleteComment} />
+              <Comment
+                key={comment.creator}
+                comment={comment}
+                user={user}
+                handleDeleteComment={handleDeleteComment}
+              />
             </div>
           ))}
       </div>
@@ -71,7 +66,7 @@ const PostCommentSection = ({ postId, isCommentSectionOpened, setIsCommentSectio
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           className={styles.addCommentInput}
-          placeholder='Add comment..'
+          placeholder="Add comment.."
         />
         <div
           onClick={handleAddComment}
@@ -79,7 +74,7 @@ const PostCommentSection = ({ postId, isCommentSectionOpened, setIsCommentSectio
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostCommentSection
+export default PostCommentSection;

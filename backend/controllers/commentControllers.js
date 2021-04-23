@@ -1,10 +1,10 @@
-import { Comment } from "../models/Comment.js"
-import { User } from "../models/User.js"
+import { Comment } from "../models/Comment.js";
+import { User } from "../models/User.js";
 
 export const createComment = async (req, res) => {
-  const { _id } = req.user
-  const { postId, label } = req.body
-  const user = await User.findById({ _id }).select(["name", "profilePicture"])
+  const { _id } = req.user;
+  const { postId, label } = req.body;
+  const user = await User.findById({ _id }).select(["name", "profilePicture"]);
   await Comment.create({
     label,
     creator: _id,
@@ -12,27 +12,28 @@ export const createComment = async (req, res) => {
     user: {
       name: user.name,
       profilePicture: user.profilePicture.url,
-    }
-  })
+    },
+  });
 
   res.status(200).json({
     newComment: {
       label,
+      creator: _id,
+      postId,
       user: {
-        name: await user.name,
-        profilePicture: await user.profilePicture.url,
+        name: user.name,
+        profilePicture: user.profilePicture.url,
       },
     },
-  })
-}
-
+  });
+};
 
 export const deletePostComment = async (req, res, next) => {
   try {
-    const { postId, label } = req.query
-    await Comment.deleteOne({ postId, label })
-    res.status(200).json({ message: "Comment deleted" })  
+    const { commentId } = req.query;
+    await Comment.deleteOne({ _id: commentId });
+    res.status(200).json({ message: "Comment deleted" });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};

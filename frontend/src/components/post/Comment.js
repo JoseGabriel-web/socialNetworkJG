@@ -6,8 +6,9 @@ import * as utils from '../../utils/index'
 import useLazyImg from "../../hooks/useLazyImg"
 
 const Comment = ({ comment, user, handleDeleteComment }) => {
-  const loadedImg = useLazyImg(comment.user.profilePicture)
-
+  const loadedImg = useLazyImg(comment?.user?.profilePicture)
+  
+  if(!comment) return
   return (    
     <div className={styles.comment}>
       <div className={styles.commentHeader}>
@@ -16,14 +17,14 @@ const Comment = ({ comment, user, handleDeleteComment }) => {
           style={{backgroundImage: `url(${loadedImg || defaultProfilePic})`}}
         />
         <Link
-          to={`/profile/${utils.string.replaceSpace(comment.user.name)}/gallery`}
+          to={`/profile/${utils.string.replaceSpace(comment?.user?.name)}/gallery`}
         >
-          <h5 style={{textTransform: 'capitalize'}}>{comment.user.name}:</h5>
+          <h5 style={{textTransform: 'capitalize'}}>{comment?.user?.name}:</h5>
         </Link>                  
         {user && user._id === comment.creator ? (
           <i
             className='fas fa-trash-alt'
-            onClick={() => handleDeleteComment(comment.label)}
+            onClick={() => handleDeleteComment(comment._id)}
           />
         ) : null}
       </div>

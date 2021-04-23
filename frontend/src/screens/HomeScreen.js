@@ -5,7 +5,6 @@ import Feed from '../components/home/Feed'
 import { getPosts } from '../actions/postActions'
 import { GET_POSTS_FAIL } from '../constants/postConstants'
 import backgroundImg from '../images/homeImg.png'
-// import backgroundImg from '../images/whatsapp.jpg'
 
 
 const HomeScreen = () => {
@@ -20,7 +19,7 @@ const HomeScreen = () => {
   
   useEffect(() => {    
     getFeedPosts()    
-  },[])
+  }, [])
   
   return (
     <div className={styles.homeContainer} style={{backgroundImage: `url(${backgroundImg})`}}>
@@ -32,11 +31,3 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen
-
-// WITH BACKGROUND:
-
-// <div className={styles.homeContainer} style={{backgroundImage: `url(${backgroundImg})`}}>
-{/* <div className={styles.homeFeedContainer}>        
-<Feed posts={posts? posts : null} loading={loading} />    
-</div>     
-</div>   */}
