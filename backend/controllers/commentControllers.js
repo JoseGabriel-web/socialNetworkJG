@@ -4,6 +4,7 @@ import { User } from "../models/User.js";
 export const createComment = async (req, res) => {
   const { _id } = req.user;
   const { postId, label } = req.body;
+  console.log("This is the user to create comment -> ", _id);
   const user = await User.findById({ _id }).select(["name", "profilePicture"]);
   await Comment.create({
     label,
