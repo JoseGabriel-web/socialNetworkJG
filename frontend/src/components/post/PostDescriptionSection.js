@@ -1,55 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import styles from '../../css/post/postDescriptionSection.module.css'
+import React, { useEffect, useState } from "react";
+import styles from "../../css/post/postDescriptionSection.module.css";
 
 const PostDescriptionSection = ({ title, description }) => {
-  const [shortDescription, setShortDescription] = useState('')
-  const [isLong, setIsLong] = useState(false)
+  const [shortDescription, setShortDescription] = useState(null);
+  const [isLong, setIsLong] = useState(false);
 
   const isTooLong = (text) => {
-    return text !== undefined && text.split(' ').length > 30 ? true : false
-  }
+    return text !== undefined && text.split(" ").length > 30;
+  };
 
   const checkDescriptionLength = () => {
     if (isTooLong(description)) {
-      setIsLong(!setIsLong)
-      setShortDescription(description.split(' ').slice(0, 30).join(' '))
+      setShortDescription(description.split(" ").slice(0, 30).join(" "));
     }
-  }
+  };
 
   useEffect(() => {
-    checkDescriptionLength()
-  }, [])
+    checkDescriptionLength();
+  }, []);
 
   return (
     <div className={styles.postDescriptionContainer}>
       <h3 className={styles.descriptionTitle}>{title}</h3>
-      {isTooLong(description) === false ? (
+      {!shortDescription ? (
         <div>
-          <p className={styles.descriptionContainer}>
-            {description}
-          </p>
-        </div>
-      ) : isLong ? (
-        <div>
-          <p className={styles.descriptionContainer}>
-            {description}
-            <span onClick={() => setIsLong(!isLong)}>
-              <strong style={{cursor: 'pointer'}}> Show less.</strong>
-            </span>
-          </p>
+          <p className={styles.descriptionContainer}>{description}</p>
         </div>
       ) : (
         <div>
           <p className={styles.descriptionContainer}>
-            {shortDescription}
+            {isLong ? description : shortDescription}
             <span onClick={() => setIsLong(!isLong)}>
-              <strong style={{cursor: 'pointer'}}>... Show More.</strong>
+              <strong style={{ cursor: "pointer" }}>
+                {isLong ? " Show less." : "... Show More."}
+              </strong>
             </span>
           </p>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PostDescriptionSection
+export default PostDescriptionSection;

@@ -7,7 +7,8 @@
   overflow: hidden;
 }
 
-.infoContainer, .mediaContainer {
+.infoContainer,
+.mediaContainer {
   height: 100%;
 }
 
@@ -29,10 +30,10 @@
 }
 /* UserInfo */
 .userInfo {
-  height: 10%;    
+  height: 10%;
   width: 100%;
   border-bottom: solid 1px;
-  display: flex;  
+  display: flex;
   flex-direction: row;
 }
 .userProfileImgContainer {
@@ -45,8 +46,8 @@
 }
 .userProfileImg {
   height: 6vh;
-  width: 6vh;      
-  border-radius: 50%;  
+  width: 6vh;
+  border-radius: 50%;
   aspect-ratio: 6vh/6vh;
 }
 .userProfileImg img {
@@ -82,15 +83,60 @@
 
 /* PostInfo */
 .postInfo {
-  height: 40%;
+  height: 50%;
   width: 100%;
   border-bottom: solid 1px;
   display: flex;
   flex-direction: column;
 }
+/* postDescription */
+.postDescription {
+  padding: 2vh;
+  border-bottom: solid 1px;
+  max-height: 70%;
+  height: 70%;
+  width: 100%;
+}
+.postDescription h3 {
+  max-width: 100%;
+  max-height: 30%;
+  overflow-x: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.postDescription p {
+  max-width: 100%;
+  max-height: 70%;
+  overflow-y: auto;
+  word-wrap: wrap;
+  word-break: break-all;
+  display: block;
+  padding-right: 5px;
+}
+.postDescription p::-webkit-scrollbar {
+  width: 5px;
+}
+.postDescription p::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 1rem;
+}
+/* postActions */
+.postActions {
+  height: 30%;
+  max-height: 30%;
+  width: 100%;
+  border-bottom: solid 1px;
+  padding: 2vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.postActions div {
+  font-size: 2.5vh;
+}
 /* CommnetsInfo */
 .commentsInfo {
-  height: 50%;
+  height: 30%;
   width: 100%;
 }
 
@@ -99,7 +145,7 @@
 .mediaContainer {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;  
+  background-size: cover;
   position: relative;
 }
 
@@ -108,7 +154,7 @@
   height: 100%;
   width: 100%;
   -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);  
+  backdrop-filter: blur(20px);
   object-fit: contain;
 }
 
@@ -126,13 +172,14 @@
   .viewPostContainer {
     flex-direction: column-reverse;
   }
-  .infoContainer, .mediaContainer {
+  .infoContainer,
+  .mediaContainer {
     height: 50%;
     width: 100%;
-  }  
+  }
   /* Info Container */
   .infoContainer {
-    max-height: 50%;    
+    max-height: 50%;
   }
 
   /* UserInfo */
@@ -141,7 +188,7 @@
   }
 
   /* Post Info */
-  
+
   .postInfo {
     min-height: 200px;
   }

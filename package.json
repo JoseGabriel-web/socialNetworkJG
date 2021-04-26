@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Jose Gabriel Mercedes Geronimo",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.24.0",

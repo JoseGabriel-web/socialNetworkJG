@@ -1,7 +1,7 @@
 .postActionsSectionContainer {
   width: 100%;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   padding: 0.5rem;
   border-bottom: solid 1px;
 }
@@ -18,26 +18,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;  
+  cursor: pointer;
   flex: 1;
 }
 .openPostCommentsContainer i {
   margin-right: 10px;
 }
 .likePostContainer {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 .sharePostContainer {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.postInfoContainer
-,.likePostContainer
-,.sharePostContainer i {
+.postInfoContainer,
+.likePostContainer,
+.sharePostContainer i {
   padding: 0 0.2rem;
-  font-size: 1.5rem;
+  font-size: 3vh;
 }
 .likesTooltipContiner {
   position: relative;
@@ -45,22 +45,22 @@ align-items: center;
 .likesTooltipContiner:hover .likesTooltip {
   visibility: visible;
 }
-.likesTooltip { 
+.likesTooltip {
   position: absolute;
   height: auto;
   width: 300px;
-  overflow-y: auto;  
+  overflow-y: auto;
   left: -11px;
-  transform: translateY(calc(-100% + -55px));  
+  transform: translateY(calc(-100% + -55px));
   background: var(--background);
   color: var(--color);
   visibility: hidden;
 }
-.likesTooltip h6 {  
+.likesTooltip h6 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;  
-  padding-right: 1rem;  
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .likesTooltip h6:first-of-type {
   padding-top: 1rem;
